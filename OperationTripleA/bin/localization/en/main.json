@@ -1,0 +1,66 @@
+{
+    "source-language": "en-US",
+    "target-language": "en-US",
+    "transUnits": [
+        {
+            "id": "LABEL_LEVEL1",
+            "source": "Twilight Temple",
+            "target": "Twilight Temple"
+        },
+        {
+            "id": "LABEL_LEVEL2",
+            "source": "Stary Swamp",
+            "target": "Stary Swamp"
+        },
+        {
+            "id": "LABEL_LEVEL3",
+            "source": "Celestial Wood",
+            "target": "Celestial Wood"
+        },
+        {
+            "id": "LABEL_LEVEL4",
+            "source": "Black Forest",
+            "target": "Black Forest"
+        },
+        {
+            "id": "LABEL_PLAY",
+            "source": "Play",
+            "target": "Play"
+        },
+        {
+            "id": "INGAME_ADVICE_TEXT",
+            "source": "Collect all the gems !",
+            "target": "Collect all the gems !"
+        },
+        {
+            "id": "OPTIONS_TITLE",
+            "source": "Options",
+            "target": "Options"
+        },
+        {
+            "id": "OPTIONS_LANGUAGES",
+            "source": "Language",
+            "target": "Language"
+        },
+        {
+            "id": "OPTIONS_SOUND",
+            "source": "Sound",
+            "target": "Sound"
+        },
+        {
+            "id": "PAUSE_TITLE",
+            "source": "Pause",
+            "target": "Pause"
+        },
+        {
+            "id": "PAUSE_TEXT",
+            "source": "Return to selection screen ?",
+            "target": "Return to selection screen ?"
+        },
+        {
+            "id": "DELETE_SAVE_TEXT",
+            "source": "Do you really want \n to delete your save ?",
+            "target": "Do you really want \n to delete your save ?"
+        }
+    ]
+}

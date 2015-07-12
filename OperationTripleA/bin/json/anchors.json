@@ -1,0 +1,284 @@
+{
+	"Player":
+	{
+		"x": 102,
+		"y": 261
+	},
+	"Player_wait":
+	{
+		"x": 80,
+		"y": 251
+	},
+	"Player_walk":
+	{
+		"x": 110,
+		"y": 285
+	},
+	"Player_jump":
+	{
+		"x": 94,
+		"y": 270
+	},
+	"Player_doublejump":
+	{
+		"x": 118,
+		"y": 270
+	},
+	"Player_fall":
+	{
+		"x": 133,
+		"y": 274
+	},
+	"Player_death":
+	{
+		"x": 500,
+		"y": 700
+	},
+	"Player_respawn":
+	{
+		"x": 500,
+		"y": 700
+	},
+	"Player_reception":
+	{
+		"x": 106,
+		"y": 262
+	},
+	"Player_waitShoot":
+	{
+		"x": 115,
+		"y": 261
+	},
+	"Player_walkShoot":
+	{
+		"x": 109,
+		"y": 295
+	},
+	"Player_jumpShoot":
+	{
+		"x": 102,
+		"y": 294
+	},
+	"Player_fallShoot":
+	{
+		"x": 102,
+		"y": 295
+	},
+	"Player_receptionShoot":
+	{
+		"x": 106,
+		"y": 262
+	},
+	"Player_waitCharge":
+	{
+		"x": 180,
+		"y": 312
+	},
+	"Player_walkCharge":
+	{
+		"x": 205,
+		"y": 341
+	},
+	"Player_jumpCharge":
+	{
+		"x": 205,
+		"y": 341
+	},
+	"Player_fallCharge":
+	{
+		"x": 205,
+		"y": 341
+	},
+	"Player_receptionCharge":
+	{
+		"x": 205,
+		"y": 341
+	},
+	"EnemySpeed_wait":
+	{
+		"x": 153,
+		"y": 261
+	},
+	"EnemySpeed_walk":
+	{
+		"x": 150,
+		"y": 295
+	},
+	"EnemySpeed_death":
+	{
+		"x": 520,
+		"y": 650
+	},
+	"EnemyBomb_wait":
+	{
+		"x": 113,
+		"y": 281
+	},
+	"EnemyBomb_walk":
+	{
+		"x": 150,
+		"y": 315
+	},
+	"EnemyBomb_death":
+	{
+		"x": 500,
+		"y": 550
+	},
+	"EnemyTurret_wait":
+	{
+		"x": 95,
+		"y": 255
+	},
+	"EnemyTurret_waitShoot":
+	{
+		"x": 95,
+		"y": 255
+	},
+	"EnemyTurret_death":
+	{
+		"x": 520,
+		"y": 600
+	},
+	"EnemyTurret_fire":
+	{
+		"x": 95,
+		"y": 255
+	},
+	"EnemyFire_wait":
+	{
+		"x": 176,
+		"y": 472
+	},
+	"EnemyFire_waitShoot":
+	{
+		"x": 197,
+		"y": 470
+	},
+	"EnemyFire_walk":
+	{
+		"x": 208,
+		"y": 443
+	},
+	"EnemyFire_walkShoot":
+	{
+		"x": 187,
+		"y": 534
+	},
+	"EnemyFire_death":
+	{
+		"x": 520,
+		"y": 600
+	},
+    "KillZoneDynamic": {
+        "x": 141,
+        "y": 141
+    },
+    "Collectable": {
+        "x": 245,
+        "y": 90
+    },
+	"ShootPlayer_Blue": {
+		"x": 160,
+		"y": 5
+	},
+	"ShootPlayer_DarkBlue": {
+		"x": 160,
+		"y": 5
+	},
+	"ShootPlayer_Green": {
+		"x": 160,
+		"y": 5
+	},
+	"ShootPlayer_Orange": {
+		"x": 160,
+		"y": 5
+	},
+	"ShootPlayer_RoseViolet": {
+		"x": 160,
+		"y": 5
+	},
+	"ShootPlayer_Rose": {
+		"x": 160,
+		"y": 5
+	},
+	"ShootPlayer_Blue_end": {
+		"x": 160,
+		"y": 400
+	},
+	"ShootPlayer_DarkBlue_end": {
+		"x": 160,
+		"y": 400
+	},
+	"ShootPlayer_Green_end": {
+		"x": 160,
+		"y": 400
+	},
+	"ShootPlayer_Orange_end": {
+		"x": 160,
+		"y": 400
+	},
+	"ShootPlayer_RoseViolet_end": {
+		"x": 160,
+		"y": 400
+	},
+	"ShootPlayer_Rose_end": {
+		"x": 160,
+		"y": 400
+	},
+	"ShootEnemyTurret": {
+		"x": 80,
+		"y": 40
+	},
+	"ShootEnemyTurret_end": {
+		"x": 100,
+		"y": 400
+	},
+	"ShootPlayerPower_Yellow":{
+		"x": 120,
+		"y":-5
+	},
+	"ShootPlayerPower_Yellow_end":{
+		"x": 300,
+		"y": 200
+	},
+	"Magnet":{
+		"x":100,
+		"y":-5
+	},
+	"ShootEnemyFire": {
+		"x": 100,
+		"y": -5
+	},
+	"ShootEnemyFire_end": {
+		"x": 100,
+		"y": 400
+	},
+	"Shield": {
+		"x": 80,
+		"y": 200
+	},
+	"Checkpoint": {
+		"x": 220,
+		"y": 320
+	},
+	"Checkpoint_active": {
+		"x": 220,
+		"y": 320
+	},
+	"MiniGem": {
+		"x": 0,
+		"y": 0
+	},
+	"MiniGem_empty": {
+		"x": 0,
+		"y": 0
+	},
+	"MiniGem_full": {
+		"x": 0,
+		"y": 0
+	},
+	"UpgradeWin" : {
+		"x": 140,
+		"y": 280
+	}
+}

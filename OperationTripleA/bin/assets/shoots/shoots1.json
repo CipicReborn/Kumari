@@ -1,0 +1,408 @@
+{"frames": {
+
+"ShootEnemyFire_begin0001.png":
+{
+	"frame": {"x":975,"y":2,"w":159,"h":85},
+	"rotated": false,
+	"trimmed": false,
+	"spriteSourceSize": {"x":0,"y":0,"w":159,"h":85},
+	"sourceSize": {"w":159,"h":85},
+	"pivot": {"x":0.5,"y":0.5}
+},
+"ShootEnemyFire_begin0002.png":
+{
+	"frame": {"x":1458,"y":2,"w":159,"h":85},
+	"rotated": false,
+	"trimmed": false,
+	"spriteSourceSize": {"x":0,"y":0,"w":159,"h":85},
+	"sourceSize": {"w":159,"h":85},
+	"pivot": {"x":0.5,"y":0.5}
+},
+"ShootEnemyFire_begin0003.png":
+{
+	"frame": {"x":1458,"y":2,"w":159,"h":85},
+	"rotated": false,
+	"trimmed": false,
+	"spriteSourceSize": {"x":0,"y":0,"w":159,"h":85},
+	"sourceSize": {"w":159,"h":85},
+	"pivot": {"x":0.5,"y":0.5}
+},
+"ShootEnemyFire_begin0004.png":
+{
+	"frame": {"x":1619,"y":2,"w":159,"h":85},
+	"rotated": false,
+	"trimmed": false,
+	"spriteSourceSize": {"x":0,"y":0,"w":159,"h":85},
+	"sourceSize": {"w":159,"h":85},
+	"pivot": {"x":0.5,"y":0.5}
+},
+"ShootEnemyFire_begin0005.png":
+{
+	"frame": {"x":1136,"y":2,"w":159,"h":85},
+	"rotated": false,
+	"trimmed": false,
+	"spriteSourceSize": {"x":0,"y":0,"w":159,"h":85},
+	"sourceSize": {"w":159,"h":85},
+	"pivot": {"x":0.5,"y":0.5}
+},
+"ShootEnemyFire_begin0006.png":
+{
+	"frame": {"x":1136,"y":2,"w":159,"h":85},
+	"rotated": false,
+	"trimmed": false,
+	"spriteSourceSize": {"x":0,"y":0,"w":159,"h":85},
+	"sourceSize": {"w":159,"h":85},
+	"pivot": {"x":0.5,"y":0.5}
+},
+"ShootEnemyFire_begin0007.png":
+{
+	"frame": {"x":1297,"y":2,"w":159,"h":85},
+	"rotated": false,
+	"trimmed": false,
+	"spriteSourceSize": {"x":0,"y":0,"w":159,"h":85},
+	"sourceSize": {"w":159,"h":85},
+	"pivot": {"x":0.5,"y":0.5}
+},
+"ShootEnemyFire_begin0008.png":
+{
+	"frame": {"x":1297,"y":2,"w":159,"h":85},
+	"rotated": false,
+	"trimmed": false,
+	"spriteSourceSize": {"x":0,"y":0,"w":159,"h":85},
+	"sourceSize": {"w":159,"h":85},
+	"pivot": {"x":0.5,"y":0.5}
+},
+"ShootEnemyFire_end0001.png":
+{
+	"frame": {"x":2,"y":1102,"w":500,"h":500},
+	"rotated": false,
+	"trimmed": false,
+	"spriteSourceSize": {"x":0,"y":0,"w":500,"h":500},
+	"sourceSize": {"w":500,"h":500},
+	"pivot": {"x":0.5,"y":0.5}
+},
+"ShootEnemyFire_end0002.png":
+{
+	"frame": {"x":2,"y":1102,"w":500,"h":500},
+	"rotated": false,
+	"trimmed": false,
+	"spriteSourceSize": {"x":0,"y":0,"w":500,"h":500},
+	"sourceSize": {"w":500,"h":500},
+	"pivot": {"x":0.5,"y":0.5}
+},
+"ShootEnemyFire_end0003.png":
+{
+	"frame": {"x":1508,"y":600,"w":500,"h":500},
+	"rotated": false,
+	"trimmed": false,
+	"spriteSourceSize": {"x":0,"y":0,"w":500,"h":500},
+	"sourceSize": {"w":500,"h":500},
+	"pivot": {"x":0.5,"y":0.5}
+},
+"ShootEnemyFire_end0004.png":
+{
+	"frame": {"x":1508,"y":600,"w":500,"h":500},
+	"rotated": false,
+	"trimmed": false,
+	"spriteSourceSize": {"x":0,"y":0,"w":500,"h":500},
+	"sourceSize": {"w":500,"h":500},
+	"pivot": {"x":0.5,"y":0.5}
+},
+"ShootEnemyFire_end0005.png":
+{
+	"frame": {"x":1006,"y":600,"w":500,"h":500},
+	"rotated": false,
+	"trimmed": false,
+	"spriteSourceSize": {"x":0,"y":0,"w":500,"h":500},
+	"sourceSize": {"w":500,"h":500},
+	"pivot": {"x":0.5,"y":0.5}
+},
+"ShootEnemyFire_end0006.png":
+{
+	"frame": {"x":1006,"y":600,"w":500,"h":500},
+	"rotated": false,
+	"trimmed": false,
+	"spriteSourceSize": {"x":0,"y":0,"w":500,"h":500},
+	"sourceSize": {"w":500,"h":500},
+	"pivot": {"x":0.5,"y":0.5}
+},
+"ShootEnemyFire_end0007.png":
+{
+	"frame": {"x":2,"y":600,"w":500,"h":500},
+	"rotated": false,
+	"trimmed": false,
+	"spriteSourceSize": {"x":0,"y":0,"w":500,"h":500},
+	"sourceSize": {"w":500,"h":500},
+	"pivot": {"x":0.5,"y":0.5}
+},
+"ShootEnemyFire_end0008.png":
+{
+	"frame": {"x":504,"y":600,"w":500,"h":500},
+	"rotated": false,
+	"trimmed": false,
+	"spriteSourceSize": {"x":0,"y":0,"w":500,"h":500},
+	"sourceSize": {"w":500,"h":500},
+	"pivot": {"x":0.5,"y":0.5}
+},
+"ShootEnemyFire_end0009.png":
+{
+	"frame": {"x":504,"y":600,"w":500,"h":500},
+	"rotated": false,
+	"trimmed": false,
+	"spriteSourceSize": {"x":0,"y":0,"w":500,"h":500},
+	"sourceSize": {"w":500,"h":500},
+	"pivot": {"x":0.5,"y":0.5}
+},
+"ShootEnemyFire_end0010.png":
+{
+	"frame": {"x":504,"y":600,"w":500,"h":500},
+	"rotated": false,
+	"trimmed": false,
+	"spriteSourceSize": {"x":0,"y":0,"w":500,"h":500},
+	"sourceSize": {"w":500,"h":500},
+	"pivot": {"x":0.5,"y":0.5}
+},
+"ShootEnemyTurret_begin0001.png":
+{
+	"frame": {"x":280,"y":2,"w":137,"h":94},
+	"rotated": false,
+	"trimmed": false,
+	"spriteSourceSize": {"x":0,"y":0,"w":137,"h":94},
+	"sourceSize": {"w":137,"h":94},
+	"pivot": {"x":0.5,"y":0.5}
+},
+"ShootEnemyTurret_begin0002.png":
+{
+	"frame": {"x":280,"y":2,"w":137,"h":94},
+	"rotated": false,
+	"trimmed": false,
+	"spriteSourceSize": {"x":0,"y":0,"w":137,"h":94},
+	"sourceSize": {"w":137,"h":94},
+	"pivot": {"x":0.5,"y":0.5}
+},
+"ShootEnemyTurret_begin0003.png":
+{
+	"frame": {"x":697,"y":2,"w":137,"h":94},
+	"rotated": false,
+	"trimmed": false,
+	"spriteSourceSize": {"x":0,"y":0,"w":137,"h":94},
+	"sourceSize": {"w":137,"h":94},
+	"pivot": {"x":0.5,"y":0.5}
+},
+"ShootEnemyTurret_begin0004.png":
+{
+	"frame": {"x":697,"y":2,"w":137,"h":94},
+	"rotated": false,
+	"trimmed": false,
+	"spriteSourceSize": {"x":0,"y":0,"w":137,"h":94},
+	"sourceSize": {"w":137,"h":94},
+	"pivot": {"x":0.5,"y":0.5}
+},
+"ShootEnemyTurret_begin0005.png":
+{
+	"frame": {"x":2,"y":2,"w":137,"h":94},
+	"rotated": false,
+	"trimmed": false,
+	"spriteSourceSize": {"x":0,"y":0,"w":137,"h":94},
+	"sourceSize": {"w":137,"h":94},
+	"pivot": {"x":0.5,"y":0.5}
+},
+"ShootEnemyTurret_begin0006.png":
+{
+	"frame": {"x":2,"y":2,"w":137,"h":94},
+	"rotated": false,
+	"trimmed": false,
+	"spriteSourceSize": {"x":0,"y":0,"w":137,"h":94},
+	"sourceSize": {"w":137,"h":94},
+	"pivot": {"x":0.5,"y":0.5}
+},
+"ShootEnemyTurret_begin0007.png":
+{
+	"frame": {"x":141,"y":2,"w":137,"h":94},
+	"rotated": false,
+	"trimmed": false,
+	"spriteSourceSize": {"x":0,"y":0,"w":137,"h":94},
+	"sourceSize": {"w":137,"h":94},
+	"pivot": {"x":0.5,"y":0.5}
+},
+"ShootEnemyTurret_begin0008.png":
+{
+	"frame": {"x":141,"y":2,"w":137,"h":94},
+	"rotated": false,
+	"trimmed": false,
+	"spriteSourceSize": {"x":0,"y":0,"w":137,"h":94},
+	"sourceSize": {"w":137,"h":94},
+	"pivot": {"x":0.5,"y":0.5}
+},
+"ShootEnemyTurret_begin0009.png":
+{
+	"frame": {"x":419,"y":2,"w":137,"h":94},
+	"rotated": false,
+	"trimmed": false,
+	"spriteSourceSize": {"x":0,"y":0,"w":137,"h":94},
+	"sourceSize": {"w":137,"h":94},
+	"pivot": {"x":0.5,"y":0.5}
+},
+"ShootEnemyTurret_begin0010.png":
+{
+	"frame": {"x":419,"y":2,"w":137,"h":94},
+	"rotated": false,
+	"trimmed": false,
+	"spriteSourceSize": {"x":0,"y":0,"w":137,"h":94},
+	"sourceSize": {"w":137,"h":94},
+	"pivot": {"x":0.5,"y":0.5}
+},
+"ShootEnemyTurret_begin0011.png":
+{
+	"frame": {"x":836,"y":2,"w":137,"h":94},
+	"rotated": false,
+	"trimmed": false,
+	"spriteSourceSize": {"x":0,"y":0,"w":137,"h":94},
+	"sourceSize": {"w":137,"h":94},
+	"pivot": {"x":0.5,"y":0.5}
+},
+"ShootEnemyTurret_begin0012.png":
+{
+	"frame": {"x":836,"y":2,"w":137,"h":94},
+	"rotated": false,
+	"trimmed": false,
+	"spriteSourceSize": {"x":0,"y":0,"w":137,"h":94},
+	"sourceSize": {"w":137,"h":94},
+	"pivot": {"x":0.5,"y":0.5}
+},
+"ShootEnemyTurret_begin0013.png":
+{
+	"frame": {"x":2,"y":2,"w":137,"h":94},
+	"rotated": false,
+	"trimmed": false,
+	"spriteSourceSize": {"x":0,"y":0,"w":137,"h":94},
+	"sourceSize": {"w":137,"h":94},
+	"pivot": {"x":0.5,"y":0.5}
+},
+"ShootEnemyTurret_begin0014.png":
+{
+	"frame": {"x":2,"y":2,"w":137,"h":94},
+	"rotated": false,
+	"trimmed": false,
+	"spriteSourceSize": {"x":0,"y":0,"w":137,"h":94},
+	"sourceSize": {"w":137,"h":94},
+	"pivot": {"x":0.5,"y":0.5}
+},
+"ShootEnemyTurret_begin0015.png":
+{
+	"frame": {"x":558,"y":2,"w":137,"h":94},
+	"rotated": false,
+	"trimmed": false,
+	"spriteSourceSize": {"x":0,"y":0,"w":137,"h":94},
+	"sourceSize": {"w":137,"h":94},
+	"pivot": {"x":0.5,"y":0.5}
+},
+"ShootEnemyTurret_begin0016.png":
+{
+	"frame": {"x":558,"y":2,"w":137,"h":94},
+	"rotated": false,
+	"trimmed": false,
+	"spriteSourceSize": {"x":0,"y":0,"w":137,"h":94},
+	"sourceSize": {"w":137,"h":94},
+	"pivot": {"x":0.5,"y":0.5}
+},
+"ShootEnemyTurret_end0001.png":
+{
+	"frame": {"x":1508,"y":98,"w":500,"h":500},
+	"rotated": false,
+	"trimmed": false,
+	"spriteSourceSize": {"x":0,"y":0,"w":500,"h":500},
+	"sourceSize": {"w":500,"h":500},
+	"pivot": {"x":0.5,"y":0.5}
+},
+"ShootEnemyTurret_end0002.png":
+{
+	"frame": {"x":1508,"y":98,"w":500,"h":500},
+	"rotated": false,
+	"trimmed": false,
+	"spriteSourceSize": {"x":0,"y":0,"w":500,"h":500},
+	"sourceSize": {"w":500,"h":500},
+	"pivot": {"x":0.5,"y":0.5}
+},
+"ShootEnemyTurret_end0003.png":
+{
+	"frame": {"x":1006,"y":98,"w":500,"h":500},
+	"rotated": false,
+	"trimmed": false,
+	"spriteSourceSize": {"x":0,"y":0,"w":500,"h":500},
+	"sourceSize": {"w":500,"h":500},
+	"pivot": {"x":0.5,"y":0.5}
+},
+"ShootEnemyTurret_end0004.png":
+{
+	"frame": {"x":1006,"y":98,"w":500,"h":500},
+	"rotated": false,
+	"trimmed": false,
+	"spriteSourceSize": {"x":0,"y":0,"w":500,"h":500},
+	"sourceSize": {"w":500,"h":500},
+	"pivot": {"x":0.5,"y":0.5}
+},
+"ShootEnemyTurret_end0005.png":
+{
+	"frame": {"x":2,"y":98,"w":500,"h":500},
+	"rotated": false,
+	"trimmed": false,
+	"spriteSourceSize": {"x":0,"y":0,"w":500,"h":500},
+	"sourceSize": {"w":500,"h":500},
+	"pivot": {"x":0.5,"y":0.5}
+},
+"ShootEnemyTurret_end0006.png":
+{
+	"frame": {"x":2,"y":98,"w":500,"h":500},
+	"rotated": false,
+	"trimmed": false,
+	"spriteSourceSize": {"x":0,"y":0,"w":500,"h":500},
+	"sourceSize": {"w":500,"h":500},
+	"pivot": {"x":0.5,"y":0.5}
+},
+"ShootEnemyTurret_end0007.png":
+{
+	"frame": {"x":504,"y":98,"w":500,"h":500},
+	"rotated": false,
+	"trimmed": false,
+	"spriteSourceSize": {"x":0,"y":0,"w":500,"h":500},
+	"sourceSize": {"w":500,"h":500},
+	"pivot": {"x":0.5,"y":0.5}
+},
+"ShootEnemyTurret_end0008.png":
+{
+	"frame": {"x":504,"y":1102,"w":500,"h":500},
+	"rotated": false,
+	"trimmed": false,
+	"spriteSourceSize": {"x":0,"y":0,"w":500,"h":500},
+	"sourceSize": {"w":500,"h":500},
+	"pivot": {"x":0.5,"y":0.5}
+},
+"ShootEnemyTurret_end0009.png":
+{
+	"frame": {"x":504,"y":1102,"w":500,"h":500},
+	"rotated": false,
+	"trimmed": false,
+	"spriteSourceSize": {"x":0,"y":0,"w":500,"h":500},
+	"sourceSize": {"w":500,"h":500},
+	"pivot": {"x":0.5,"y":0.5}
+},
+"ShootEnemyTurret_end0010.png":
+{
+	"frame": {"x":504,"y":1102,"w":500,"h":500},
+	"rotated": false,
+	"trimmed": false,
+	"spriteSourceSize": {"x":0,"y":0,"w":500,"h":500},
+	"sourceSize": {"w":500,"h":500},
+	"pivot": {"x":0.5,"y":0.5}
+}},
+"meta": {
+	"app": "http://www.codeandweb.com/texturepacker",
+	"version": "1.0",
+	"image": "shoots1.png",
+	"format": "RGBA8888",
+	"size": {"w":2010,"h":1604},
+	"scale": "1",
+	"smartupdate": "$TexturePacker:SmartUpdate:cacbb1a017cfeb32e7ab265784ebaa9d:065e079507d8e40d025f20f657dffa61:bd18acd4be35b57c84d8c75d33468d35$"
+}
+}

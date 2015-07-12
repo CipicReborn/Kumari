@@ -1,0 +1,48 @@
+{"frames": {
+
+"charge.png":
+{
+	"frame": {"x":2,"y":2,"w":320,"h":320},
+	"rotated": false,
+	"trimmed": false,
+	"spriteSourceSize": {"x":0,"y":0,"w":320,"h":320},
+	"sourceSize": {"w":320,"h":320},
+	"pivot": {"x":0.5,"y":0.5}
+},
+"doublejump.png":
+{
+	"frame": {"x":324,"y":2,"w":320,"h":320},
+	"rotated": false,
+	"trimmed": false,
+	"spriteSourceSize": {"x":0,"y":0,"w":320,"h":320},
+	"sourceSize": {"w":320,"h":320},
+	"pivot": {"x":0.5,"y":0.5}
+},
+"fire.png":
+{
+	"frame": {"x":646,"y":2,"w":320,"h":320},
+	"rotated": false,
+	"trimmed": false,
+	"spriteSourceSize": {"x":0,"y":0,"w":320,"h":320},
+	"sourceSize": {"w":320,"h":320},
+	"pivot": {"x":0.5,"y":0.5}
+},
+"jump.png":
+{
+	"frame": {"x":968,"y":2,"w":320,"h":320},
+	"rotated": false,
+	"trimmed": false,
+	"spriteSourceSize": {"x":0,"y":0,"w":320,"h":320},
+	"sourceSize": {"w":320,"h":320},
+	"pivot": {"x":0.5,"y":0.5}
+}},
+"meta": {
+	"app": "http://www.codeandweb.com/texturepacker",
+	"version": "1.0",
+	"image": "right_touch_feedback.png",
+	"format": "RGBA8888",
+	"size": {"w":1290,"h":324},
+	"scale": "1",
+	"smartupdate": "$TexturePacker:SmartUpdate:e12eb5fe7673f9875685b83f17cdabcd:448ce967b4d05f30e4b68d5b0a767ac5:1768ac0a10957651f53fa668a06042e2$"
+}
+}

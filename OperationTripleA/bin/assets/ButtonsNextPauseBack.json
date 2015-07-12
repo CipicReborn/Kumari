@@ -1,0 +1,93 @@
+{"frames": {
+
+"ButtonBack0001.png":
+{
+	"frame": {"x":2,"y":2,"w":607,"h":384},
+	"rotated": false,
+	"trimmed": false,
+	"spriteSourceSize": {"x":0,"y":0,"w":607,"h":384},
+	"sourceSize": {"w":607,"h":384},
+	"pivot": {"x":0.5,"y":0.5}
+},
+"ButtonBack0002.png":
+{
+	"frame": {"x":611,"y":2,"w":607,"h":384},
+	"rotated": false,
+	"trimmed": false,
+	"spriteSourceSize": {"x":0,"y":0,"w":607,"h":384},
+	"sourceSize": {"w":607,"h":384},
+	"pivot": {"x":0.5,"y":0.5}
+},
+"ButtonBack0003.png":
+{
+	"frame": {"x":1220,"y":2,"w":607,"h":384},
+	"rotated": false,
+	"trimmed": false,
+	"spriteSourceSize": {"x":0,"y":0,"w":607,"h":384},
+	"sourceSize": {"w":607,"h":384},
+	"pivot": {"x":0.5,"y":0.5}
+},
+"ButtonNextLevel0001.png":
+{
+	"frame": {"x":2,"y":388,"w":607,"h":384},
+	"rotated": false,
+	"trimmed": false,
+	"spriteSourceSize": {"x":0,"y":0,"w":607,"h":384},
+	"sourceSize": {"w":607,"h":384},
+	"pivot": {"x":0.5,"y":0.5}
+},
+"ButtonNextLevel0002.png":
+{
+	"frame": {"x":611,"y":388,"w":607,"h":384},
+	"rotated": false,
+	"trimmed": false,
+	"spriteSourceSize": {"x":0,"y":0,"w":607,"h":384},
+	"sourceSize": {"w":607,"h":384},
+	"pivot": {"x":0.5,"y":0.5}
+},
+"ButtonNextLevel0003.png":
+{
+	"frame": {"x":1220,"y":388,"w":607,"h":384},
+	"rotated": false,
+	"trimmed": false,
+	"spriteSourceSize": {"x":0,"y":0,"w":607,"h":384},
+	"sourceSize": {"w":607,"h":384},
+	"pivot": {"x":0.5,"y":0.5}
+},
+"ButtonPause0001.png":
+{
+	"frame": {"x":2,"y":774,"w":607,"h":384},
+	"rotated": false,
+	"trimmed": false,
+	"spriteSourceSize": {"x":0,"y":0,"w":607,"h":384},
+	"sourceSize": {"w":607,"h":384},
+	"pivot": {"x":0.5,"y":0.5}
+},
+"ButtonPause0002.png":
+{
+	"frame": {"x":611,"y":774,"w":607,"h":384},
+	"rotated": false,
+	"trimmed": false,
+	"spriteSourceSize": {"x":0,"y":0,"w":607,"h":384},
+	"sourceSize": {"w":607,"h":384},
+	"pivot": {"x":0.5,"y":0.5}
+},
+"ButtonPause0003.png":
+{
+	"frame": {"x":1220,"y":774,"w":607,"h":384},
+	"rotated": false,
+	"trimmed": false,
+	"spriteSourceSize": {"x":0,"y":0,"w":607,"h":384},
+	"sourceSize": {"w":607,"h":384},
+	"pivot": {"x":0.5,"y":0.5}
+}},
+"meta": {
+	"app": "http://www.codeandweb.com/texturepacker",
+	"version": "1.0",
+	"image": "ButtonsNextPauseBack.png",
+	"format": "RGBA8888",
+	"size": {"w":1829,"h":1160},
+	"scale": "1",
+	"smartupdate": "$TexturePacker:SmartUpdate:6f33fd7f9e083ef6c5f440e31e5a1440:3fc2170b114011bc6a36d3cb943b016b:e003337c15049d1e198bf8625c7e1763$"
+}
+}

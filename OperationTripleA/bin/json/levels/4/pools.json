@@ -1,0 +1,23 @@
+{
+	"Player"			: 1,
+	"LimitLeft"			: 7,
+	"LimitRight"		: 7,
+	"Ground"			: 11,
+	"Wall0"				: 10,
+	"Wall1"				: 5,
+	"Wall2"				: 5,
+	"Wall3"				: 5,
+	"Destructible" 		: 3,
+	"Platform0"			: 5,
+	"Platform1"			: 5,
+	"BridgeLeft"		: 5,
+	"BridgeRight"		: 5,
+	"EnemySpeed"		: 5,
+	"EnemyFire"			: 5,
+	"EnemyBomb"			: 5,
+	"EnemyTurret"		: 5,
+	"KillZoneDynamic"	: 10,
+	"KillZoneStatic"	: 15,
+	"Collectable"		: 15,
+	"UpgradeMagnet" 	: 1
+}

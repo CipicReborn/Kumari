@@ -1,0 +1,66 @@
+{
+    "source-language": "en-US",
+    "target-language": "fr-FR",
+    "transUnits": [
+        {
+            "id": "LABEL_LEVEL1",
+            "source": "Twilight Temple",
+            "target": "Temple du Crépuscule"
+        },
+        {
+            "id": "LABEL_LEVEL2",
+            "source": "Stary Swamp",
+            "target": "Marais Etoilé"
+        },
+        {
+            "id": "LABEL_LEVEL3",
+            "source": "Celestial Wood",
+            "target": "Bois Céleste"
+        },
+        {
+            "id": "LABEL_LEVEL4",
+            "source": "Black Forest",
+            "target": "Forêt Noire"
+        },
+        {
+            "id": "LABEL_PLAY",
+            "source": "Play",
+            "target": "Jouer"
+        },
+        {
+            "id": "INGAME_ADVICE_TEXT",
+            "source": "Collect all the gems !",
+            "target": "Collecte toutes les gemmes !"
+        },
+        {
+            "id": "OPTIONS_TITLE",
+            "source": "Options",
+            "target": "Options"
+        },
+        {
+            "id": "OPTIONS_LANGUAGES",
+            "source": "Language",
+            "target": "Langue"
+        },
+        {
+            "id": "OPTIONS_SOUND",
+            "source": "Sound",
+            "target": "Son"
+        },
+        {
+            "id": "PAUSE_TITLE",
+            "source": "Pause",
+            "target": "Pause"
+        },
+        {
+            "id": "PAUSE_TEXT",
+            "source": "Return to selection screen ?",
+            "target": "Retourner à l'écran de sélection ?"
+        },
+        {
+            "id": "DELETE_SAVE_TEXT",
+            "source": "Do you really want \n to delete your save ?",
+            "target": "Voulez-vous vraiment \n supprimer votre sauvegarde ?"
+        }
+    ]
+}

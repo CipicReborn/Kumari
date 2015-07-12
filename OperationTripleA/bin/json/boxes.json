@@ -1,0 +1,603 @@
+{
+	"ShootPlayer_Blue_box": {
+		"instance125": {
+			"x": 21.95,
+			"radius": 21.95,
+			"y": 21.95,
+			"type": "Circle"
+		}
+	},
+	"UpgradeWin_box": {
+		"mcGlobalBox": {
+			"x": -140,
+			"height": 280,
+			"width": 280,
+			"y": -280,
+			"type": "Rectangle"
+		}
+	},
+	"LimitLeft_box": {
+		"mcGlobalBox": {
+			"x": 0,
+			"height": 560,
+			"width": 560,
+			"y": 0,
+			"type": "Rectangle"
+		},
+		"instance78": {
+			"x": 0,
+			"height": 560,
+			"width": 560,
+			"y": 0,
+			"type": "Rectangle"
+		}
+	},
+	"ShootPlayer_DarkBlue_box": {
+		"instance145": {
+			"x": 21.95,
+			"radius": 21.95,
+			"y": 21.95,
+			"type": "Circle"
+		}
+	},
+	"Collectable_box": {
+		"mcGlobalBox": {
+			"x": 141.05,
+			"radius": 71.05,
+			"y": 141.05,
+			"type": "Circle"
+		},
+		"instance19": {
+			"x": 140,
+			"radius": 70,
+			"y": 140,
+			"type": "Circle"
+		}
+	},
+	"Wall0_box": {
+		"instance109": {
+			"x": 0,
+			"height": 280,
+			"width": 280,
+			"y": 0,
+			"type": "Rectangle"
+		},
+		"mcGlobalBox": {
+			"x": 0,
+			"height": 280,
+			"width": 280,
+			"y": 0,
+			"type": "Rectangle"
+		}
+	},
+	"LimitRight_box": {
+		"instance84": {
+			"x": 0,
+			"height": 560,
+			"width": 560,
+			"y": 0,
+			"type": "Rectangle"
+		},
+		"mcGlobalBox": {
+			"x": 0,
+			"height": 560,
+			"width": 560,
+			"y": 0,
+			"type": "Rectangle"
+		}
+	},
+	"ShootPlayer_Green_box": {
+		"instance148": {
+			"x": 21.95,
+			"radius": 21.95,
+			"y": 21.95,
+			"type": "Circle"
+		}
+	},
+	"Destructible_box": {
+		"mcGlobalBox": {
+			"x": 0,
+			"height": 276,
+			"width": 279.95,
+			"y": 0,
+			"type": "Rectangle"
+		},
+		"instance23": {
+			"x": 0,
+			"height": 280,
+			"width": 280,
+			"y": 0,
+			"type": "Rectangle"
+		}
+	},
+	"Shield_box": {
+		"instance138": {
+			"x": 200,
+			"radius": 200,
+			"y": 200,
+			"type": "Circle"
+		}
+	},
+	"Wall1_box": {
+		"mcGlobalBox": {
+			"x": 0,
+			"height": 280,
+			"width": 560,
+			"y": 0,
+			"type": "Rectangle"
+		},
+		"instance113": {
+			"x": 0,
+			"height": 280,
+			"width": 560,
+			"y": 0,
+			"type": "Rectangle"
+		}
+	},
+	"Magnet_box": {
+		"mcGetCollectible": {
+			"x": 356.05,
+			"y": 364.1,
+			"type": "Point"
+		},
+		"instance141": {
+			"x": 356,
+			"radius": 356,
+			"y": 356,
+			"type": "Circle"
+		}
+	},
+	"ShootPlayer_Orange_box": {
+		"instance151": {
+			"x": 21.95,
+			"radius": 21.95,
+			"y": 21.95,
+			"type": "Circle"
+		}
+	},
+	"EnemyBomb_box": {
+		"mcFirePoint": {
+			"x": 0,
+			"y": -145.9,
+			"type": "Point"
+		},
+		"mcCaneFrontTop": {
+			"x": 160,
+			"y": -239.9,
+			"type": "Point"
+		},
+		"mcDetector": {
+			"x": 79.9,
+			"height": 100,
+			"width": 700,
+			"y": -170,
+			"type": "Rectangle"
+		},
+		"mcCaneBottom": {
+			"x": 0,
+			"y": 20,
+			"type": "Point"
+		},
+		"instance28": {
+			"x": -80,
+			"height": 239.8,
+			"width": 159.9,
+			"y": -239.9,
+			"type": "Rectangle"
+		},
+		"mcExplosionDetector": {
+			"x": 3.05,
+			"radius": 300,
+			"y": -120,
+			"type": "Circle"
+		},
+		"mcCaneFrontBottom": {
+			"x": 160,
+			"y": 30,
+			"type": "Point"
+		},
+		"mcGlobalBox": {
+			"x": -80,
+			"height": 239.8,
+			"width": 159.9,
+			"y": -239.9,
+			"type": "Rectangle"
+		}
+	},
+	"Ground_box": {
+		"instance65": {
+			"x": 0,
+			"height": 560,
+			"width": 560,
+			"y": 0,
+			"type": "Rectangle"
+		},
+		"mcGlobalBox": {
+			"x": 0,
+			"height": 560,
+			"width": 560,
+			"y": 0,
+			"type": "Rectangle"
+		}
+	},
+	"ShootEnemyFire_box": {
+		"instance160": {
+			"x": 44,
+			"radius": 44,
+			"y": 44,
+			"type": "Circle"
+		}
+	},
+	"BridgeLeft_box": {
+		"instance9": {
+			"x": 0,
+			"height": 70,
+			"width": 280,
+			"y": 0,
+			"type": "Rectangle"
+		},
+		"mcGlobalBox": {
+			"x": 0,
+			"height": 68,
+			"width": 281,
+			"y": 0,
+			"type": "Rectangle"
+		}
+	},
+	"Wall2_box": {
+		"mcGlobalBox": {
+			"x": 0,
+			"height": 280,
+			"width": 1120,
+			"y": 0,
+			"type": "Rectangle"
+		},
+		"instance117": {
+			"x": 0,
+			"height": 280,
+			"width": 1120,
+			"y": 0,
+			"type": "Rectangle"
+		}
+	},
+	"Platform0_box": {
+		"mcGlobalBox": {
+			"x": -6.2,
+			"height": 70,
+			"width": 292.4,
+			"y": 0,
+			"type": "Rectangle"
+		},
+		"instance88": {
+			"x": 0,
+			"height": 70,
+			"width": 280,
+			"y": 0,
+			"type": "Rectangle"
+		}
+	},
+	"ShootPlayer_RoseViolet_box": {
+		"instance157": {
+			"x": 21.95,
+			"radius": 21.95,
+			"y": 21.95,
+			"type": "Circle"
+		}
+	},
+	"EnemyFire_box": {
+		"instance39": {
+			"x": -138.25,
+			"height": 414.55,
+			"width": 276.4,
+			"y": -414.55,
+			"type": "Rectangle"
+		},
+		"mcCaneFrontTop": {
+			"x": 240,
+			"y": -440,
+			"type": "Point"
+		},
+		"mcCaneFrontMid": {
+			"x": 240,
+			"y": -220,
+			"type": "Point"
+		},
+		"mcDetector": {
+			"x": 138.15,
+			"height": 253.5,
+			"width": 1500,
+			"y": -285.15,
+			"type": "Rectangle"
+		},
+		"mcCaneBottom": {
+			"x": 0,
+			"y": 20,
+			"type": "Point"
+		},
+		"mcFirePoint": {
+			"x": 162,
+			"y": -220,
+			"type": "Point"
+		},
+		"mcCaneFrontBottom": {
+			"x": 220,
+			"y": 30,
+			"type": "Point"
+		},
+		"mcGlobalBox": {
+			"x": -138.25,
+			"height": 414.55,
+			"width": 276.4,
+			"y": -414.55,
+			"type": "Rectangle"
+		}
+	},
+	"KillZoneDynamic_box": {
+		"mcGlobalBox": {
+			"x": 0,
+			"radius": 110.5,
+			"y": 0,
+			"type": "Circle"
+		}
+	},
+	"ShootEnemyTurret_box": {
+		"instance128": {
+			"x": 21.35,
+			"radius": 21.35,
+			"y": 21.35,
+			"type": "Circle"
+		}
+	},
+	"BridgeRight_box": {
+		"mcGlobalBox": {
+			"x": 0,
+			"height": 72,
+			"width": 276.5,
+			"y": 0,
+			"type": "Rectangle"
+		},
+		"instance14": {
+			"x": 0,
+			"height": 70,
+			"width": 280,
+			"y": 0,
+			"type": "Rectangle"
+		}
+	},
+	"Wall3_box": {
+		"instance121": {
+			"x": 0,
+			"height": 560,
+			"width": 560,
+			"y": 0,
+			"type": "Rectangle"
+		},
+		"mcGlobalBox": {
+			"x": 0,
+			"height": 560,
+			"width": 560,
+			"y": 0,
+			"type": "Rectangle"
+		}
+	},
+	"Platform1_box": {
+		"instance92": {
+			"x": 0,
+			"height": 70,
+			"width": 560,
+			"y": 0,
+			"type": "Rectangle"
+		},
+		"mcGlobalBox": {
+			"x": 0,
+			"height": 70,
+			"width": 560,
+			"y": 0,
+			"type": "Rectangle"
+		}
+	},
+	"ShootPlayer_Rose_box": {
+		"instance154": {
+			"x": 21.95,
+			"radius": 21.95,
+			"y": 21.95,
+			"type": "Circle"
+		}
+	},
+	"EnemySpeed_box": {
+		"mcCaneFrontTop": {
+			"x": 220,
+			"y": -227,
+			"type": "Point"
+		},
+		"instance49": {
+			"x": -80,
+			"height": 239.8,
+			"width": 159.9,
+			"y": -239.9,
+			"type": "Rectangle"
+		},
+		"mcDetector": {
+			"x": 79.9,
+			"height": 100,
+			"width": 1200,
+			"y": -169.95,
+			"type": "Rectangle"
+		},
+		"mcCaneBottom": {
+			"x": 0,
+			"y": 20,
+			"type": "Point"
+		},
+		"mcCaneFrontBottom": {
+			"x": 220,
+			"y": 30,
+			"type": "Point"
+		},
+		"mcGlobalBox": {
+			"x": -80,
+			"height": 239.8,
+			"width": 159.9,
+			"y": -239.85,
+			"type": "Rectangle"
+		}
+	},
+	"KillZoneStatic_box": {
+		"instance73": {
+			"x": 0,
+			"height": 120,
+			"width": 280,
+			"y": -120,
+			"type": "Rectangle"
+		},
+		"mcGlobalBox": {
+			"x": 0,
+			"height": 120,
+			"width": 280,
+			"y": -120,
+			"type": "Rectangle"
+		}
+	},
+	"ShootPlayerPower_Yellow_box": {
+		"instance131": {
+			"x": 44,
+			"radius": 44,
+			"y": 44,
+			"type": "Circle"
+		}
+	},
+	"Checkpoint_box": {
+		"mcGlobalBox": {
+			"x": -151,
+			"height": 274.2,
+			"width": 259.95,
+			"y": -167.25,
+			"type": "Rectangle"
+		},
+		"mcRespawnPoint": {
+			"x": -22,
+			"y": 100,
+			"type": "Point"
+		}
+	},
+	"Player_box": {
+		"mcFront": {
+			"x": 79.7,
+			"y": -55.9,
+			"type": "Point"
+		},
+		"mcCamera": {
+			"x": 239.95,
+			"y": -226.2,
+			"type": "Point"
+		},
+		"mcTop": {
+			"x": 0,
+			"y": -240,
+			"type": "Point"
+		},
+		"mcCaneFront": {
+			"x": 115.7,
+			"y": -55.9,
+			"type": "Point"
+		},
+		"mcCaneTop": {
+			"x": 0,
+			"y": -300,
+			"type": "Point"
+		},
+		"mcGlobalBox": {
+			"x": -64.8,
+			"height": 219.9,
+			"width": 129.5,
+			"y": -229.95,
+			"type": "Rectangle"
+		},
+		"mcCaneTopLeft": {
+			"x": -80.25,
+			"y": -206.2,
+			"type": "Point"
+		},
+		"mcCaneTopRight": {
+			"x": 79.7,
+			"y": -206.2,
+			"type": "Point"
+		},
+		"mcCaneBottom": {
+			"x": 0,
+			"y": 50,
+			"type": "Point"
+		},
+		"mcBack": {
+			"x": -80.25,
+			"y": -55.9,
+			"type": "Point"
+		},
+		"mcCrosshair": {
+			"x": 99.7,
+			"y": -139,
+			"type": "Point"
+		},
+		"mcBottom": {
+			"x": 0,
+			"y": 0,
+			"type": "Point"
+		}
+	},
+	"Template_box": {
+		"mcPoint3": {
+			"x": -102.6,
+			"y": -1,
+			"type": "Point"
+		},
+		"mcPoint0": {
+			"x": 0,
+			"y": 0,
+			"type": "Point"
+		},
+		"mcPoint2": {
+			"x": 64.6,
+			"y": 71,
+			"type": "Point"
+		},
+		"mcGlobalBox": {
+			"x": 0,
+			"radius": 100,
+			"y": 0,
+			"type": "Circle"
+		},
+		"mcPoint1": {
+			"x": 68.6,
+			"y": -73,
+			"type": "Point"
+		}
+	},
+	"EnemyTurret_box": {
+		"instance58": {
+			"x": -80,
+			"height": 239.8,
+			"width": 159.9,
+			"y": -239.9,
+			"type": "Rectangle"
+		},
+		"mcFirePoint": {
+			"x": 1,
+			"y": -151,
+			"type": "Point"
+		},
+		"mcGlobalBox": {
+			"x": -80,
+			"height": 239.8,
+			"width": 159.9,
+			"y": -239.9,
+			"type": "Rectangle"
+		},
+		"mcDetector": {
+			"x": -1507.1,
+			"height": 3000,
+			"width": 3000,
+			"y": -1646.8,
+			"type": "Rectangle"
+		}
+	}
+}

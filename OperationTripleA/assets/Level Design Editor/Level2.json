@@ -1,0 +1,187 @@
+{
+	"instance66": {
+		"x": 1056.3,
+		"type": "EnemyBomb",
+		"scaleY": 1,
+		"y": 1284.3,
+		"rotation": 0,
+		"scaleX": 1
+	},
+	"instance55": {
+		"x": 2152.8,
+		"type": "EnemyTurret",
+		"scaleY": 1,
+		"y": 1358.35,
+		"rotation": 0,
+		"scaleX": 1
+	},
+	"instance81": {
+		"x": 1195.95,
+		"type": "Destructible",
+		"scaleY": 1,
+		"y": 588.25,
+		"rotation": 0,
+		"scaleX": 1
+	},
+	"instance45": {
+		"x": 355.95,
+		"type": "Wall1",
+		"scaleY": 1,
+		"y": 308.25,
+		"y": 308.25,
+		"rotation": 0,
+		"scaleX": 1
+	},
+	"instance5": {
+		"x": 355.95,
+		"type": "Ground",
+		"scaleY": 1,
+		"y": 1268.1,
+		"rotation": 0,
+		"scaleX": 1
+	},
+	"instance36": {
+		"x": 915.95,
+		"type": "Platform1",
+		"scaleY": 1,
+		"y": 868.25,
+		"rotation": 0,
+		"scaleX": 1
+	},
+	"instance21": {
+		"x": -204.05,
+		"type": "LimitLeft",
+		"scaleY": 1,
+		"y": 308.25,
+		"rotation": 0,
+		"scaleX": 1
+	},
+	"instance70": {
+		"x": 1475.95,
+		"type": "BridgeLeft",
+		"scaleY": 1,
+		"y": 1358.25,
+		"rotation": 0,
+		"scaleX": 1
+	},
+	"instance59": {
+		"x": 1396.05,
+		"type": "EnemySpeed",
+		"scaleY": 1,
+		"y": 1284.3,
+		"rotation": 0,
+		"scaleX": 1
+	},
+	"instance25": {
+		"x": 915.95,
+		"type": "Ground",
+		"scaleY": 1,
+		"y": 1268.1,
+		"rotation": 0,
+		"scaleX": 1
+	},
+	"instance48": {
+		"x": 1908.45,
+		"type": "Wall0",
+		"scaleY": 1,
+		"y": 588.25,
+		"rotation": 0,
+		"scaleX": 1
+	},
+	"instance9": {
+		"x": 2232.7,
+		"type": "LimitRight",
+		"scaleY": 1,
+		"y": 868.25,
+		"rotation": 0,
+		"scaleX": 1
+	},
+	"instance39": {
+		"x": 1672.7,
+		"type": "Wall3",
+		"scaleY": 1,
+		"y": -39.85,
+		"rotation": 0,
+		"scaleX": 1
+	},
+	"instance29": {
+		"x": 635.95,
+		"type": "KillZoneStatic",
+		"scaleY": 1,
+		"y": 1268.1,
+		"rotation": 0,
+		"scaleX": 1
+	},
+	"instance74": {
+		"x": 1952.7,
+		"type": "BridgeRight",
+		"scaleY": 1,
+		"y": 1358.25,
+		"rotation": 0,
+		"scaleX": 1
+	},
+	"instance63": {
+		"x": 1054.2,
+		"type": "EnemyFire",
+		"scaleY": 1,
+		"y": 868.25,
+		"rotation": 0,
+		"scaleX": 1
+	},
+	"instance51": {
+		"x": 1728.45,
+		"type": "KillZoneDynamic",
+		"scaleY": 1,
+		"y": 984.3,
+		"rotation": 0,
+		"scaleX": 1
+	},
+	"instance13": {
+		"x": 2232.7,
+		"type": "LimitRight",
+		"scaleY": 1,
+		"y": 308.25,
+		"rotation": 0,
+		"scaleX": 1
+	},
+	"instance42": {
+		"x": 552.7,
+		"type": "Wall2",
+		"scaleY": 1,
+		"y": -19.9,
+		"rotation": 0,
+		"scaleX": 1
+	},
+	"instance2": {
+		"x": 513.8,
+		"type": "Player",
+		"scaleY": 1,
+		"y": 1268.2,
+		"rotation": 0,
+		"scaleX": 1
+	},
+	"instance33": {
+		"x": 1708.45,
+		"type": "Platform0",
+		"scaleY": 1,
+		"y": 1268.1,
+		"rotation": 0,
+		"scaleX": 1
+	},
+	"instance78": {
+		"x": 1462.7,
+		"type": "Collectable",
+		"scaleY": 1,
+		"y": 1058.1,
+		"rotation": 0,
+		"scaleX": 1
+	},
+	"instance17": {
+		"x": -204.05,
+		"type": "LimitLeft",
+		"scaleY": 1,
+		"y": 868.25,
+		"rotation": 0,
+		"scaleX": 1
+	}
+}

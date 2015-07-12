@@ -1,0 +1,27 @@
+{
+	"extensions": ["mp3","ogg"],
+	
+	"fxs":
+		{
+			"click": 50,
+			"activate_checkpoint": 100,
+			"button_play": 100,
+			"enemy_fire": 100,
+			"magic_shield": 100,
+			"pickup_collectable": 100,
+			"player_charge": 100,
+			"player_fire": 100,
+			"player_superfire": 100,
+			"respawn": 100,
+			"unlock": 100
+			
+		},
+	"musics":
+		{
+			"level_music1": 100,
+			"level_music2": 100,
+			"level_music3": 100,
+			"level_music4": 100,
+			"main_music": 100
+		}
+}

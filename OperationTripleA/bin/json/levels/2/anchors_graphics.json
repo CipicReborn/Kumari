@@ -1,0 +1,54 @@
+{
+	"Wall0": {
+        "x": 25,
+        "y": 46
+    },
+    "Wall1": {
+        "x": 19,
+        "y": 66
+    },
+    "Wall2": {
+        "x": 21,
+        "y": 61
+    },
+    "Wall3": {
+        "x": 18,
+        "y": 72
+    },
+    "LimitRight": {
+        "x": 20,
+        "y": 6
+    },
+    "LimitLeft": {
+        "x": 23,
+        "y": 6
+    },
+    "Ground": {
+        "x": 23,
+        "y": 52
+    },
+    "Destructible": {
+        "x": 15,
+        "y": 38
+    },
+    "BridgeLeft": {
+        "x": 15,
+        "y": 181
+    },
+    "BridgeRight": {
+        "x": 26,
+        "y": 175
+    },
+    "KillZoneStatic": {
+        "x": 0,
+        "y": 126
+    },
+    "Platform0": {
+        "x": 50,
+        "y": 101
+    },
+    "Platform1": {
+        "x": 9,
+        "y": 153
+    }
+}

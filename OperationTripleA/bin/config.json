@@ -1,0 +1,22 @@
+{
+	"version":"0.1.0.2",
+	"debug":false,
+	"debugNoSoundLoad": true,
+	"fps":false,
+	"qrcode":false,
+	"language":"",
+	"languages":["en","fr"],
+	"assetsPath":"assets/",
+	"jsonPath":"json/",
+	"soundsPath":"sounds/",
+	"cssPath":"css/",
+	"langPath":"localization/",
+	"levelsPath":"assets/levels",
+	
+	"cheat":false,
+	"boxAlpha":0.2,
+	"animAlpha":1,
+	"test":"test of a custom data",
+	"texture":""
+
+}

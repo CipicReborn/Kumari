@@ -1,0 +1,39 @@
+{"frames": {
+
+"Collectable.png":
+{
+	"frame": {"x":2,"y":2,"w":800,"h":402},
+	"rotated": false,
+	"trimmed": false,
+	"spriteSourceSize": {"x":0,"y":0,"w":800,"h":402},
+	"sourceSize": {"w":800,"h":402},
+	"pivot": {"x":0.5,"y":0.5}
+},
+"Collectable_ghost.png":
+{
+	"frame": {"x":2,"y":406,"w":800,"h":402},
+	"rotated": false,
+	"trimmed": false,
+	"spriteSourceSize": {"x":0,"y":0,"w":800,"h":402},
+	"sourceSize": {"w":800,"h":402},
+	"pivot": {"x":0.5,"y":0.5}
+},
+"Collectable_pickup.png":
+{
+	"frame": {"x":2,"y":406,"w":800,"h":402},
+	"rotated": false,
+	"trimmed": false,
+	"spriteSourceSize": {"x":0,"y":0,"w":800,"h":402},
+	"sourceSize": {"w":800,"h":402},
+	"pivot": {"x":0.5,"y":0.5}
+}},
+"meta": {
+	"app": "http://www.codeandweb.com/texturepacker",
+	"version": "1.0",
+	"image": "Collectable.png",
+	"format": "RGBA8888",
+	"size": {"w":804,"h":810},
+	"scale": "1",
+	"smartupdate": "$TexturePacker:SmartUpdate:aaace47e9935806ebe4325cad4105886:76bd58c0566ac389f4e5aa4d167ab1c8:68bd5f66c374305f0dbed35901cd4d96$"
+}
+}

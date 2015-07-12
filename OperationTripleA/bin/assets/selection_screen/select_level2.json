@@ -1,0 +1,21 @@
+{"frames": {
+
+"selection_level2.png":
+{
+	"frame": {"x":2,"y":2,"w":1800,"h":1536},
+	"rotated": false,
+	"trimmed": false,
+	"spriteSourceSize": {"x":0,"y":0,"w":1800,"h":1536},
+	"sourceSize": {"w":1800,"h":1536},
+	"pivot": {"x":0.5,"y":0.5}
+}},
+"meta": {
+	"app": "http://www.codeandweb.com/texturepacker",
+	"version": "1.0",
+	"image": "select_level2.png",
+	"format": "RGBA8888",
+	"size": {"w":1804,"h":1540},
+	"scale": "1",
+	"smartupdate": "$TexturePacker:SmartUpdate:433c8de4224b2248255dbbd8a50dad23:5e4d38c96e20e6e8404c368631bcf94b:f6ffc4f1e17e164549f4a03221216e30$"
+}
+}
