@@ -305,7 +305,7 @@ class LevelLoader {
 		}
 		
 		//Getting Pool.json
-		pools = Loader.getContent(LEVELPATH + currentLevelId + "/pools.json");
+		pools = Loader.getContent('pools.json', Config.jsonPath + LEVELPATH + currentLevelId + '/');
 		
 		//Lancement du son
 		soundLevel = "level_music" + currentLevelId;

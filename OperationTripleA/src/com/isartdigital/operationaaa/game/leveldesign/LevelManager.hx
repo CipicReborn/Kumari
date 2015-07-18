@@ -247,9 +247,10 @@ class LevelManager {
 	 * @param	pPools
 	 */
 	private function initPools (pPools: Dynamic): Void {
-		trace('*... Creating Pools');
+		trace('... Creating Pools');
 		for (lType in Reflect.fields(pPools)) {
 			var lCount: Int = Reflect.field(pPools, lType);
+			trace('Creating ' + lCount + ' ' + lType + 's');
 			for (i in 0...lCount) {
 				if (lType != 'Player') PoolManager.getInstance().createStateGraphic(lType);
 			}

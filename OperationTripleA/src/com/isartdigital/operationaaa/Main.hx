@@ -297,13 +297,13 @@ class Main extends EventTarget {
 		TranslationManager.getInstance().setLanguage(SaveManager.getInstance().userConfig["language"]);
 		// Ouvre la TitleClard
 		UIManager.getInstance().closeScreens();
-		//UIManager.getInstance().openScreen(TitleCard.getInstance());
+		UIManager.getInstance().openScreen(TitleCard.getInstance());
 		
 		// Raccourcis
 		
 		//UIManager.getInstance().openScreen(SelectScreen.getInstance());
 		//UIManager.getInstance().openScreen(Options.getInstance());
-		LevelLoader.getInstance().load(1);
+		//LevelLoader.getInstance().load(1);
 	}
 	
 	/**

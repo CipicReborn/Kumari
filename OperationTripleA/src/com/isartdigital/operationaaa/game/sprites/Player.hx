@@ -133,8 +133,9 @@ class Player extends Collisionnable {
 	 */
 	private function new() {
 		super();
-		controller = KeyboardController.getInstance();
-		//controller = TouchController.getInstance();
+		if (DeviceCapabilities.system == DeviceCapabilities.SYSTEM_DESKTOP) controller = KeyboardController.getInstance();
+		else controller = TouchController.getInstance();
+		
 		maxHSpeed = 16;
 		maxVSpeed = 35;
 	}
