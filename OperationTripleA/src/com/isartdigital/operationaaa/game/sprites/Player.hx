@@ -552,7 +552,7 @@ class Player extends Collisionnable {
 		lShoot.set(15, 0.67, scale, lPoint, true, pIsSuperShoot);
 		
 		GamePlane.getInstance().addChild(lShoot); // TODO addChild dans le bon "sous-plan" de jeu ? (de Cipic)
-		
+		lShoot.update(); //ajout Cipic
 		//Si c'est un super shoot,
 		if (pIsSuperShoot) SoundManager.getSound("player_superfire").play();
 		else SoundManager.getSound("player_fire").play();

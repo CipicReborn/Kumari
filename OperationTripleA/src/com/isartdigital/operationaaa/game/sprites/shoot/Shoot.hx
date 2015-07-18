@@ -5,6 +5,7 @@ import com.isartdigital.operationaaa.game.sprites.enemies.Enemy;
 import com.isartdigital.operationaaa.game.sprites.enemies.EnemyBomb;
 import com.isartdigital.operationaaa.game.sprites.enemies.KillZoneStatic;
 import com.isartdigital.operationaaa.game.sprites.walls.Wall;
+import com.isartdigital.utils.Debug;
 import com.isartdigital.utils.game.Camera;
 import com.isartdigital.utils.game.CollisionManager;
 import com.isartdigital.utils.game.GameObject;
@@ -140,25 +141,15 @@ class Shoot extends Collisionnable
 	/**
 	 * Si le shoot collisionne un objet dans une liste en fonction de quel type de shoot il est
 	 * @param	pList Array<Dynamic>
-	 * @param	pCondition Bool
 	 * @return	true/false
 	 */
-	private function hitObject(pList: Map<String, StateGraphic>, pCondition:Bool):Bool {
-		if (pCondition) {
-			for (lObject in pList) {
-				if (CollisionManager.hitTestObject(lObject.hitBox, box)) {
-					if (pList == Enemy.list) {
-						var enemy = cast(lObject, Enemy);
-						if (isASuperShoot) {
-							enemy.hurt(3);
-						}
-						else enemy.hurt(1,scale.x);
-					}
-					return true;
-				}
+	private function hitObject(pList: Map<String, StateGraphic>): StateGraphic {
+		for (lObject in pList) {
+			if (CollisionManager.hitTestObject(lObject.hitBox, box)) {
+				return lObject;
 			}
 		}
-		return false;
+		return null;
 	}
 	
 	/**
@@ -166,19 +157,30 @@ class Shoot extends Collisionnable
 	 * @return true/false
 	 */
 	private function hitWall():Bool {
-		return hitObject(Wall.list, !isTurretShoot);
+		var a = hitObject(Wall.list);
+		if (a != null) trace(a.id);
+		//if (a.id == 'instance155')
+		return Type.getClass(a) == Wall;
 	}
 	
 	private function hitKillZone():Bool {
-		return hitObject(KillZoneStatic.list, !isTurretShoot);
+		return Type.getClass(hitObject(KillZoneStatic.list)) == KillZoneStatic;
 	}
 	
 	/**
-	 * Test des ennemis si c'est un shoot du player
-	 * @return true/false
+	 * Renvoie true si le Shoot est en collision avec un ennemi
+	 * @return Bool
 	 */
-	private function hitEnemies():Bool {
-		return hitObject(Enemy.list, isPlayerShoot);
+	private function hitEnemies(): Bool {
+		
+		var lObject: StateGraphic = hitObject(Enemy.list);
+		if (lObject != null) {
+			var lEnemy: Enemy = cast(lObject, Enemy);
+			if (isASuperShoot) lEnemy.hurt(3);
+			else lEnemy.hurt(1, scale.x);
+		}
+		
+		return Type.getClass(hitObject(Enemy.list)) == Enemy;
 	}
 	
 	/**
@@ -235,13 +237,32 @@ class Shoot extends Collisionnable
 		
 		if (isOutOfCamera()) {
 			backToPool();
-			//trace("Shoot sorti de l'écran");
+			trace('Shoot supprimé pour cause de sortie de l\'écran');
 		} 
-		else if (hitPlayer() || hitEnemies() ||hitWall() || hitKillZone()) {
-			setModeEnd();
-			// If hitEnemies() et ennemi is bomb, on doit recréer un shoot et ne pas lancer le modeEnd()
+		//else if (hitPlayer() || hitEnemies() || hitWall() || hitKillZone()) {
+			//setModeEnd();
+			//// If hitEnemies() et ennemi is bomb, on doit recréer un shoot et ne pas lancer le modeEnd()
+		//}
+		else {
+			if (isPlayerShoot && hitEnemies()) {
+				trace('Shoot supprimé pour cause de contact avec un Ennemi');
+				setModeEnd();
+			}
+			else if (!isPlayerShoot && hitPlayer()) {
+				trace('Shoot supprimé pour cause de contact avec le Player');
+				setModeEnd();
+			}
+			else if (!isTurretShoot) {
+				if (hitWall()) {
+					trace('Shoot supprimé pour cause de contact avec un Mur');
+					setModeEnd();
+				}
+				else if (hitKillZone()) {
+					trace('Shoot supprimé pour cause de contact avec une KZ statique');
+					setModeEnd();
+				}
+			}
 		}
-		
 	}
 	
 	/**
@@ -258,7 +279,7 @@ class Shoot extends Collisionnable
 	}
 	
 	public function backToPool (): Void {
-		
+		//trace('shoot back to pool');
 		GamePlane.getInstance().removeChild(this);
 		PoolManager.getInstance().addToPool(assetName, this);
 		unset();

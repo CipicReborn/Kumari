@@ -213,6 +213,7 @@ class Enemy extends Hostile {
 		lShoot.set(6, 0.72, scale, lPoint, false); // TODO passer ces valeurs de shoots en dur en attributs de l'enemy. (de Cipic)
 		
 		GamePlane.getInstance().addChild(lShoot); // TODO addChild dans le bon "sous-plan" de jeu ? (de Cipic)
+		lShoot.update(); //ajout Cipic
 	}
 	
 }

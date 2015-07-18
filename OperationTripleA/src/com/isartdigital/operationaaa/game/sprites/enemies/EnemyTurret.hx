@@ -37,6 +37,7 @@ class EnemyTurret extends Enemy {
 		lShoot.set(3.5, 0.75, scale, lPoint, false, false, lRotation, true); // TODO passer ces valeurs de shoots en dur en attributs de l'enemy. (de Cipic)
 		
 		GamePlane.getInstance().addChild(lShoot); // TODO addChild dans le bon "sous-plan" de jeu ? (de Cipic)
+		lShoot.update(); // ajout Cipic
 		
 		//trace(lShoot.rotation);
 		setState(WAIT,true);

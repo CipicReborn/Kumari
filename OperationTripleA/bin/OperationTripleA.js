@@ -486,7 +486,7 @@ com.isartdigital.operationaaa.Main.prototype = $extend(PIXI.EventTarget.prototyp
 			return $r;
 		}(this)));
 		com.isartdigital.operationaaa.ui.UIManager.getInstance().closeScreens();
-		com.isartdigital.operationaaa.game.leveldesign.LevelLoader.getInstance().load(1);
+		com.isartdigital.operationaaa.ui.UIManager.getInstance().openScreen(com.isartdigital.operationaaa.ui.screens.TitleCard.getInstance());
 	}
 	,gameLoop: function() {
 		haxe.Timer.delay($bind(this,this.gameLoop),16);
@@ -1434,7 +1434,7 @@ com.isartdigital.operationaaa.game.leveldesign.LevelLoader.prototype = {
 				this.levelMap[Std.parseInt(col)][Std.parseInt(row)] = lCell;
 			}
 		}
-		this.pools = com.isartdigital.utils.loader.Loader.getContent("levels/" + this.currentLevelId + "/pools.json");
+		this.pools = com.isartdigital.utils.loader.Loader.getContent("pools.json",com.isartdigital.utils.Config.get_jsonPath() + "levels/" + this.currentLevelId + "/");
 		this.soundLevel = "level_music" + this.currentLevelId;
 		com.isartdigital.utils.sounds.SoundManager.getSound(this.soundLevel).play();
 		com.isartdigital.operationaaa.game.GameManager.getInstance().start(this.currentLevelId);
@@ -1733,13 +1733,14 @@ com.isartdigital.operationaaa.game.leveldesign.LevelManager.prototype = {
 		}
 	}
 	,initPools: function(pPools) {
-		haxe.Log.trace("*... Creating Pools",{ fileName : "LevelManager.hx", lineNumber : 250, className : "com.isartdigital.operationaaa.game.leveldesign.LevelManager", methodName : "initPools"});
+		haxe.Log.trace("... Creating Pools",{ fileName : "LevelManager.hx", lineNumber : 250, className : "com.isartdigital.operationaaa.game.leveldesign.LevelManager", methodName : "initPools"});
 		var _g = 0;
 		var _g1 = Reflect.fields(pPools);
 		while(_g < _g1.length) {
 			var lType = _g1[_g];
 			++_g;
 			var lCount = Reflect.field(pPools,lType);
+			haxe.Log.trace("Creating " + lCount + " " + lType + "s",{ fileName : "LevelManager.hx", lineNumber : 253, className : "com.isartdigital.operationaaa.game.leveldesign.LevelManager", methodName : "initPools"});
 			var _g2 = 0;
 			while(_g2 < lCount) {
 				var i = _g2++;
@@ -1749,7 +1750,7 @@ com.isartdigital.operationaaa.game.leveldesign.LevelManager.prototype = {
 	}
 	,setLastCheckpoint: function() {
 		this.lastCheckpoint = this.createNewListFrom(this.objectsList);
-		haxe.Log.trace("object List saved",{ fileName : "LevelManager.hx", lineNumber : 261, className : "com.isartdigital.operationaaa.game.leveldesign.LevelManager", methodName : "setLastCheckpoint"});
+		haxe.Log.trace("object List saved",{ fileName : "LevelManager.hx", lineNumber : 262, className : "com.isartdigital.operationaaa.game.leveldesign.LevelManager", methodName : "setLastCheckpoint"});
 	}
 	,reloadLevelAtLastCheckpoint: function() {
 		this.objectsList = this.createNewListFrom(this.lastCheckpoint);
@@ -1762,10 +1763,10 @@ com.isartdigital.operationaaa.game.leveldesign.LevelManager.prototype = {
 			if(lObject.get_type() == "Collectable") lCount++;
 		}
 		com.isartdigital.operationaaa.ui.hud.Hud.getInstance().set_collectibleCount(this.totalCollectablesInLD - lCount);
-		haxe.Log.trace("LCount : " + lCount,{ fileName : "LevelManager.hx", lineNumber : 277, className : "com.isartdigital.operationaaa.game.leveldesign.LevelManager", methodName : "reloadLevelAtLastCheckpoint", customParams : [" totalCollectibles : " + this.totalCollectablesInLD]});
+		haxe.Log.trace("LCount : " + lCount,{ fileName : "LevelManager.hx", lineNumber : 278, className : "com.isartdigital.operationaaa.game.leveldesign.LevelManager", methodName : "reloadLevelAtLastCheckpoint", customParams : [" totalCollectibles : " + this.totalCollectablesInLD]});
 	}
 	,populateScreen: function() {
-		haxe.Log.trace("Populating Screen...",{ fileName : "LevelManager.hx", lineNumber : 286, className : "com.isartdigital.operationaaa.game.leveldesign.LevelManager", methodName : "populateScreen"});
+		haxe.Log.trace("Populating Screen...",{ fileName : "LevelManager.hx", lineNumber : 287, className : "com.isartdigital.operationaaa.game.leveldesign.LevelManager", methodName : "populateScreen"});
 		this.unclipEntireMap();
 		this.calculateScreenAndClippingLimits();
 		var lToClip = new haxe.ds.StringMap();
@@ -1784,8 +1785,8 @@ com.isartdigital.operationaaa.game.leveldesign.LevelManager.prototype = {
 					var lInstanceName = lCellContent[_g4];
 					++_g4;
 					if(this.objectsList.get(lInstanceName) == null) {
-						if(lInstanceName == null) haxe.Log.trace("WARNING: you are trying to remove an Object with no Id",{ fileName : "LevelManager.hx", lineNumber : 310, className : "com.isartdigital.operationaaa.game.leveldesign.LevelManager", methodName : "populateScreen"});
-						if(!HxOverrides.remove(lCellContent,lInstanceName)) haxe.Log.trace("ERROR: removal of Object " + lInstanceName + " has failed.",{ fileName : "LevelManager.hx", lineNumber : 311, className : "com.isartdigital.operationaaa.game.leveldesign.LevelManager", methodName : "populateScreen"});
+						if(lInstanceName == null) haxe.Log.trace("WARNING: you are trying to remove an Object with no Id",{ fileName : "LevelManager.hx", lineNumber : 311, className : "com.isartdigital.operationaaa.game.leveldesign.LevelManager", methodName : "populateScreen"});
+						if(!HxOverrides.remove(lCellContent,lInstanceName)) haxe.Log.trace("ERROR: removal of Object " + lInstanceName + " has failed.",{ fileName : "LevelManager.hx", lineNumber : 312, className : "com.isartdigital.operationaaa.game.leveldesign.LevelManager", methodName : "populateScreen"});
 					} else {
 						var value = this.objectsList.get(lInstanceName);
 						lToClip.set(lInstanceName,value);
@@ -1798,10 +1799,10 @@ com.isartdigital.operationaaa.game.leveldesign.LevelManager.prototype = {
 			var lGoG = $it0.next();
 		}
 		this.clipObjects(lToClip);
-		haxe.Log.trace("... Screen Populated",{ fileName : "LevelManager.hx", lineNumber : 324, className : "com.isartdigital.operationaaa.game.leveldesign.LevelManager", methodName : "populateScreen"});
+		haxe.Log.trace("... Screen Populated",{ fileName : "LevelManager.hx", lineNumber : 325, className : "com.isartdigital.operationaaa.game.leveldesign.LevelManager", methodName : "populateScreen"});
 	}
 	,unclipEntireMap: function() {
-		haxe.Log.trace("... Unclipping Level",{ fileName : "LevelManager.hx", lineNumber : 332, className : "com.isartdigital.operationaaa.game.leveldesign.LevelManager", methodName : "unclipEntireMap"});
+		haxe.Log.trace("... Unclipping Level",{ fileName : "LevelManager.hx", lineNumber : 333, className : "com.isartdigital.operationaaa.game.leveldesign.LevelManager", methodName : "unclipEntireMap"});
 		var lToUnclip = new haxe.ds.StringMap();
 		var lCellContent;
 		var _g1 = 0;
@@ -1827,46 +1828,46 @@ com.isartdigital.operationaaa.game.leveldesign.LevelManager.prototype = {
 		var $it0 = com.isartdigital.operationaaa.game.sprites.walls.Wall.list.iterator();
 		while( $it0.hasNext() ) {
 			var lObject = $it0.next();
-			haxe.Log.trace(lObject.id + " of Wall List",{ fileName : "LevelManager.hx", lineNumber : 353, className : "com.isartdigital.operationaaa.game.leveldesign.LevelManager", methodName : "unclipEntireMap"});
+			haxe.Log.trace(lObject.id + " of Wall List",{ fileName : "LevelManager.hx", lineNumber : 354, className : "com.isartdigital.operationaaa.game.leveldesign.LevelManager", methodName : "unclipEntireMap"});
 			lCount++;
 		}
 		var $it1 = com.isartdigital.operationaaa.game.sprites.platforms.Platform.list.iterator();
 		while( $it1.hasNext() ) {
 			var lObject1 = $it1.next();
-			haxe.Log.trace(lObject1.id + " of Platform List",{ fileName : "LevelManager.hx", lineNumber : 357, className : "com.isartdigital.operationaaa.game.leveldesign.LevelManager", methodName : "unclipEntireMap"});
+			haxe.Log.trace(lObject1.id + " of Platform List",{ fileName : "LevelManager.hx", lineNumber : 358, className : "com.isartdigital.operationaaa.game.leveldesign.LevelManager", methodName : "unclipEntireMap"});
 			lCount++;
 		}
 		var $it2 = com.isartdigital.operationaaa.game.sprites.enemies.Enemy.list.iterator();
 		while( $it2.hasNext() ) {
 			var lObject2 = $it2.next();
-			haxe.Log.trace(lObject2.id + " of Enemy List",{ fileName : "LevelManager.hx", lineNumber : 361, className : "com.isartdigital.operationaaa.game.leveldesign.LevelManager", methodName : "unclipEntireMap"});
+			haxe.Log.trace(lObject2.id + " of Enemy List",{ fileName : "LevelManager.hx", lineNumber : 362, className : "com.isartdigital.operationaaa.game.leveldesign.LevelManager", methodName : "unclipEntireMap"});
 			lCount++;
 		}
 		var $it3 = com.isartdigital.operationaaa.game.sprites.enemies.KillZoneStatic.list.iterator();
 		while( $it3.hasNext() ) {
 			var lObject3 = $it3.next();
-			haxe.Log.trace(lObject3.id + " of KZ Static List",{ fileName : "LevelManager.hx", lineNumber : 365, className : "com.isartdigital.operationaaa.game.leveldesign.LevelManager", methodName : "unclipEntireMap"});
+			haxe.Log.trace(lObject3.id + " of KZ Static List",{ fileName : "LevelManager.hx", lineNumber : 366, className : "com.isartdigital.operationaaa.game.leveldesign.LevelManager", methodName : "unclipEntireMap"});
 			lCount++;
 		}
 		var $it4 = com.isartdigital.operationaaa.game.sprites.enemies.KillZoneDynamic.list.iterator();
 		while( $it4.hasNext() ) {
 			var lObject4 = $it4.next();
-			haxe.Log.trace(lObject4.id + " of KZ Dynamic List",{ fileName : "LevelManager.hx", lineNumber : 369, className : "com.isartdigital.operationaaa.game.leveldesign.LevelManager", methodName : "unclipEntireMap"});
+			haxe.Log.trace(lObject4.id + " of KZ Dynamic List",{ fileName : "LevelManager.hx", lineNumber : 370, className : "com.isartdigital.operationaaa.game.leveldesign.LevelManager", methodName : "unclipEntireMap"});
 			lCount++;
 		}
 		var $it5 = com.isartdigital.operationaaa.game.sprites.Checkpoint.list.iterator();
 		while( $it5.hasNext() ) {
 			var lObject5 = $it5.next();
-			haxe.Log.trace(lObject5.id + " of Checkpoint List",{ fileName : "LevelManager.hx", lineNumber : 373, className : "com.isartdigital.operationaaa.game.leveldesign.LevelManager", methodName : "unclipEntireMap"});
+			haxe.Log.trace(lObject5.id + " of Checkpoint List",{ fileName : "LevelManager.hx", lineNumber : 374, className : "com.isartdigital.operationaaa.game.leveldesign.LevelManager", methodName : "unclipEntireMap"});
 			lCount++;
 		}
 		var $it6 = com.isartdigital.operationaaa.game.sprites.collectables.Collectable.list.iterator();
 		while( $it6.hasNext() ) {
 			var lObject6 = $it6.next();
-			haxe.Log.trace(lObject6.id + " of Collectable List",{ fileName : "LevelManager.hx", lineNumber : 377, className : "com.isartdigital.operationaaa.game.leveldesign.LevelManager", methodName : "unclipEntireMap"});
+			haxe.Log.trace(lObject6.id + " of Collectable List",{ fileName : "LevelManager.hx", lineNumber : 378, className : "com.isartdigital.operationaaa.game.leveldesign.LevelManager", methodName : "unclipEntireMap"});
 			lCount++;
 		}
-		haxe.Log.trace(lCount + " objects remaining in the lists",{ fileName : "LevelManager.hx", lineNumber : 380, className : "com.isartdigital.operationaaa.game.leveldesign.LevelManager", methodName : "unclipEntireMap"});
+		haxe.Log.trace(lCount + " objects remaining in the lists",{ fileName : "LevelManager.hx", lineNumber : 381, className : "com.isartdigital.operationaaa.game.leveldesign.LevelManager", methodName : "unclipEntireMap"});
 	}
 	,doCheckClipping: function() {
 		this.calculateScreenAndClippingLimits();
@@ -1928,8 +1929,8 @@ com.isartdigital.operationaaa.game.leveldesign.LevelManager.prototype = {
 					var lInstanceName = lCellContent[_g3];
 					++_g3;
 					if(this.objectsList.get(lInstanceName) == null) {
-						if(lInstanceName == null) haxe.Log.trace("WARNING: you are trying to remove an Object with no Id",{ fileName : "LevelManager.hx", lineNumber : 570, className : "com.isartdigital.operationaaa.game.leveldesign.LevelManager", methodName : "populateClippingListByColumns"});
-						if(!HxOverrides.remove(lCellContent,lInstanceName)) haxe.Log.trace("ERROR: removal of Object " + lInstanceName + " has failed.",{ fileName : "LevelManager.hx", lineNumber : 571, className : "com.isartdigital.operationaaa.game.leveldesign.LevelManager", methodName : "populateClippingListByColumns"});
+						if(lInstanceName == null) haxe.Log.trace("WARNING: you are trying to remove an Object with no Id",{ fileName : "LevelManager.hx", lineNumber : 571, className : "com.isartdigital.operationaaa.game.leveldesign.LevelManager", methodName : "populateClippingListByColumns"});
+						if(!HxOverrides.remove(lCellContent,lInstanceName)) haxe.Log.trace("ERROR: removal of Object " + lInstanceName + " has failed.",{ fileName : "LevelManager.hx", lineNumber : 572, className : "com.isartdigital.operationaaa.game.leveldesign.LevelManager", methodName : "populateClippingListByColumns"});
 					} else {
 						var value = this.objectsList.get(lInstanceName);
 						pList.set(lInstanceName,value);
@@ -1947,8 +1948,8 @@ com.isartdigital.operationaaa.game.leveldesign.LevelManager.prototype = {
 				var lInstanceName1 = lCellContent[_g21];
 				++_g21;
 				if(this.objectsList.get(lInstanceName1) == null) {
-					if(lInstanceName1 == null) haxe.Log.trace("WARNING: you are trying to remove an Object with no Id",{ fileName : "LevelManager.hx", lineNumber : 585, className : "com.isartdigital.operationaaa.game.leveldesign.LevelManager", methodName : "populateClippingListByColumns"});
-					if(!HxOverrides.remove(lCellContent,lInstanceName1)) haxe.Log.trace("ERROR: removal of Object " + lInstanceName1 + " has failed.",{ fileName : "LevelManager.hx", lineNumber : 586, className : "com.isartdigital.operationaaa.game.leveldesign.LevelManager", methodName : "populateClippingListByColumns"});
+					if(lInstanceName1 == null) haxe.Log.trace("WARNING: you are trying to remove an Object with no Id",{ fileName : "LevelManager.hx", lineNumber : 586, className : "com.isartdigital.operationaaa.game.leveldesign.LevelManager", methodName : "populateClippingListByColumns"});
+					if(!HxOverrides.remove(lCellContent,lInstanceName1)) haxe.Log.trace("ERROR: removal of Object " + lInstanceName1 + " has failed.",{ fileName : "LevelManager.hx", lineNumber : 587, className : "com.isartdigital.operationaaa.game.leveldesign.LevelManager", methodName : "populateClippingListByColumns"});
 				} else pList.remove(lInstanceName1);
 			}
 		}
@@ -1977,8 +1978,8 @@ com.isartdigital.operationaaa.game.leveldesign.LevelManager.prototype = {
 					var lInstanceName = lCellContent[_g3];
 					++_g3;
 					if(this.objectsList.get(lInstanceName) == null) {
-						if(lInstanceName == null) haxe.Log.trace("WARNING: you are trying to remove an Object with no Id",{ fileName : "LevelManager.hx", lineNumber : 623, className : "com.isartdigital.operationaaa.game.leveldesign.LevelManager", methodName : "populateClippingListByRows"});
-						if(!HxOverrides.remove(lCellContent,lInstanceName)) haxe.Log.trace("ERROR: removal of Object " + lInstanceName + " has failed.",{ fileName : "LevelManager.hx", lineNumber : 624, className : "com.isartdigital.operationaaa.game.leveldesign.LevelManager", methodName : "populateClippingListByRows"});
+						if(lInstanceName == null) haxe.Log.trace("WARNING: you are trying to remove an Object with no Id",{ fileName : "LevelManager.hx", lineNumber : 624, className : "com.isartdigital.operationaaa.game.leveldesign.LevelManager", methodName : "populateClippingListByRows"});
+						if(!HxOverrides.remove(lCellContent,lInstanceName)) haxe.Log.trace("ERROR: removal of Object " + lInstanceName + " has failed.",{ fileName : "LevelManager.hx", lineNumber : 625, className : "com.isartdigital.operationaaa.game.leveldesign.LevelManager", methodName : "populateClippingListByRows"});
 					} else {
 						var value = this.objectsList.get(lInstanceName);
 						pList.set(lInstanceName,value);
@@ -1996,8 +1997,8 @@ com.isartdigital.operationaaa.game.leveldesign.LevelManager.prototype = {
 				var lInstanceName1 = lCellContent[_g21];
 				++_g21;
 				if(this.objectsList.get(lInstanceName1) == null) {
-					if(lInstanceName1 == null) haxe.Log.trace("WARNING: you are trying to remove an Object with no Id",{ fileName : "LevelManager.hx", lineNumber : 637, className : "com.isartdigital.operationaaa.game.leveldesign.LevelManager", methodName : "populateClippingListByRows"});
-					if(!HxOverrides.remove(lCellContent,lInstanceName1)) haxe.Log.trace("ERROR: removal of Object " + lInstanceName1 + " has failed.",{ fileName : "LevelManager.hx", lineNumber : 638, className : "com.isartdigital.operationaaa.game.leveldesign.LevelManager", methodName : "populateClippingListByRows"});
+					if(lInstanceName1 == null) haxe.Log.trace("WARNING: you are trying to remove an Object with no Id",{ fileName : "LevelManager.hx", lineNumber : 638, className : "com.isartdigital.operationaaa.game.leveldesign.LevelManager", methodName : "populateClippingListByRows"});
+					if(!HxOverrides.remove(lCellContent,lInstanceName1)) haxe.Log.trace("ERROR: removal of Object " + lInstanceName1 + " has failed.",{ fileName : "LevelManager.hx", lineNumber : 639, className : "com.isartdigital.operationaaa.game.leveldesign.LevelManager", methodName : "populateClippingListByRows"});
 				} else pList.remove(lInstanceName1);
 			}
 		}
@@ -2025,8 +2026,8 @@ com.isartdigital.operationaaa.game.leveldesign.LevelManager.prototype = {
 	,removeFromLevel: function(pObject) {
 		var lId = pObject.id;
 		this.unclipObject(pObject);
-		if(lId == null) haxe.Log.trace("WARNING: you are trying to remove an Object with no Id",{ fileName : "LevelManager.hx", lineNumber : 696, className : "com.isartdigital.operationaaa.game.leveldesign.LevelManager", methodName : "removeFromLevel"});
-		if(!this.objectsList.remove(lId)) haxe.Log.trace("ERROR: removal of Object " + lId + " has failed.",{ fileName : "LevelManager.hx", lineNumber : 697, className : "com.isartdigital.operationaaa.game.leveldesign.LevelManager", methodName : "removeFromLevel"});
+		if(lId == null) haxe.Log.trace("WARNING: you are trying to remove an Object with no Id",{ fileName : "LevelManager.hx", lineNumber : 697, className : "com.isartdigital.operationaaa.game.leveldesign.LevelManager", methodName : "removeFromLevel"});
+		if(!this.objectsList.remove(lId)) haxe.Log.trace("ERROR: removal of Object " + lId + " has failed.",{ fileName : "LevelManager.hx", lineNumber : 698, className : "com.isartdigital.operationaaa.game.leveldesign.LevelManager", methodName : "removeFromLevel"});
 	}
 	,destroyLevel: function() {
 		com.isartdigital.operationaaa.game.planes.GamePlane.getInstance().destroy();
@@ -2566,7 +2567,7 @@ com.isartdigital.operationaaa.game.sprites.Player = function() {
 	this.WALK = "walk";
 	this.WAIT = "wait";
 	com.isartdigital.operationaaa.game.sprites.Collisionnable.call(this);
-	this.controller = com.isartdigital.operationaaa.controller.KeyboardController.getInstance();
+	if(com.isartdigital.utils.system.DeviceCapabilities.get_system() == "Desktop") this.controller = com.isartdigital.operationaaa.controller.KeyboardController.getInstance(); else this.controller = com.isartdigital.operationaaa.controller.TouchController.getInstance();
 	this.maxHSpeed = 16;
 	this.maxVSpeed = 35;
 };
@@ -2827,6 +2828,7 @@ com.isartdigital.operationaaa.game.sprites.Player.prototype = $extend(com.isartd
 		lShoot = js.Boot.__cast(com.isartdigital.utils.game.PoolManager.getInstance().getFromPool(pAsset) , com.isartdigital.operationaaa.game.sprites.shoot.Shoot);
 		lShoot.set(15,0.67,this.scale,lPoint,true,pIsSuperShoot);
 		com.isartdigital.operationaaa.game.planes.GamePlane.getInstance().addChild(lShoot);
+		lShoot.update();
 		if(pIsSuperShoot) com.isartdigital.utils.sounds.SoundManager.getSound("player_superfire").play(); else com.isartdigital.utils.sounds.SoundManager.getSound("player_fire").play();
 	}
 	,kill: function() {
@@ -3717,31 +3719,30 @@ com.isartdigital.operationaaa.game.sprites.shoot.Shoot.prototype = $extend(com.i
 		this.y += Math.sin(this.rotation) * this.speed.y;
 		this.acceleration.set(0,0);
 	}
-	,hitObject: function(pList,pCondition) {
-		if(pCondition) {
-			var $it0 = pList.iterator();
-			while( $it0.hasNext() ) {
-				var lObject = $it0.next();
-				if(com.isartdigital.utils.game.CollisionManager.hitTestObject(lObject.get_hitBox(),this.box)) {
-					if(pList == com.isartdigital.operationaaa.game.sprites.enemies.Enemy.list) {
-						var enemy;
-						enemy = js.Boot.__cast(lObject , com.isartdigital.operationaaa.game.sprites.enemies.Enemy);
-						if(this.isASuperShoot) enemy.hurt(3); else enemy.hurt(1,this.scale.x);
-					}
-					return true;
-				}
-			}
+	,hitObject: function(pList) {
+		var $it0 = pList.iterator();
+		while( $it0.hasNext() ) {
+			var lObject = $it0.next();
+			if(com.isartdigital.utils.game.CollisionManager.hitTestObject(lObject.get_hitBox(),this.box)) return lObject;
 		}
-		return false;
+		return null;
 	}
 	,hitWall: function() {
-		return this.hitObject(com.isartdigital.operationaaa.game.sprites.walls.Wall.list,!this.isTurretShoot);
+		var a = this.hitObject(com.isartdigital.operationaaa.game.sprites.walls.Wall.list);
+		if(a != null) haxe.Log.trace(a.id,{ fileName : "Shoot.hx", lineNumber : 161, className : "com.isartdigital.operationaaa.game.sprites.shoot.Shoot", methodName : "hitWall"});
+		return Type.getClass(a) == com.isartdigital.operationaaa.game.sprites.walls.Wall;
 	}
 	,hitKillZone: function() {
-		return this.hitObject(com.isartdigital.operationaaa.game.sprites.enemies.KillZoneStatic.list,!this.isTurretShoot);
+		return Type.getClass(this.hitObject(com.isartdigital.operationaaa.game.sprites.enemies.KillZoneStatic.list)) == com.isartdigital.operationaaa.game.sprites.enemies.KillZoneStatic;
 	}
 	,hitEnemies: function() {
-		return this.hitObject(com.isartdigital.operationaaa.game.sprites.enemies.Enemy.list,this.isPlayerShoot);
+		var lObject = this.hitObject(com.isartdigital.operationaaa.game.sprites.enemies.Enemy.list);
+		if(lObject != null) {
+			var lEnemy;
+			lEnemy = js.Boot.__cast(lObject , com.isartdigital.operationaaa.game.sprites.enemies.Enemy);
+			if(this.isASuperShoot) lEnemy.hurt(3); else lEnemy.hurt(1,this.scale.x);
+		}
+		return Type.getClass(this.hitObject(com.isartdigital.operationaaa.game.sprites.enemies.Enemy.list)) == com.isartdigital.operationaaa.game.sprites.enemies.Enemy;
 	}
 	,hitPlayer: function() {
 		if(!this.isPlayerShoot) {
@@ -3771,7 +3772,24 @@ com.isartdigital.operationaaa.game.sprites.shoot.Shoot.prototype = $extend(com.i
 			this.applyAcceleration();
 			this.move();
 		}
-		if(this.isOutOfCamera()) this.backToPool(); else if(this.hitPlayer() || this.hitEnemies() || this.hitWall() || this.hitKillZone()) this.setModeEnd();
+		if(this.isOutOfCamera()) {
+			this.backToPool();
+			haxe.Log.trace("Shoot supprimé pour cause de sortie de l'écran",{ fileName : "Shoot.hx", lineNumber : 240, className : "com.isartdigital.operationaaa.game.sprites.shoot.Shoot", methodName : "doActionNormal"});
+		} else if(this.isPlayerShoot && this.hitEnemies()) {
+			haxe.Log.trace("Shoot supprimé pour cause de contact avec un Ennemi",{ fileName : "Shoot.hx", lineNumber : 248, className : "com.isartdigital.operationaaa.game.sprites.shoot.Shoot", methodName : "doActionNormal"});
+			this.setModeEnd();
+		} else if(!this.isPlayerShoot && this.hitPlayer()) {
+			haxe.Log.trace("Shoot supprimé pour cause de contact avec le Player",{ fileName : "Shoot.hx", lineNumber : 252, className : "com.isartdigital.operationaaa.game.sprites.shoot.Shoot", methodName : "doActionNormal"});
+			this.setModeEnd();
+		} else if(!this.isTurretShoot) {
+			if(this.hitWall()) {
+				haxe.Log.trace("Shoot supprimé pour cause de contact avec un Mur",{ fileName : "Shoot.hx", lineNumber : 257, className : "com.isartdigital.operationaaa.game.sprites.shoot.Shoot", methodName : "doActionNormal"});
+				this.setModeEnd();
+			} else if(this.hitKillZone()) {
+				haxe.Log.trace("Shoot supprimé pour cause de contact avec une KZ statique",{ fileName : "Shoot.hx", lineNumber : 261, className : "com.isartdigital.operationaaa.game.sprites.shoot.Shoot", methodName : "doActionNormal"});
+				this.setModeEnd();
+			}
+		}
 	}
 	,setModeEnd: function() {
 		this.anim.loop = false;
@@ -7845,3 +7863,5 @@ haxe.Unserializer.BASE64 = "ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz
 haxe.ds.ObjectMap.count = 0;
 com.isartdigital.operationaaa.Main.main();
 })();
+
+//# sourceMappingURL=OperationTripleA.js.map
