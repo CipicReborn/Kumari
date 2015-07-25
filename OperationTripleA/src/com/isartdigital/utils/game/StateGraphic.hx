@@ -186,11 +186,15 @@ class StateGraphic extends GameObject
 			return;
 		}
 		untyped this.updateTransform();
-		if (box == null) {
+		if (hitBox == null) {
 			Debug.warn("StateGraphic.update] Vous essayez de mettre à jour un StateGraphic qui n'est pas été setState : " + id);
 			return;
 		}
-		untyped box.updateTransform();
+		untyped hitBox.updateTransform();
+		
+		for (i in 0...hitBox.children.length) {
+			untyped hitBox.getChildAt(i).updateTransform();
+		}
 
 	}
 	

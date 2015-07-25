@@ -79,6 +79,7 @@ class Collectable extends Collisionnable {
 		//• Passez en setModeVoid
 		//• Retirez de list
 		setModeVoid();
+		collected = false;
 		if (id == null) Debug.warn('[Collectable.unset] You are trying to unset a Collectable with no id');
 		if (list.exists(id)) list.remove(id);
 		if (list.exists(id)) Debug.warn('[Collectable.unset] Removal from list has failed for Collectable ' + id);

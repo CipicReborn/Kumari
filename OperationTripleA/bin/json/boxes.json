@@ -1,6 +1,6 @@
 {
 	"ShootPlayer_Blue_box": {
-		"instance125": {
+		"instance124": {
 			"x": 21.95,
 			"radius": 21.95,
 			"y": 21.95,
@@ -24,7 +24,7 @@
 			"y": 0,
 			"type": "Rectangle"
 		},
-		"instance78": {
+		"instance77": {
 			"x": 0,
 			"height": 560,
 			"width": 560,
@@ -33,7 +33,7 @@
 		}
 	},
 	"ShootPlayer_DarkBlue_box": {
-		"instance145": {
+		"instance144": {
 			"x": 21.95,
 			"radius": 21.95,
 			"y": 21.95,
@@ -55,7 +55,7 @@
 		}
 	},
 	"Wall0_box": {
-		"instance109": {
+		"instance108": {
 			"x": 0,
 			"height": 280,
 			"width": 280,
@@ -71,7 +71,7 @@
 		}
 	},
 	"LimitRight_box": {
-		"instance84": {
+		"instance83": {
 			"x": 0,
 			"height": 560,
 			"width": 560,
@@ -87,7 +87,7 @@
 		}
 	},
 	"ShootPlayer_Green_box": {
-		"instance148": {
+		"instance147": {
 			"x": 21.95,
 			"radius": 21.95,
 			"y": 21.95,
@@ -111,7 +111,7 @@
 		}
 	},
 	"Shield_box": {
-		"instance138": {
+		"instance137": {
 			"x": 200,
 			"radius": 200,
 			"y": 200,
@@ -126,7 +126,7 @@
 			"y": 0,
 			"type": "Rectangle"
 		},
-		"instance113": {
+		"instance112": {
 			"x": 0,
 			"height": 280,
 			"width": 560,
@@ -140,7 +140,7 @@
 			"y": 364.1,
 			"type": "Point"
 		},
-		"instance141": {
+		"instance140": {
 			"x": 356,
 			"radius": 356,
 			"y": 356,
@@ -148,7 +148,7 @@
 		}
 	},
 	"ShootPlayer_Orange_box": {
-		"instance151": {
+		"instance150": {
 			"x": 21.95,
 			"radius": 21.95,
 			"y": 21.95,
@@ -221,7 +221,7 @@
 		}
 	},
 	"ShootEnemyFire_box": {
-		"instance160": {
+		"instance159": {
 			"x": 44,
 			"radius": 44,
 			"y": 44,
@@ -252,7 +252,7 @@
 			"y": 0,
 			"type": "Rectangle"
 		},
-		"instance117": {
+		"instance116": {
 			"x": 0,
 			"height": 280,
 			"width": 1120,
@@ -268,7 +268,7 @@
 			"y": 0,
 			"type": "Rectangle"
 		},
-		"instance88": {
+		"instance87": {
 			"x": 0,
 			"height": 70,
 			"width": 280,
@@ -277,7 +277,7 @@
 		}
 	},
 	"ShootPlayer_RoseViolet_box": {
-		"instance157": {
+		"instance156": {
 			"x": 21.95,
 			"radius": 21.95,
 			"y": 21.95,
@@ -341,7 +341,7 @@
 		}
 	},
 	"ShootEnemyTurret_box": {
-		"instance128": {
+		"instance127": {
 			"x": 21.35,
 			"radius": 21.35,
 			"y": 21.35,
@@ -365,7 +365,7 @@
 		}
 	},
 	"Wall3_box": {
-		"instance121": {
+		"instance120": {
 			"x": 0,
 			"height": 560,
 			"width": 560,
@@ -381,7 +381,7 @@
 		}
 	},
 	"Platform1_box": {
-		"instance92": {
+		"instance91": {
 			"x": 0,
 			"height": 70,
 			"width": 560,
@@ -397,7 +397,7 @@
 		}
 	},
 	"ShootPlayer_Rose_box": {
-		"instance154": {
+		"instance153": {
 			"x": 21.95,
 			"radius": 21.95,
 			"y": 21.95,
@@ -443,7 +443,7 @@
 		}
 	},
 	"KillZoneStatic_box": {
-		"instance73": {
+		"instance72": {
 			"x": 0,
 			"height": 120,
 			"width": 280,
@@ -459,7 +459,7 @@
 		}
 	},
 	"ShootPlayerPower_Yellow_box": {
-		"instance131": {
+		"instance130": {
 			"x": 44,
 			"radius": 44,
 			"y": 44,
@@ -482,8 +482,8 @@
 	},
 	"Player_box": {
 		"mcFront": {
-			"x": 79.7,
-			"y": -55.9,
+			"x": 39.5,
+			"y": -55,
 			"type": "Point"
 		},
 		"mcCamera": {
@@ -493,44 +493,44 @@
 		},
 		"mcTop": {
 			"x": 0,
-			"y": -240,
+			"y": -200,
 			"type": "Point"
 		},
 		"mcCaneFront": {
-			"x": 115.7,
-			"y": -55.9,
+			"x": 80,
+			"y": -55,
 			"type": "Point"
 		},
 		"mcCaneTop": {
 			"x": 0,
-			"y": -300,
+			"y": -250,
 			"type": "Point"
 		},
 		"mcGlobalBox": {
-			"x": -64.8,
-			"height": 219.9,
-			"width": 129.5,
-			"y": -229.95,
+			"x": -40,
+			"height": 200,
+			"width": 80,
+			"y": -200,
 			"type": "Rectangle"
 		},
-		"mcCaneTopLeft": {
-			"x": -80.25,
-			"y": -206.2,
+		"mcCaneTopBack": {
+			"x": -80,
+			"y": -200,
 			"type": "Point"
 		},
-		"mcCaneTopRight": {
-			"x": 79.7,
-			"y": -206.2,
+		"mcCaneTopFront": {
+			"x": 80,
+			"y": -200,
 			"type": "Point"
 		},
 		"mcCaneBottom": {
 			"x": 0,
-			"y": 50,
+			"y": 20,
 			"type": "Point"
 		},
 		"mcBack": {
-			"x": -80.25,
-			"y": -55.9,
+			"x": -39.5,
+			"y": -55,
 			"type": "Point"
 		},
 		"mcCrosshair": {

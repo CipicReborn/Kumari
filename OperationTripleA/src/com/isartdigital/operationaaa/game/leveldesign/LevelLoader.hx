@@ -495,6 +495,7 @@ class LevelLoader {
 		Upgrade.list = new Map<String, StateGraphic>();
 		Shoot.list = [[], []];
 		
+		Player.getInstance().unset();
 		
 		PoolManager.getInstance().clear();
 		

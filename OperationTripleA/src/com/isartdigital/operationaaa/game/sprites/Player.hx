@@ -28,7 +28,6 @@ import com.isartdigital.utils.game.StateGraphic;
 import com.isartdigital.utils.sounds.SoundManager;
 import com.isartdigital.utils.system.DeviceCapabilities;
 import com.isartdigital.utils.ui.UIPosition;
-import haxe.Constraints.Function;
 import howler.Howl;
 import pixi.display.DisplayObject;
 import pixi.display.DisplayObjectContainer;
@@ -41,26 +40,29 @@ import pixi.textures.Texture;
 /**
  * ...
  * @author Cindy Asselin de Beauville
+ * @author Cyprien
  */
 class Player extends Collisionnable {
 	
 	/**
-	 * instance+ unique de la classe Character
+	 * instance unique de la classe Character
 	 */
 	private static var instance: Player;
 	
-	private var WAIT (default, never): String = "wait"; // une inline n'est pas héritée par les filles. c'est pour celà qu'on utilise pas inline ici.
-	private var WALK (default, never): String = "walk"; // une inline n'est pas héritée par les filles. c'est pour celà qu'on utilise pas inline ici.
-	private var JUMP (default, never): String = "jump"; // une inline n'est pas héritée par les filles. c'est pour celà qu'on utilise pas inline ici.
-	private var FALL (default, never): String = "fall"; // une inline n'est pas héritée par les filles. c'est pour celà qu'on utilise pas inline ici.
-	private var LANDING (default, never): String = "reception"; // une inline n'est pas héritée par les filles. c'est pour celà qu'on utilise pas inline ici.
-	private var DOUBLE_JUMP(default, never):String = "doublejump";
-	
-	private var DEATH(default, never):String = "death";
-	private var RESPAWN(default, never):String = "respawn";
+	private static inline var WAIT = "wait";
+	private static inline var WALK = "walk";
+	private static inline var JUMP = "jump";
+	private static inline var FALL = "fall";
+	private static inline var LANDING = "reception";
+	private static inline var DOUBLE_JUMP = "doublejump";
+	private static inline var DEATH = "death";
+	private static inline var RESPAWN = "respawn";
 	
 	private var controller: Controller;
 	
+	/**
+	 * L'objet floor enregistré comme étant sous les pieds du Player
+	 */
 	private var floor:Collisionnable;
 	
 	private var accelerationGround: Float = 14;
@@ -101,13 +103,13 @@ class Player extends Collisionnable {
 	"ShootPlayer_Blue", "ShootPlayer_DarkBlue", "ShootPlayer_Green",
 	"ShootPlayer_Orange", "ShootPlayer_RoseViolet"];
 	
-	private var haveShield:Bool = false;
+	private var hasShield:Bool = false;
 	private var upgradeShootCounter:Float = 15;
 	private var delayShootCounter:Float = 4;
 	private var counter:Float = 0;
 	private var isFinish = false;
 	
-	private var haveMagnet:Bool = false;
+	private var hasMagnet:Bool = false;
 	
 	private var fallCounterToJump:Float = 2;
 	//Contient le point de réapparition du joueur 
@@ -118,6 +120,11 @@ class Player extends Collisionnable {
 	private var haveShieldActivate:Bool = false;
 	private var startCounterToInvincibility:Bool = false;
 	
+	/**
+	 * ??
+	 * @return Bool
+	 */
+	private var chargeSound: Howl;
 	
 	/**
 	 * Retourne l'instance unique de la classe, et la crée si elle n'existait pas au préalable
@@ -147,8 +154,8 @@ class Player extends Collisionnable {
 		Camera.getInstance().setFocus(box.getChildByName("mcCamera"));
 	}
 	
-	override public function start():Void 
-	{
+	override public function start (): Void {
+		
 		super.start();
 		//On fait respawn le joueur à sa position initiale si il n'a pas activé de checkpoint
 		respawnPoint = new Point(x, y);
@@ -157,89 +164,35 @@ class Player extends Collisionnable {
 		//trace('Player Started');
 	}
 	
-	//____________________________________________________________________________________________________________________//
-	//_________________________________________________POINTS ET SCALE___________________________________________________//
-	//__________________________________________________________________________________________________________________//
-	
-	//@:getter(hitBox) Retourne la box principale
-	override function get_hitBox():DisplayObjectContainer {
-		return cast box.getChildByName("mcGlobalBox");
+	public function unset (): Void {
+		
+		setModeVoid();
 	}
 	
-	public function getSuperShoot():Bool {
+	/**
+	 * Retourne true si l'upgrade du Shoot a été collecté
+	 * @return
+	 */
+	public function hasSuperShoot (): Bool {
 		return actionShoot["haveSuperShoot"];
 	}
 	
-	public function getShield():Bool {
-		return haveShield;
-	}
-	
 	/**
-	 * Tourne le personnage a gauche ou a droite
+	 * Oriente le personnage vers la gauche
 	 */
-	private function flipLeft():Void {
+	private function flipLeft (): Void {
+		//trace('flipLeft');
 		scale.x = -1;
+		update();
 	}
 	
-	private function flipRight():Void {
+	/**
+	 * Oriente le personnage vers la droite
+	 */
+	private function flipRight (): Void {
+		//trace('flipRight');
 		scale.x = 1;
-	}
-	
-	/**
-	 * Retourne les différents point de collision autours du Player
-	 * @return les cannes bot et top
-	 */
-	private function hitBottom():Point {
-		return box.getChildByName("mcBottom").position;
-	}
-	
-	private function hitTop():Point {
-		return box.getChildByName("mcTop").position;
-	}
-	
-	private function checkTop():Point {
-		return box.getChildByName("mcCaneTop").position;
-	}
-	
-	private function checkBottom():Point {
-		return box.getChildByName("mcCaneBottom").position;
-	}
-	
-	private function checkFront():Point {
-		return box.getChildByName("mcFront").position;
-	}
-	
-	private function checkBack():Point {
-		return box.getChildByName("mcBack").position;
-	}
-	
-	private function checkFrontTop():Point {
-		return box.getChildByName("mcCaneTopRight").position;
-	}
-	
-	private function checkBackTop():Point {
-		return box.getChildByName("mcCaneTopLeft").position;
-	}
-	
-	private function checkCaneFront():Point {
-		return box.getChildByName("mcCaneFront").position;
-	}
-	
-	private function onCrosshair():Point {
-		return box.getChildByName("mcCrosshair").position;
-	}
-	
-	/**
-	 * Retourne le bon point en fonction du scale (getLeft ou getRight)
-	 * @return point
-	 */
-		
-	private function getLeft():Point{
-	    return (scale.x == 1)? checkBack() : checkFront();
-	}
-	
-	private function getRight():Point{
-	    return (scale.x == 1)? checkFront() : checkBack();
+		update();
 	}
 	
 	//____________________________________________________________________________________________________________________//
@@ -247,31 +200,16 @@ class Player extends Collisionnable {
 	//__________________________________________________________________________________________________________________//
 	
 	/**
-	 * Teste la collision entre un array d'objet et un point
-	 * @param	pList Array<Dynamic>
+	 * Teste la collision entre un point de référence du player et une liste de StateGraphic.
+	 * Retourne null ou le premier objet collisionné de la liste.
+	 * @param	pList
+	 * @param	StateGraphic>
 	 * @param	pPoint
-	 * @return l'objet si il y a collision, sinon retourne null
+	 * @return
 	 */
-	//private function testPoint(pList:Array<Dynamic>, pPoint:Point):StateGraphic {
-		//for (i in 0...pList.length) {
-			//if (CollisionManager.hitTestPoint(cast(pList[i], StateGraphic).hitBox, box.toGlobal(pPoint))) {
-				//return pList[i];
-			//} 
-		//}	
-		//return null;
-	//}
 	private function testPoint(pList:Map<String, StateGraphic>, pPoint:Point):StateGraphic {
 		for (lObject in pList) {
-			if (CollisionManager.hitTestPoint(lObject.hitBox, box.toGlobal(pPoint))) {
-				return lObject;
-			}
-		}	
-		return null;
-	}
-	
-	private function testCollectibles(pList:Map<String, StateGraphic>):StateGraphic {
-		for (lObject in pList) {
-			if (CollisionManager.hitTestObject(hitBox, cast(lObject, Collectable).hitBox)) {
+			if (CollisionManager.hitTestPoint(lObject.hitBox, hitBox.toGlobal(pPoint))) {
 				return lObject;
 			}
 		}	
@@ -279,15 +217,15 @@ class Player extends Collisionnable {
 	}
 	
 	/**
-	 * Teste la collision entre un array d'objets et une box
-	 * @param	pPoint
+	 * Teste la collision entre une box de collision et une liste de StateGraphic.
+	 * Retourne null ou le premier objet collisionné de la liste.
+	 * @param	pList la liste des objets à tester
+	 * @param	pBox la box à tester
 	 * @return
 	 */
 	private function testBox(pList:Map<String, StateGraphic>, pBox:DisplayObject):StateGraphic {
 		for (lObject in pList) {
-			
 			if (CollisionManager.hitTestObject(lObject.hitBox, pBox)) {
-				//trace('testBox determined a collision with ' + lObject.id);
 				return lObject;
 			}
 		}
@@ -313,88 +251,121 @@ class Player extends Collisionnable {
 	}
 	
 	/**
-	 * Teste la collision entre le sol sur lequel est le player et lui.
-	 * @param	pPoint
-	 * @return true -> collision / false -> pas de collision
+	 * Teste la collision entre un point et les surfaces de type sol (listes Wall + Platform).
+	 * Par défaut, le point testé est le bas de la box du player
+	 * Retourne true si le point collisione une surface, false sinon
+	 * Sur une collision, repositionne le player
+	 * @param	pPoint si non renseigné, le point testé est le bas de la box du player
+	 * @return
 	 */
-	private function hitFloor(?pPoint:Point = null):Bool {
-		if (pPoint == null) pPoint = hitBottom();
+	private function hitFloor (?pPoint:Point = null): Bool {
 		
+		// si aucun point n'est fourni on prend le bas de la box de collision par défaut
+		if (pPoint == null) pPoint = getBottom();
+		
+		// on teste le dernier floor enregistré en priorité : si le joueur n'a pas bougé on s'évite de tester toute la liste.
+		if (floor != null && testPoint(["floor" => floor], pPoint) != null) return true;
+		// si le joueur n'est plus sur le même floor, on teste les autres surfaces collisionnables à l'écran
 		var lCollision:StateGraphic = testPoint(Wall.list, pPoint);
 		if (lCollision == null) lCollision = testPoint(Platform.list, pPoint);
 		
 		if (lCollision != null) {
+			// on enregistre une référence vers la surface collisionnée, pour le test prioritaire
 			floor = cast(lCollision, Collisionnable);
-			actionJump["jumpBefore"] = false;
+			actionJump["jumpBefore"] = false; // ?
+			// on repositionne le personnage sur la box de collision de la surface collisionnée
 			y = lCollision.y;
 			return true;
 		}
+		
 		floor = null;
 		return false;
 	}
 	
 	/**
-	 * Appelle tout les points que l'on doit tester
+	 * Teste la collision entre un point et les objets de la liste Wall.
+	 * Retourne le premier wall collisionné ou null
+	 * @param	pPoint que l'on veut tester
+	 */
+	private function hitWall(pPoint:Point): Wall {
+		var lObject: StateGraphic = testPoint(Wall.list, pPoint);
+		if (lObject != null) return cast (lObject, Wall);
+		return null;
+	}
+	
+	/**
+	 * Teste les collisions latérales du personnage avec les Walls.
+	 * Sur collision, repositionne le player.
 	 */
 	private function hitSides():Void {
-		hitSide(getRight(), -1);
-		hitSide(getLeft(), 1);
-		hitSide(checkBackTop(), 1);
-		hitSide(checkFrontTop(), -1);
-	}
-	
-	/**
-	 * Teste la collision entre les cotés du player et les murs
-	 * @param	pPoint que l'on veut tester
-	 * @param	pCoef selon le scale
-	 */
-	private function hitSide(pPoint:Point, pCoef:Float) {
-		var lCollision:StateGraphic = testPoint(Wall.list, pPoint);
-		if (lCollision != null) {
-			speed.x = 0;
-			x += (sizeOfReplacement * pCoef);
+		var lWall: Wall;
+		
+		lWall = hitWall(getRight());
+		if (lWall != null) {
+			x = (lWall.x + lWall.hitBox.x) - hitBox.width / 2;
 		}
+		
+		lWall = hitWall(getLeft());
+		if (lWall != null) {
+			x = (lWall.x + lWall.hitBox.x) + lWall.hitBox.width + hitBox.width / 2;
+		}
+		// getCaneTopBack(), 1);
+		// getCaneTopFront(), -1);
 	}
 	
 	/**
-	 * Teste la collision entre le plafond et la canne Top du player.
+	 * Teste la collision entre le plafond et le haut de la box du player.
+	 * Sur une collision, repositionne le player et met sa vitesse verticale à zéro.
 	 */
-	private function hitCeil():Void {
-		var lCeil:StateGraphic = testPoint(Wall.list, hitTop());
-		if (lCeil != null) {
+	private function hitCeiling (): Void {
+		var lCeiling:StateGraphic = testPoint(Wall.list, getTop());
+		if (lCeiling != null) {
 			speed.y = 0;
-			y = lCeil.y + lCeil.hitBox.height + hitBox.height;
+			y = lCeiling.y + lCeiling.hitBox.height + hitBox.height;
 			setModeFall();
 		}	
 	}
 	
+
 	/**
-	 * Teste la collision entre les ennemis et le player
+	 * Teste la collision entre le player et les hostiles (Enemy + KZDynamic + KZStatic)
+	 * modifie éventuellement counterLimit (?)
+	 * @return
 	 */
-	private function hitEnemies():Bool {
+	 private function hitHostiles (): Bool {
+		
 		var lEnemy:StateGraphic = testBox(Enemy.list, hitBox);
-		var lKillZoneD:StateGraphic = testBox(KillZoneDynamic.list, hitBox);
-		var lKillZoneS:StateGraphic = testBox(KillZoneStatic.list, hitBox);
-		if (lEnemy == null && lKillZoneD == null && lKillZoneS == null) return false;
-		else {
-			var lBy: String = lEnemy == null ? lKillZoneD == null ? lKillZoneS.id : lKillZoneD.id : lEnemy.id;
-			if (lEnemy == null) counterLimit = 100;
-			//trace('Player Killed by ' + lBy);
+		if (lEnemy != null) return true;
+		
+		var lKZDynamic: StateGraphic = testBox(KillZoneDynamic.list, hitBox);
+		if (lKZDynamic != null) {
+			
+			counterLimit = 100; // ?
 			return true;
 		}
+		
+		var lKZStatic: StateGraphic = testBox(KillZoneStatic.list, hitBox);
+		if (lKZDynamic != null) {
+			
+			counterLimit = 100; // ?
+			return true;
+		}
+		
+		return false;
 	}
 	
 	/**
-	 * Applique la mort si hitEnnemies vaut true
+	 * Appelle kill() si hitHostiles() vaut true
 	 */
 	private function killIfHitEnnemies():Void {
-		if (hitEnemies()) kill();
+		if (hitHostiles()) kill();
 	}
 	
 	/**
-	 * Teste la collision entre les collectibles et le joueur
+	 * Teste la collision entre les collectables et le joueur
+	 * Si collision, appelle la méthode pickup du Collectable et ajoute 1 au compteur du Shield 
 	 */
-	private function hitCollectible():Void {
+	private function hitCollectible (): Void {
 		
 		var lObject: StateGraphic = testBox(Collectable.list, hitBox);
 		if (lObject == null) return;
@@ -407,8 +378,9 @@ class Player extends Collisionnable {
 	
 	/**
 	 * Teste la collision entre l'upgrade de fin de level
+	 * Si collision, appelle la méthode pickup de l'upgrade et appelle setModeVoid().
 	 */
-	private function hitUpgrade(): Void {
+	private function hitUpgrade (): Void {
 		
 		var lObject: StateGraphic = testBox(Upgrade.list, hitBox);
 		if (lObject == null) return;
@@ -426,64 +398,71 @@ class Player extends Collisionnable {
 	 * Check si le saut est possible ou non
 	 * @return true/false
 	 */
-	private function canJump():Bool {
-		var lCeil:StateGraphic = testPoint(Wall.list, checkTop());
-		checkInputJump();
-		if (controller.jump && lCeil == null && actionJump["lastJump"]) {
-			return true;
+	private function canJump (): Bool {
+		//var lCeiling:StateGraphic = testPoint(Wall.list, getCaneTop());
+		//checkInputJump();
+		//if (controller.jump && lCeiling == null && actionJump["lastJump"]) {
+			//return true;
+		//}
+		//return false;
+		
+		
+		if (controller.jump) {
+			var lCeiling:StateGraphic = testPoint(Wall.list, getCaneTop());
+			if (lCeiling == null) return true;
 		}
 		return false;
 	}
 	
 	/**
-	 * Empeche le rebond lorsque la touche reste appuyée
+	 * Empêche le rebond lorsque la touche reste appuyée
 	 * @return Bool
 	 */
-	private function checkInputJump():Bool {
-		if (!controller.jump) {
-			actionJump["lastJump"] = true;
-		}
-		return actionJump["lastJump"];
-	}
+	//private function checkInputJump():Bool {
+		//if (!controller.jump) {
+			//actionJump["lastJump"] = true;
+		//}
+		//return actionJump["lastJump"];
+	//}
 	
 	/**
-	 * Check si la chute est possible ou non
-	 * @return true/false
+	 * Retourne true si la canne bottom ne sonde aucun sol.
+	 * @return
 	 */
-	private function canFall():Bool {
-		if (floor != null && testPoint(['' => floor], checkBottom()) == floor) return false;
-		return !hitFloor(checkBottom());
+	private function canFall () :Bool {
+		return !hitFloor(getCaneBottom());
 	}
 	
 	/**
 	 * Check si on peut courir ou non
 	 * @return true/false
 	 */
-	private function canWalk():Bool {
-		var lWall:StateGraphic = testPoint(Wall.list, checkCaneFront());
-		if (lWall == null) return true;
-		return false;
-	}
+	//private function canWalk():Bool {
+		//var lWall:StateGraphic = testPoint(Wall.list, getCaneFront());
+		//if (lWall == null) return true;
+		//return false;
+	//}
 	
 	/**
-	 * Applique selon le controller.left/controller.right l'acceleration qu'il faut
+	 * Règle la valeur d'accélération selon l'input left/right du controller
+	 * appelle flipLeft() ou flipRight() si besoin
 	 * @param	pAcceleration (Ground, Air, etc)
 	 */
-	private function applyAcceleration(pAcceleration:Float) {
-			if (controller.left) {
-				if(canWalk()) acceleration.x = -pAcceleration;
-				flipLeft();
-			} else if (controller.right) {
-				if(canWalk()) acceleration.x = pAcceleration;
-				flipRight();
-			}
+	private function applyAcceleration (pAcceleration:Float): Void {
+		
+		if (controller.left) {
+			//if(canWalk()) acceleration.x = -pAcceleration;
+			acceleration.x = -pAcceleration;
+			if (scale.x != -1) flipLeft();
+		}
+		
+		else if (controller.right) {
+			//if(canWalk()) acceleration.x = pAcceleration;
+			acceleration.x = pAcceleration;
+			if (scale.x != 1) flipRight();
+		}
 	}
 	
-	/**
-	 * Defini en fonction du temps de l'input si le player fait un shoot normal ou une super charge
-	 * @return Bool
-	 */
-	private var chargeSound:Howl = null;
 	private function defineShootMode(pState:String, ?pLoop:Bool = false):Void {	
 		if (controller.fire) {
 			counter++;
@@ -547,7 +526,7 @@ class Player extends Collisionnable {
 	 * Créer un shoot pour le player en fonction du scale et de la position du viseur
 	 */
 	private function createShoot(pAsset:String, ?pIsSuperShoot:Bool = false):Void {
-		var lPoint = GamePlane.getInstance().toLocal(box.toGlobal(onCrosshair()));
+		var lPoint = GamePlane.getInstance().toLocal(box.toGlobal(getCrosshair()));
 		var lShoot = cast(PoolManager.getInstance().getFromPool(pAsset), Shoot);
 		lShoot.set(15, 0.67, scale, lPoint, true, pIsSuperShoot);
 		
@@ -584,7 +563,7 @@ class Player extends Collisionnable {
 	 */
 	public function isInvicible():Void {
 		if (haveShieldActivate) {
-			if (hitEnemies()) {
+			if (hitHostiles()) {
 				startCounterToInvincibility = true;
 				Shield.getInstance().setModeNormal();
 			}
@@ -706,7 +685,7 @@ class Player extends Collisionnable {
 		checkDoubleJump();
 		
 		if (speed.y > 0) setModeFall();
-		else hitCeil();
+		else hitCeiling();
 		checkUpdate();
 	}
 	
@@ -830,6 +809,11 @@ class Player extends Collisionnable {
 			}
 	}
 	
+	override public function setModeVoid():Void {
+		super.setModeVoid();
+		floor = null;
+	}
+	
 	//________________________________________________________________________________________________________________//
 	//____________________________________________________UPGRADE____________________________________________________//
 	//______________________________________________________________________________________________________________//
@@ -845,10 +829,10 @@ class Player extends Collisionnable {
 			actionJump['haveDoubleJump'] = true;
 		}
 		else if (pLevel == 3) {
-			haveShield = true;
+			hasShield = true;
 		}
 		else if (pLevel == 4) {
-			haveMagnet = true;
+			hasMagnet = true;
 		}
 	}
 	
@@ -870,7 +854,7 @@ class Player extends Collisionnable {
 	 * Upgrade du Shield
 	 */
 	private function checkShield() {
-		if (haveShield && actionShield["collectibleCounter"] == actionShield["collectibleNecessary"]) {
+		if (hasShield && actionShield["collectibleCounter"] == actionShield["collectibleNecessary"]) {
 			haveShieldActivate = true;
 			Shield.getInstance().setModeActif();
 			SoundManager.getSound('magic_shield').play();
@@ -883,7 +867,7 @@ class Player extends Collisionnable {
 	 * Upgrade de l'Aimant
 	 */
 	private function checkMagnet() {
-		if (haveMagnet) {
+		if (hasMagnet) {
 			Magnet.getInstance().setModeNormal();
 			anim.animationSpeed = 0.2;
 		}
@@ -906,5 +890,115 @@ class Player extends Collisionnable {
 		instance = null;
 		super.destroy();
 	}
-
+	
+	
+	
+	//____________________________________________________________________________________________________________________//
+	//																													  //
+	//________________________________________ GETTERS BOX ET POINTS DE REFERENCE ________________________________________//
+	//____________________________________________________________________________________________________________________//
+	
+	/**
+	 * Retourne la box de collision du player
+	 * @return
+	 */
+	override private function get_hitBox (): DisplayObjectContainer {
+		return cast box.getChildByName("mcGlobalBox");
+	}
+	
+	/**
+	 * Retourne le point de référence du bas de la box de collision, au milieu
+	 * @return
+	 */
+	private function getBottom (): Point {
+		return box.getChildByName("mcBottom").position;
+	}
+	
+	/**
+	 * Retourne le point de référence du haut de la box de collision, au milieu
+	 * @return
+	 */
+	private function getTop (): Point {
+		return box.getChildByName("mcTop").position;
+	}
+	
+	/**
+	 * Retourne le point de référence de la canne située au-dessus du personnage
+	 * @return
+	 */
+	private function getCaneTop (): Point {
+		return box.getChildByName("mcCaneTop").position;
+	}
+	
+	/**
+	 * Retourne le point de référence de la canne située sous le personnage
+	 * @return
+	 */
+	private function getCaneBottom (): Point {
+		return box.getChildByName("mcCaneBottom").position;
+	}
+	
+	/**
+	 * Retourne le point de référence de l'avant de la box de collision, à 1/4 de la hauteur à la grosse
+	 * @return
+	 */
+	private function getFront (): Point {
+		return box.getChildByName("mcFront").position;
+	}
+	
+	/**
+	 * Retourne le point de référence de l'arrière de la box de collision, à 1/4 de la hauteur à la grosse
+	 * @return
+	 */
+	private function getBack (): Point {
+		return box.getChildByName("mcBack").position;
+	}
+	
+	/**
+	 * Retourne le point de référence de la canne située à l'avant du personnage, en haut
+	 * @return
+	 */
+	private function getCaneTopFront (): Point {
+		return box.getChildByName("mcCaneTopFront").position;
+	}
+	
+	/**
+	 * Retourne le point de référence de la canne située à l'arrière du personnage, en haut
+	 * @return
+	 */
+	private function getCaneTopBack (): Point {
+		return box.getChildByName("mcCaneTopBack").position;
+	}
+	
+	/**
+	 * Retourne le point de référence de la canne située à l'avant du personnage, à 1/4 de la hauteur à la grosse
+	 * @return
+	 */
+	private function getCaneFront (): Point {
+		return box.getChildByName("mcCaneFront").position;
+	}
+	
+	/**
+	 * Retourne le point de référence du viseur de tir
+	 * @return
+	 */
+	private function getCrosshair (): Point {
+		return box.getChildByName("mcCrosshair").position;
+	}
+	
+	/**
+	 * Retourne le point de référence de la limite gauche de la box, , à 1/4 de la hauteur à la grosse
+	 * @return point
+	 */
+	private function getLeft():Point{
+	    return (scale.x == 1) ? getBack() : getFront();
+	}
+	
+	/**
+	 * Retourne le point de référence de la limite droite de la box, , à 1/4 de la hauteur à la grosse
+	 * @return
+	 */
+	private function getRight():Point{
+	    return (scale.x == 1) ? getFront() : getBack();
+	}
 }

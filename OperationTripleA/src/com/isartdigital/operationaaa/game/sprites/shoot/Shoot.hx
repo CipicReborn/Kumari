@@ -158,7 +158,7 @@ class Shoot extends Collisionnable
 	 */
 	private function hitWall():Bool {
 		var a = hitObject(Wall.list);
-		if (a != null) trace(a.id);
+		//if (a != null) trace(a.id);
 		//if (a.id == 'instance155')
 		return Type.getClass(a) == Wall;
 	}
@@ -178,9 +178,9 @@ class Shoot extends Collisionnable
 			var lEnemy: Enemy = cast(lObject, Enemy);
 			if (isASuperShoot) lEnemy.hurt(3);
 			else lEnemy.hurt(1, scale.x);
+			return true;
 		}
-		
-		return Type.getClass(hitObject(Enemy.list)) == Enemy;
+		return false;
 	}
 	
 	/**
@@ -237,7 +237,7 @@ class Shoot extends Collisionnable
 		
 		if (isOutOfCamera()) {
 			backToPool();
-			trace('Shoot supprimé pour cause de sortie de l\'écran');
+			//trace('Shoot supprimé pour cause de sortie de l\'écran');
 		} 
 		//else if (hitPlayer() || hitEnemies() || hitWall() || hitKillZone()) {
 			//setModeEnd();
@@ -245,20 +245,20 @@ class Shoot extends Collisionnable
 		//}
 		else {
 			if (isPlayerShoot && hitEnemies()) {
-				trace('Shoot supprimé pour cause de contact avec un Ennemi');
+				//trace('Shoot supprimé pour cause de contact avec un Ennemi');
 				setModeEnd();
 			}
 			else if (!isPlayerShoot && hitPlayer()) {
-				trace('Shoot supprimé pour cause de contact avec le Player');
+				//trace('Shoot supprimé pour cause de contact avec le Player');
 				setModeEnd();
 			}
 			else if (!isTurretShoot) {
 				if (hitWall()) {
-					trace('Shoot supprimé pour cause de contact avec un Mur');
+					//trace('Shoot supprimé pour cause de contact avec un Mur');
 					setModeEnd();
 				}
 				else if (hitKillZone()) {
-					trace('Shoot supprimé pour cause de contact avec une KZ statique');
+					//trace('Shoot supprimé pour cause de contact avec une KZ statique');
 					setModeEnd();
 				}
 			}
@@ -269,6 +269,7 @@ class Shoot extends Collisionnable
 	 * Mode Contact (Fin)
 	 */
 	public function setModeEnd():Void {
+		//trace('shoot ended');
 		anim.loop = false;
 		setState(END);
 		doAction = doActionEnd;

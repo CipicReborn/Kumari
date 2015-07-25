@@ -14,8 +14,8 @@
 	"levelsPath": "assets/levels",
 	
 	"cheat"		: false,
-	"boxAlpha"	: 1,
-	"animAlpha"	: 0,
+	"boxAlpha"	: 0.1,
+	"animAlpha"	: 1,
 	"test"		: "test of a custom data",
 	"texture"	: ""
 

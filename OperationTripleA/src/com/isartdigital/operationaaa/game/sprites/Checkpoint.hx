@@ -32,6 +32,9 @@ class Checkpoint extends Collisionnable {
 		PoolManager.getInstance().addToPool(assetName, this);
 	}
 	
+	override public function start():Void {
+		super.start();
+	}
 	
 	/**
 	 * Paramètre l'objet avant de l'ajouter à la DisplayList (après sortie du Pool)
@@ -69,6 +72,7 @@ class Checkpoint extends Collisionnable {
 		if (id == null) trace ('WARNING: you are trying to remove a Checkpoint with no Id');
 		if (!list.remove(id)) trace ('ERROR: removal of Checkpoint ' + id + ' has failed.') ;
 		if (!isActivated && !inactiveList.remove(id)) trace ('ERROR: removal of Checkpoint ' + id + ' has failed.') ;
+		isActivated = false;
 	}
 	
 	

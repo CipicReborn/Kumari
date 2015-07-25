@@ -3,6 +3,7 @@ import com.isartdigital.operationaaa.game.sprites.collectables.Collectable;
 import com.isartdigital.operationaaa.game.sprites.platforms.Platform;
 import com.isartdigital.operationaaa.game.sprites.Player;
 import com.isartdigital.operationaaa.game.sprites.walls.Wall;
+import com.isartdigital.utils.Debug;
 import com.isartdigital.utils.game.GameObject;
 import com.isartdigital.utils.game.PoolManager;
 import com.isartdigital.utils.game.StateGraphic;
@@ -110,20 +111,21 @@ class GameObjectSetter{
 	public function setupGameObject (): GameObject {
 		
 		inGameInstance = PoolManager.getInstance().getFromPool(type);
-		
+		if (inGameInstance == null) Debug.error('POOLING ISSUE - no inGameInstanceFound');
 		// Paramétrage de positionnement
 		inGameInstance.x = x;
 		inGameInstance.y = y;
 		inGameInstance.scale.set(scaleX/Math.abs(scaleX), scaleY/Math.abs(scaleY));
 		inGameInstance.rotation = rotation * GameManager.DEG2RAD;
 		if (plane == null) {
-			trace(id + ' has no GamePlane layer associated with');
+			Debug.error(id + 'of type ' + type + ' has no GamePlane layer associated with');
 			return null;
 		}
 		
 		// Ajout en jeu et démarrage
 		plane.addChild(inGameInstance);
 		inGameInstance.start();
+		if (inGameInstance.hitBox == null) trace(id + ' of ' + type);
 		inGameInstance.update();
 		
 		// Paramétrage spécifique à la classe fille (notamment ajout dans les listes)

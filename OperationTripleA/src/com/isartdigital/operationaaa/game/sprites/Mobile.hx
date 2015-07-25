@@ -21,6 +21,10 @@ class Mobile extends StateGraphic {
 		super();
 	}
 	
+	/**
+	 * applique l'accélération et la friction pour calculer la nouvelle vitesse, dans la limite de maxHSpeed et maxVSpeed,
+	 * puis modifie la position de l'objet en fonction, avant de remettre l'accélération à zéro pour le tour suivant.
+	 */
 	private function move (): Void {
 		
 		speed.x += acceleration.x;

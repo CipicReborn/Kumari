@@ -140,8 +140,8 @@ class Enemy extends Hostile {
 		accelerationGround *= -1;
 	}
 	
-	public function hurt (pDamage, ?shootScaleX:Float = 0): Void {
-		
+	public function hurt (pDamage: Int, ?shootScaleX:Float = 0): Void {
+		//trace('Enemy hurt : ' + pDamage + ' damage.');
 		lifePoints -= pDamage;
 		
 		if (lifePoints <= 0) {

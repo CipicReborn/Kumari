@@ -30,11 +30,7 @@ import pixi.geom.Rectangle;
  */
 class LevelManager {
 	
-	// =======================##### ATTRIBUTS ET METHODES STATIQUES #####=======================
-	/**
-	 * instance unique de la classe LevelManager
-	 */
-	private static var instance: LevelManager;
+	// INTERFACE
 	
 	/**
 	 * Retourne l'instance unique de la classe, et la crée si elle n'existait pas au préalable
@@ -44,96 +40,24 @@ class LevelManager {
 		if (instance == null) instance = new LevelManager();
 		return instance;
 	}
-	
-	
-	// =======================##### ATTRIBUTS #####=======================
-
-	/**
-	 * La liste de tous les objets de jeu présents dans le niveau à un moment donné.
-	 */
-	private var objectsList: Map<String, GameObjectSetter>;
-	
-	/**
-	 * La map du niveau en fonction d'une grille virtuelle 280x280
-	 */
-	private var levelMap: Array<Array<Cell>>;
-	/**
-	 * le pas de la grille virtuelle de clipping
-	 */
-	private var gridSize: Int = 280;
-	/**
-	 * marge horizontale à laquelle les objets sont clippés/déclippés
-	 */
-	private var horizontalClippingMargin: Int =  1120; // 1120;
-	/**
-	 * marge verticale à laquelle les objets sont clippés/déclippés
-	 */
-	private var verticalClippingMargin: Int =  560; // 560;
-	/**
-	 * l'index de la colonne de Clipping la plus à gauche
-	 */
-	private var leftColumn: Int = 0;
-	/**
-	 * l'index de la colonne de Clipping la plus à droite
-	 */
-	private var rightColumn: Int = 0;
-	/**
-	 * l'index de la ligne de Clipping la plus haute
-	 */
-	private var topRow: Int = 0;
-	/**
-	 * l'index de la ligne de Clipping la plus basse
-	 */
-	private var bottomRow: Int = 0;
-	/**
-	 * l'index de la colonne de Clipping la plus à gauche à la frame d'avant
-	 */
-	private var previousLeftColumn: Int = 0;
-	/**
-	 * l'index de la colonne de Clipping la plus à droite à la frame d'avant
-	 */
-	private var previousRightColumn: Int = 0;
-	/**
-	 * l'index de la ligne de Clipping la plus haute à la frame d'avant
-	 */
-	private var previousTopRow: Int = 0;
-	/**
-	 * l'index de la ligne de Clipping la plus basse à la frame d'avant
-	 */
-	private var previousBottomRow: Int = 0;
-	
-	/**
-	 * Le rectangle représentant l'écran dans le repère du GamePlane
-	 * TODO : changer et ne pas utiliser getScreenRect mais une distance par rapport à la graphic zone pour que l'expérience de jeu ne varie pas.
-	 */
-	private var screenRect:Rectangle;
-	
 	/**
 	 * nombre total de collectables dans le LevelDesign du level
 	 */
-	public var totalCollectablesInLD: Int;	
-	
+	public var totalCollectablesInLD: Int;		
 	/**
-	 * Liste des objets au dernier checkpoint
+	 * Largeur du level en pixels
 	 */
-	private var lastCheckpoint: Map<String, GameObjectSetter>;
-	
-	private var mapWidth: Int;
-	private var mapHeight: Int;
 	public var levelWidthInPixels:Int;
+	/**
+	 * Hauteur du level en pixels
+	 */
 	public var levelHeightInPixels:Int;
-	
+	/**
+	 * Fonction -> contient doCheckClipping ou bien dontCheckClipping
+	 */
 	public var checkClipping: Dynamic;
 	
-	// =======================##### METHODES #####=======================
 	
-	/**
-	 * constructeur privé pour éviter qu'une instance soit créée directement
-	 */
-	private function new() {}
-	
-	
-	// =============# INIT #=============
 	/**
 	 * Initialisation :
 	 * - Initialisation du GamePlane
@@ -203,6 +127,239 @@ class LevelManager {
 		
 	}
 	
+
+	/**
+	 * Enregistre les objets présents dans le niveau dans la liste lastCheckpoint
+	 */
+	public function setLastCheckpoint (): Void {
+		lastCheckpoint = createNewListFrom(objectsList);
+		trace('object List saved');
+	}
+	
+	/**
+	 * Remet la liste courante au dernier checkpoint, remapLevel et populateScreen
+	 */
+	public function reloadLevelAtLastCheckpoint (): Void {
+		objectsList = createNewListFrom(lastCheckpoint);
+		remapLevel();
+		populateScreen();
+		
+		var lCount:Int = 0;
+		for (lObject in objectsList) {
+			if(lObject.type == LevelLoader.COLLECTABLE)lCount++;
+		}
+		Hud.getInstance().collectibleCount = totalCollectablesInLD -  lCount;
+		trace("LCount : " + lCount, " totalCollectibles : " + totalCollectablesInLD);
+	}
+
+	/**
+	 * Active le mode CheckClipping
+	 */
+	public function setModeCheckClipping(): Void {
+		//trace('Clipping Enabled');
+		checkClipping = doCheckClipping;
+	}
+	
+	/**
+	 * Désactive le mode CheckClipping
+	 */
+	public function setModeDontCheckClipping(): Void {
+		//trace('Clipping Disabled');
+		checkClipping = dontCheckClipping;
+	}
+	
+	/**
+	 * Déclippe tous les objets sauf le player et repositionne le visible a la caméra.
+	 * A appeller imémdiatement après un setPosition de la Camera
+	 */
+	public function populateScreen (): Void {
+		
+		trace('Populating Screen...');
+		
+		
+		//– Tout retirer de la displayList
+		unclipEntireMap();
+		//clipObject(objectsList.get('player'));
+		//– déterminer la colonne et la ligne du focus de la caméra
+		//– déduire l'index
+		//		» des colonnes gauche, droite
+		//		» des lignes haut,bas
+		
+		calculateScreenAndClippingLimits();
+		
+		//– Construire l'ensemble de l'écran à partir des éléments contenus dans les Cell
+		var lToClip: Map<String, GameObjectSetter> = new Map<String, GameObjectSetter>();
+		var lCellContent: Array<String>;
+		var j: Int;
+		var lLength: Int;
+		var lInstanceName: String;
+		
+		for (col in leftColumn...rightColumn + 1) {
+			for (row in topRow...bottomRow + 1) {
+				
+				lCellContent = levelMap[col][row].content;
+				lLength = lCellContent.length;
+				//trace(lCellContent);
+				for (i in 0...lLength) {
+					j = lLength - 1 - i;
+					lInstanceName = lCellContent[j];
+					if (objectsList.get(lInstanceName) == null) { 
+						if (lInstanceName == null) trace('WARNING: you are trying to remove an Object with no Id');
+						else {
+							lCellContent.splice(j , 1);
+							//trace(lInstanceName + ' has previously been removed from Level. It will not be mapped in cell [' + col + '][' + row + '] anymore.');
+						}
+					}
+					else lToClip.set(lInstanceName, objectsList.get(lInstanceName));
+				}
+			}
+		}
+		/*
+		for (lGoG in lToClip) {
+			trace(lGoG.type);
+		}
+		*/
+		clipObjects(lToClip);
+		trace('... Screen Populated');
+	}
+	
+	/**
+	 * Enlève dynamiquement un objet du niveau (ennemi tué, collectable ramassé)
+	 * @param	pObject
+	 */
+	public function removeFromLevel(pObject: StateGraphic): Void {
+		
+		var lId: String = pObject.id;
+		unclipObject(pObject);
+		if (lId == null) trace ('WARNING: you are trying to remove an Object with no Id');
+		if (!objectsList.remove(lId)) trace ('ERROR: removal of Object ' + lId + ' has failed.');
+		//else trace ('LevelManager to ' + lId + ' : Removal complete !');
+	}
+	
+	/**
+	 * Détruit le plan de jeu ainsi que tous les objets du niveau
+	 */
+	public function destroyLevel(): Void {
+		
+		GamePlane.getInstance().destroy();
+		LevelLoader.getInstance().destroyCurrentLevel();
+	}
+	
+	/**
+	 * détruit l'instance unique du Level Manager et met sa référence interne à null
+	 */
+	public function destroy (): Void {
+		instance = null;
+	}
+	
+	
+	
+	
+	
+	// IMPLEMENTATION
+	
+	
+	
+	
+	
+	// =======================##### ATTRIBUTS ET METHODES STATIQUES #####=======================
+	/**
+	 * instance unique de la classe LevelManager
+	 */
+	private static var instance: LevelManager;
+	
+	
+	
+	// =======================##### ATTRIBUTS #####=======================
+
+	/**
+	 * La liste de tous les objets de jeu présents dans le niveau à un moment donné.
+	 */
+	private var objectsList: Map<String, GameObjectSetter>;
+	
+	/**
+	 * La map du niveau en fonction d'une grille virtuelle 280x280
+	 */
+	private var levelMap: Array<Array<Cell>>;
+	/**
+	 * le pas de la grille virtuelle de clipping
+	 */
+	private var gridSize: Int = 280;
+	/**
+	 * La largeur max sur laquelle le jeu s'affiche
+	 */
+	private var GRAPHIC_ZONE_WIDTH: Int = 2430;
+	/**
+	 * La hauteur max surlaquelle le jeu s'affiche
+	 */
+	private var GRAPHIC_ZONE_HEIGHT: Int = 1536;
+	/**
+	 * marge horizontale à laquelle les objets sont clippés/déclippés
+	 */
+	private var horizontalClippingMargin: Int =  0; // 1120;
+	/**
+	 * marge verticale à laquelle les objets sont clippés/déclippés
+	 */
+	private var verticalClippingMargin: Int =  0; // 560;
+	/**
+	 * l'index de la colonne de Clipping la plus à gauche
+	 */
+	private var leftColumn: Int = 0;
+	/**
+	 * l'index de la colonne de Clipping la plus à droite
+	 */
+	private var rightColumn: Int = 0;
+	/**
+	 * l'index de la ligne de Clipping la plus haute
+	 */
+	private var topRow: Int = 0;
+	/**
+	 * l'index de la ligne de Clipping la plus basse
+	 */
+	private var bottomRow: Int = 0;
+	/**
+	 * l'index de la colonne de Clipping la plus à gauche à la frame d'avant
+	 */
+	private var previousLeftColumn: Int = 0;
+	/**
+	 * l'index de la colonne de Clipping la plus à droite à la frame d'avant
+	 */
+	private var previousRightColumn: Int = 0;
+	/**
+	 * l'index de la ligne de Clipping la plus haute à la frame d'avant
+	 */
+	private var previousTopRow: Int = 0;
+	/**
+	 * l'index de la ligne de Clipping la plus basse à la frame d'avant
+	 */
+	private var previousBottomRow: Int = 0;
+	
+	/**
+	 * Le rectangle représentant l'écran dans le repère du GamePlane
+	 */
+	private var screenRect:Rectangle;
+	
+
+	
+	/**
+	 * Liste des objets au dernier checkpoint
+	 */
+	private var lastCheckpoint: Map<String, GameObjectSetter>;
+	
+	private var mapWidth: Int;
+	private var mapHeight: Int;
+
+	
+	// =======================##### METHODES #####=======================
+	
+	/**
+	 * constructeur privé pour éviter qu'une instance soit créée directement
+	 */
+	private function new() {}
+	
+	
+	// =============# INIT #=============
+	
 	/**
 	 * Copie une liste de GameObjectSetters (Map<String, GameoObjectSetter>) et renvoie la nouvelle liste.
 	 * @param	pList
@@ -257,73 +414,9 @@ class LevelManager {
 		}
 	}
 	
-	public function setLastCheckpoint (): Void {
-		lastCheckpoint = createNewListFrom(objectsList);
-		trace('object List saved');
-	}
-	
-	/**
-	 * Remet la liste courante au dernier checkpoint,remapLevel et populateScreen
-	 */
-	public function reloadLevelAtLastCheckpoint (): Void {
-		objectsList = createNewListFrom(lastCheckpoint);
-		remapLevel();
-		populateScreen();
-		
-		var lCount:Int = 0;
-		for (lObject in objectsList) {
-			if(lObject.type == LevelLoader.COLLECTABLE)lCount++;
-		}
-		Hud.getInstance().collectibleCount = totalCollectablesInLD -  lCount;
-		trace("LCount : " + lCount, " totalCollectibles : " + totalCollectablesInLD);
-	}
 
+	
 	// =============# CLIPPING #=============
-	/**
-	 * Déclippe tous les objets sauf le player et repositionne le visible a la caméra.
-	 * A appeller imémdiatement après un setPosition de la Camera
-	 */
-	public function populateScreen (): Void {
-		trace('Populating Screen...');
-		
-		
-		//– Tout retirer de la displayList
-		unclipEntireMap();
-		//clipObject(objectsList.get('player'));
-		//– déterminer la colonne et la ligne du focus de la caméra
-		//– déduire l'index
-		//		» des colonnes gauche, droite
-		//		» des lignes haut,bas
-		
-		calculateScreenAndClippingLimits();
-		
-		//– Construire l'ensemble de l'écran à partir des éléments contenus dans les Cell
-		var lToClip: Map<String, GameObjectSetter> = new Map<String, GameObjectSetter>();
-		var lCellContent: Array<String>;
-		
-		for (col in leftColumn...rightColumn + 1) {
-			for (row in topRow...bottomRow + 1) {
-				
-				lCellContent = levelMap[col][row].content;
-				//trace(lCellContent);
-				for (lInstanceName in lCellContent) {
-					if (objectsList.get(lInstanceName) == null) {
-						if (lInstanceName == null) trace ('WARNING: you are trying to remove an Object with no Id');
-						if (!lCellContent.remove(lInstanceName)) trace ('ERROR: removal of Object ' + lInstanceName + ' has failed.');
-						//else trace(lInstanceName + ' has previously been deleted. It will not be mapped in cell [' + col + '][' + row + '] anymore.');
-					}
-					else lToClip.set(lInstanceName, objectsList.get(lInstanceName));
-				}
-			}
-		}
-		
-		for (lGoG in lToClip) {
-			//trace(lGoG.type);
-		}
-		
-		clipObjects(lToClip);
-		trace('... Screen Populated');
-	}
 	
 	
 	/**
@@ -383,7 +476,7 @@ class LevelManager {
 	
 	
 	/**
-	 * A appeler immédiatement après un move de la Camera
+	 * A appeler immédiatement après un move de la Camera pour clipper/declipper les objets
 	 */
 	private function doCheckClipping (): Void {
 		//trace('Checking clipping...');
@@ -440,7 +533,7 @@ class LevelManager {
 			// Déroulement :
 			// - On remplit ToClip avec les objets mappés dans la ligne entrée entre les index leftColumn et rightColumn
 			// - On corrige en supprimant les objets déjà mappés dans l'ancienne ligne du haut entre les index leftColumn et rightColumn.
-			populateClippingListByRows(lToClip, topRow, previousTopRow, leftColumn, rightColumn);
+			populateClippingListByRows(lToClip, topRow, previousTopRow, Std.int(Math.max(leftColumn, previousLeftColumn)), Std.int(Math.min(rightColumn, previousRightColumn)));
 			
 		}
 		// si on se déplace vers le bas il va falloir déclipper ce qui sort
@@ -449,7 +542,7 @@ class LevelManager {
 			// Déroulement :
 			// - On remplit ToUnclip avec les objets mappés dans la ligne sortie entre les index previousLeftColumn et previousRightColumn
 			// - On corrige en supprimant les objets encore mappés dans l'ancienne ligne du haut entre les index previousLeftColumn et previousRightColumn.
-			populateClippingListByRows(lToUnclip, previousTopRow, topRow, previousLeftColumn, previousRightColumn);
+			populateClippingListByRows(lToUnclip, previousTopRow, topRow, Std.int(Math.max(leftColumn, previousLeftColumn)), Std.int(Math.min(rightColumn, previousRightColumn)));
 			
 		}
 		
@@ -460,7 +553,7 @@ class LevelManager {
 			// Déroulement :
 			// - On remplit ToUnclip avec les objets mappés dans la ligne sortie entre les index previousLeftColumn et previousRightColumn
 			// - On corrige en supprimant les objets encore mappés dans l'ancienne ligne du haut entre les index previousLeftColumn et previousRightColumn.
-			populateClippingListByRows(lToUnclip, previousBottomRow, bottomRow, previousLeftColumn, previousRightColumn);
+			populateClippingListByRows(lToUnclip, previousBottomRow, bottomRow, Std.int(Math.max(leftColumn, previousLeftColumn)), Std.int(Math.min(rightColumn, previousRightColumn)));
 			
 		}
 		// si on se déplace vers le bas il va falloir clipper ce qui entre
@@ -469,24 +562,28 @@ class LevelManager {
 			// Déroulement :
 			// - On remplit ToClip avec les objets mappés dans la ligne entrée entre les index leftColumn et rightColumn
 			// - On corrige en supprimant les objets déjà mappés dans l'ancienne ligne du haut entre les index leftColumn et rightColumn.
-			populateClippingListByRows(lToClip, bottomRow, previousBottomRow, leftColumn, rightColumn);
+			populateClippingListByRows(lToClip, bottomRow, previousBottomRow, Std.int(Math.max(leftColumn, previousLeftColumn)), Std.int(Math.min(rightColumn, previousRightColumn)));
 			
 		}
 		
 		
 		// #### Une fois les listes prêtes, on clippe et on déclippe :
-		//var lCount: Int = 0;
-		//for (lGoG in lToClip) {
-			//lCount++;
-			////trace(lGoG.type + ' about to be Clipped.');
-		//}
-		//trace (lCount + ' objects to be clipped');
-		//lCount = 0;
-		//for (lGoG in lToUnclip) {
-			//lCount++;
-			////trace(lGoG.type + ' about to be Unclipped.');
-		//}
-		//trace (lCount + ' objects to be declipped');
+		/*
+		var lCount: Int = 0;
+		for (lGOS in lToClip) {
+			lCount++;
+			if (lCount == 1) Debug.warn('## New clipping Round');
+			trace(lGOS.id + ' of ' + lGOS.type + ' about to be Clipped.');
+		}
+		if (lCount > 0) trace (lCount + ' objects to be clipped');
+		lCount = 0;
+		for (lGOS in lToUnclip) {
+			lCount++;
+			if (lCount == 1) Debug.warn('## New unclipping Round');
+			trace(lGOS.id + ' of ' + lGOS.type + ' about to be Unclipped.');
+		}
+		if (lCount > 0) trace (lCount + ' objects to be declipped');
+		*/
 		clipObjects(lToClip);
 		unclipObjects(lToUnclip);
 		//trace('... Clipping Checked');
@@ -494,15 +591,6 @@ class LevelManager {
 	
 	private function dontCheckClipping(): Void {}
 	
-	public function setModeCheckClipping(): Void {
-		
-		checkClipping = doCheckClipping;
-	}
-	
-	public function setModeDontCheckClipping(): Void {
-		
-		checkClipping = dontCheckClipping;
-	}
 	/**
 	 * Récupère les coordonnées de l'écran dans le GamePlane et en déduit les coordonnées dans la grille de clipping
 	 */
@@ -511,7 +599,13 @@ class LevelManager {
 		screenRect = DeviceCapabilities.getScreenRect(GamePlane.getInstance());
 		//trace(screenRect);
 		
-		var lClippingZone: Rectangle = new Rectangle(screenRect.x - horizontalClippingMargin, screenRect.y - verticalClippingMargin, screenRect.width + 2 * horizontalClippingMargin, screenRect.height + 2 * verticalClippingMargin);
+		// Un rectangle de la taille de la GRAPHIC Zone + la marge, centré sur l'écran du Device
+		var lClippingZone: Rectangle = new Rectangle(
+			screenRect.x - horizontalClippingMargin + (screenRect.width - GRAPHIC_ZONE_WIDTH)/2,	// x
+			screenRect.y - verticalClippingMargin + (screenRect.height - GRAPHIC_ZONE_HEIGHT)/2,	// y
+			GRAPHIC_ZONE_WIDTH + 2 * horizontalClippingMargin,										// width
+			GRAPHIC_ZONE_HEIGHT + 2 * verticalClippingMargin										// height
+		);
 		
 		// on stocke les anciennes coordonnées de grille de clipping
 		previousBottomRow	= bottomRow;
@@ -531,10 +625,13 @@ class LevelManager {
 		
 		bottomRow	= Std.int(Math.ceil((Math.floor(lClippingZone.y) + lClippingZone.height) / gridSize) - 1);
 		bottomRow	= Std.int(Math.min(levelMap[0].length - 1, Math.max(0, bottomRow)));
-		
-		//trace('Coordoonées de l\'écran dans la Grille :'
-		 //+ '\n > Gauche - Droite : ' + leftColumn + ' - ' + rightColumn + ','
-		 //+ '\n > Haut - Bas      : ' + topRow + ' - ' + bottomRow);
+		/*
+		if (bottomRow != previousBottomRow || topRow != previousTopRow || leftColumn != previousLeftColumn || rightColumn != previousRightColumn) {
+			trace('Coordoonées de l\'écran dans la Grille :'
+			 + '\n > Gauche - Droite : ' + leftColumn + ' - ' + rightColumn + ','
+			 + '\n > Haut - Bas      : ' + topRow + ' - ' + bottomRow);			
+		}
+		*/
 	}
 	
 	
@@ -546,50 +643,75 @@ class LevelManager {
 	 * @param	pRowTop la ligne min de la colonne
 	 * @param	pRowBottom la ligne max de la colonne
 	 */
-	private function populateClippingListByColumns (pList: Map<String, GameObjectSetter>, pColA: Int, pColB: Int, pRowTop: Int, pRowBottom: Int): Void {
+	private function populateClippingListByColumns (pList: Map<String, GameObjectSetter>, pAddFromColIndex: Int, pRemoveColIndex: Int, pRowTop: Int, pRowBottom: Int): Void {
 		
+		//trace('populateClippingListByColumns called with (' + pAddFromColIndex + ', ' + pRemoveColIndex + ', ' + pRowTop + ', ' + pRowBottom + ') as arguments');
 		var lCellContent: Array<String>;
-		var lLeftCol: Int;
-		var lRightCol: Int;
+		var lLeftColToAdd: Int;
+		var lRightColStopToAdd: Int;
+		var j: Int; // l'index recalculé pour parcourir les arrays à l'envers. (le array.remove dans une boucle for object in array fait foirer)
+		var lLength: Int; // la longueur des arrays à parcourir à l'envers
 		
-		// sélection des colonnes dans l'intervalle [pColA-pColB[
-		if (pColA > pColB) {
-			lLeftCol = pColB + 1;
-			lRightCol = pColA + 1;
+		// sélection des colonnes dans l'intervalle [pAddFromColIndex-pRemoveColIndex[
+		if (pAddFromColIndex > pRemoveColIndex) {
+			lLeftColToAdd = pRemoveColIndex + 1;
+			lRightColStopToAdd = pAddFromColIndex + 1;
 		} else {
-			lLeftCol = pColA;
-			lRightCol = pColB;
+			lLeftColToAdd = pAddFromColIndex;
+			lRightColStopToAdd = pRemoveColIndex;
 		}
 		
+		//trace('adding from ' + lLeftColToAdd + ' to ' + (lRightColStopToAdd - 1));
 		// ajout à la liste des objets mappés dans les colonne selectionnées 
-		for (lCol in lLeftCol...lRightCol) {
+		for (lCol in lLeftColToAdd...lRightColStopToAdd) {
 			
 			for (lRow in pRowTop...(pRowBottom + 1)) {
 				lCellContent = levelMap[lCol][lRow].content;
-				for (lInstanceName in lCellContent) {
+				
+				lLength = lCellContent.length;
+				for (i in 0...lLength) {
+					j = lLength - 1 - i;
+					var lInstanceName: String = lCellContent[j];
+					//trace(lInstanceName);
 					if (objectsList.get(lInstanceName) == null) {
-						if (lInstanceName == null) trace ('WARNING: you are trying to remove an Object with no Id');
-						if (!lCellContent.remove(lInstanceName)) trace ('ERROR: removal of Object ' + lInstanceName + ' has failed.');
-						//else trace(lInstanceName + ' has previously been deleted. It will not be mapped in cell [' + lCol + '][' + lRow + '] anymore.');
+						if (lInstanceName == null) Debug.error('[LevelManager.populateClippingListByColumns] ERROR : you are trying to clip/unclip an object with no id');
+						else {
+							lCellContent.splice(j , 1);
+							//trace(lInstanceName + ' has previously been removed from Level. It will not be mapped in cell [' + lCol + '][' + lRow + '] anymore.');
+						}
 					}
 					else pList.set(lInstanceName, objectsList.get(lInstanceName));
 				}
 			}
 		}
 
-		
+		//trace('removing col ' + pRemoveColIndex);
 		// suppression de la liste  des objets mappés dans la colonne B
 		for (lRow in pRowTop...(pRowBottom + 1)) {
-			lCellContent = levelMap[pColB][lRow].content;
-			for (lInstanceName in lCellContent) {
+			lCellContent = levelMap[pRemoveColIndex][lRow].content;
+			
+			lLength = lCellContent.length;
+			for (i in 0...lLength) {
+				j = lLength - 1 - i;
+				var lInstanceName: String = lCellContent[j];
+				//trace(lInstanceName);
 				if (objectsList.get(lInstanceName) == null) {
-					if (lInstanceName == null) trace ('WARNING: you are trying to remove an Object with no Id');
-					if (!lCellContent.remove(lInstanceName)) trace ('ERROR: removal of Object ' + lInstanceName + ' has failed.');
-					//else trace(lInstanceName + ' has previously been deleted. It will not be mapped in cell [' + pColB + '][' + lRow + '] anymore.');
+					if (lInstanceName == null) Debug.error('[LevelManager.populateClippingListByColumns] ERROR: you are trying to clip/unclip an Object with no Id');
+					else {
+						lCellContent.splice(j , 1);
+						//trace(lInstanceName + ' has previously been removed from Level. It will not be mapped in cell [' + pRemoveColIndex + '][' + lRow + '] anymore.');
+					}
 				}
-				else pList.remove(lInstanceName);
+				else if (pList.exists(lInstanceName)) if(!pList.remove(lInstanceName)) Debug.error('Clipping\'s gonna fuck');
+				
 			}
 		}
+		/*
+		trace('## resume :');
+		for (lName in pList.keys()) {
+			trace(lName + ' of ' + pList[lName].type);
+		}
+		*/
 	}
 	
 	/**
@@ -600,48 +722,73 @@ class LevelManager {
 	 * @param	pLeftCol la colonne min de la ligne
 	 * @param	pRightCol la colonne max de la ligne
 	 */
-	private function populateClippingListByRows (pList: Map<String, GameObjectSetter>, pRowA: Int, pRowB: Int, pLeftCol: Int, pRightCol: Int): Void {
+	private function populateClippingListByRows (pList: Map<String, GameObjectSetter>, pAddFromRowIndex: Int, pRemoveRowIndex: Int, pLeftCol: Int, pRightCol: Int): Void {
 		
+		//trace('populateClippingListByRows called with (' + pAddFromRowIndex + ', ' + pRemoveRowIndex + ', ' + pLeftCol + ', ' + pRightCol + ') as arguments');
 		var lCellContent: Array<String>;
-		var lTopRow: Int;
-		var lBottomRow: Int;
+		var lTopRowToAdd: Int;
+		var lBottomRowStopToAdd: Int;
+		var j: Int; // l'index recalculé pour parcourir les arrays à l'envers. (le array.remove dans une boucle for object in array fait foirer)
+		var lLength: Int; // la longueur des arrays à parcourir à l'envers
 		
-		// sélection des lignes dans l'intervalle [pRowA-pRowB[
-		if (pRowA > pRowB) {
-			lTopRow = pRowB + 1;
-			lBottomRow = pRowA + 1;
+		// sélection des lignes dans l'intervalle [pAddFromRowIndex-pRemoveRowIndex[
+		if (pAddFromRowIndex > pRemoveRowIndex) {
+			lTopRowToAdd = pRemoveRowIndex + 1;
+			lBottomRowStopToAdd = pAddFromRowIndex + 1;
 		} else {
-			lTopRow = pRowA;
-			lBottomRow = pRowB;
+			lTopRowToAdd = pAddFromRowIndex;
+			lBottomRowStopToAdd = pRemoveRowIndex;
 		}
 		
+		//trace('adding from ' + lTopRowToAdd + ' to ' + (lBottomRowStopToAdd - 1));
 		// ajout à la liste des objets mappés dans les lignes selectionnés
-		for (lRow in lTopRow...lBottomRow) {
+		for (lRow in lTopRowToAdd...lBottomRowStopToAdd) {
 			for (lCol in pLeftCol...(pRightCol + 1)) {
 				lCellContent = levelMap[lCol][lRow].content;
-				for (lInstanceName in lCellContent) {
+				
+				lLength = lCellContent.length;
+				for (i in 0...lLength) {
+					j = lLength - 1 - i;
+					var lInstanceName: String = lCellContent[j];
+					//trace(lInstanceName);
 					if (objectsList.get(lInstanceName) == null) {
 						if (lInstanceName == null) trace ('WARNING: you are trying to remove an Object with no Id');
-						if (!lCellContent.remove(lInstanceName)) trace ('ERROR: removal of Object ' + lInstanceName + ' has failed.') ;
-						//else trace(lInstanceName + ' has previously been deleted. It will not be mapped in cell [' + lCol + '][' + lRow + '] anymore.');
+						else {
+							lCellContent.splice(j , 1);
+							//trace(lInstanceName + ' has previously been removed from Level. It will not be mapped in cell [' + lCol + '][' + lRow + '] anymore.');
+						}
 					}
 					else pList.set(lInstanceName, objectsList.get(lInstanceName));
 				}
 			}
 		}
 		
+		//trace('removing row ' + pRemoveRowIndex);
 		// suppression de la liste  des objets mappés dans la ligne B
 		for (lCol in pLeftCol...(pRightCol + 1)) {
-			lCellContent = levelMap[lCol][pRowB].content;
-			for (lInstanceName in lCellContent) {
+			lCellContent = levelMap[lCol][pRemoveRowIndex].content;
+			
+			lLength = lCellContent.length;
+			for (i in 0...lLength) {
+				j = lLength - 1 - i;
+				var lInstanceName: String = lCellContent[j];
+				//trace(lInstanceName);
 				if (objectsList.get(lInstanceName) == null) {
 					if (lInstanceName == null) trace ('WARNING: you are trying to remove an Object with no Id');
-					if (!lCellContent.remove(lInstanceName)) trace ('ERROR: removal of Object ' + lInstanceName + ' has failed.') ;
-					//else trace(lInstanceName + ' has previously been deleted. It will not be mapped in cell [' + lCol + '][' + pRowB + '] anymore.');
+					else {
+						lCellContent.splice(j , 1);
+						//trace(lInstanceName + ' has previously been removed from Level. It will not be mapped in cell [' + lCol + '][' + pRemoveRowIndex + '] anymore.');
+					}
 				}
-				else pList.remove(lInstanceName);
+				else if (pList.exists(lInstanceName)) if (!pList.remove(lInstanceName)) Debug.error('Clipping\'s gonna fuck');
 			}
 		}
+		/*
+		trace('## resume :');
+		for (lName in pList.keys()) {
+			trace(lName + ' of ' + pList[lName].type);
+		}
+		*/
 	}
 	
 	/**
@@ -686,31 +833,5 @@ class LevelManager {
 		
 	}
 	
-	/**
-	 * Enlève dynamiquement un objet du niveau
-	 * @param	pObject
-	 */
-	public function removeFromLevel(pObject: StateGraphic): Void {
-		
-		var lId: String = pObject.id;
-		unclipObject(pObject);
-		if (lId == null) trace ('WARNING: you are trying to remove an Object with no Id');
-		if (!objectsList.remove(lId)) trace ('ERROR: removal of Object ' + lId + ' has failed.');
-		//else trace ('LevelManager to ' + lId + ' : Removal complete !');
-	}
-	
-	
-	public function destroyLevel(): Void {
-		
-		GamePlane.getInstance().destroy();
-		LevelLoader.getInstance().destroyCurrentLevel();
-	}
-	
-	/**
-	 * détruit l'instance unique et met sa référence interne à null
-	 */
-	public function destroy (): Void {
-		instance = null;
-	}
 
 }
