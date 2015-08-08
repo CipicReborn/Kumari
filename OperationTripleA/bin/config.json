@@ -12,6 +12,7 @@
 	"cssPath"	: "css/",
 	"langPath"	: "localization/",
 	"levelsPath": "assets/levels",
+	"enemiesPath": "characters/enemies/",
 	
 	"cheat"		: false,
 	"boxAlpha"	: 0.1,

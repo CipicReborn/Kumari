@@ -308,7 +308,6 @@ class StateGraphic extends GameObject
 			}
 			
 		}
-		if (assetName == "leftcontrollerzero") trace (texturesCache[lID]);
 		return texturesCache[lID];
 	}	
 	

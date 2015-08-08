@@ -37,10 +37,8 @@ class Pause extends Confirmation
 	/**
 	 * constructeur privé pour éviter qu'une instance soit créée directement
 	 */
-	private function new() 
-	{
-		super();
-		setBackgroundTexture("Pause_bg");
+	private function new() {
+		super("Pause_bg");
 		popInTitle.setText(TranslationManager.get(TranslationLabels.PAUSE_TEXT));
 		SoundManager.getSound(LevelLoader.getInstance().soundLevel).pause();
 	}

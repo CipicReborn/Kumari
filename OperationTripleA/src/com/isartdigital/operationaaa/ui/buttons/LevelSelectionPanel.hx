@@ -163,14 +163,14 @@ class LevelSelectionPanel extends GameObject {
 		totalGems = pTotalGems;
 		
 		// Image du level
-		levelSprite = new Sprite(Texture.fromImage(Config.assetsPath + "selection_screen/selection_level" + Std.string(levelId) + ".png"));
+		levelSprite = new Sprite(Texture.fromFrame(Config.assetsPath + "selection_screen/selection_level" + Std.string(levelId) + ".png"));
 		levelSprite.anchor.set(0.5, 0.5);
 		addChild(levelSprite);
 		
 		// Creation du Cadre transparent redimensionnable
-		leftFrame = new Sprite(Texture.fromImage(Config.assetsPath + "selection_screen/left_frame.png"));
-		midFrame = new Sprite(Texture.fromImage(Config.assetsPath + "selection_screen/mid_frame.png"));
-		rightFrame = new Sprite(Texture.fromImage(Config.assetsPath + "selection_screen/right_frame.png"));
+		leftFrame = new Sprite(Texture.fromFrame(Config.assetsPath + "selection_screen/left_frame.png"));
+		midFrame = new Sprite(Texture.fromFrame(Config.assetsPath + "selection_screen/mid_frame.png"));
+		rightFrame = new Sprite(Texture.fromFrame(Config.assetsPath + "selection_screen/right_frame.png"));
 		
 		leftFrame.anchor.set(0, 0.5);
 		midFrame.anchor.set(0.5, 0.5);

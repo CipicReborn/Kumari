@@ -73,7 +73,7 @@ class Config
 	 * conteneur des données de configuration
 	 */
 	public static var data (get, never):Dynamic;
-	private static var _data:Dynamic={};
+	private static var _data:Dynamic = {};
 	
 	public static function init(pConfig:Json): Void {		
 		for (i in Reflect.fields(pConfig)) Reflect.setField(_data, i, Reflect.field(pConfig, i));

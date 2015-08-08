@@ -93,7 +93,7 @@ class DeviceCapabilities
 			fullScreenButton.width = Std.int(getSizeFactor()*ICON_SIZE);
 			fullScreenButton.height = Std.int(getSizeFactor()*ICON_SIZE);
 			fullScreenButton.onclick = enterFullscreen;
-			fullScreenButton.src = Config.assetsPath+"fullscreen.png";
+			fullScreenButton.src = Config.assetsPath+textureType+"/ui/fullscreen.png";
 			
 			Browser.document.body.appendChild(fullScreenButton);
 
@@ -180,16 +180,17 @@ class DeviceCapabilities
 	}
 	
 	/**
-	 * Défini les ratios de texture
+	 * Définit les ratios de texture
 	 * @param	pHd ratio texture pour HD
 	 * @param	pMd ratio texture pour MD
 	 * @param	pLd ratio texture pour LD
 	 */
 	public static function init(?pHd:Float = 1, ?pMd:Float = 0.5, ?pLd:Float = 0.25):Void {
 
-		texturesRatios[TEXTURE_HD]=pHd;
-		texturesRatios[TEXTURE_MD]=pMd;
-		texturesRatios[TEXTURE_LD]=pLd;
+		texturesRatios[TEXTURE_HD] = pHd;
+		texturesRatios[TEXTURE_MD] = pMd;
+		texturesRatios[TEXTURE_LD] = pLd;
+		
 		
 		if (Config.data.texture != null && Config.data.texture!="") textureType = Config.data.texture;
 		else {
@@ -199,7 +200,7 @@ class DeviceCapabilities
 			else textureType = TEXTURE_HD;
 		}
 		textureRatio = texturesRatios[textureType];
-		
+		Debug.info('Texture Ratio : ' + textureRatio);
 	}
 
 }

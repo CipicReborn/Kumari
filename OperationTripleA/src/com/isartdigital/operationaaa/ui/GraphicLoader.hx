@@ -20,22 +20,22 @@ class GraphicLoader extends Screen {
 	private static var instance: GraphicLoader;
 
 	private var loaderBar:Sprite;
-	private var funkySprites: Array<Sprite>;
-	private var spritesCount: Int = 10;
+	//private var funkySprites: Array<Sprite>;
+	//private var spritesCount: Int = 10;
 
 	public function new() {
 		
 		super();
 		
 		// ajout des sprites de décoration sur le fond
-		funkySprites = [];
-		for (i in 0...spritesCount) {
-			
-			var lSprite: Sprite = new Sprite(Texture.fromImage(Config.assetsPath + "preload_ovale.png"));
-			lSprite.position.set(Math.floor(Math.random() * 2430) - 2430 / 2, Math.floor(Math.random() * 1536) - 1536 / 2);
-			addChild(lSprite);
-			funkySprites.push(lSprite);
-		}
+		//funkySprites = [];
+		//for (i in 0...spritesCount) {
+			//
+			//var lSprite: Sprite = new (Texture.fromFrame("preload_ovale.png"));
+			//lSprite.position.set(Math.floor(Math.random() * 2430) - 2430 / 2, Math.floor(Math.random() * 1536) - 1536 / 2);
+			//addChild(lSprite);
+			//funkySprites.push(lSprite);
+		//}
 		
 		var title:Sprite = new Sprite(Texture.fromFrame("preload_title.png"));
 		title.anchor.set(0.5, 0.5);
@@ -58,7 +58,7 @@ class GraphicLoader extends Screen {
 
 		
 		// enregistre le GraphicLoader en tant qu'écouteur de la gameloop principale
-		Main.getInstance().addEventListener(GameEvent.GAME_LOOP, loaderLoop);
+		//Main.getInstance().addEventListener(GameEvent.GAME_LOOP, loaderLoop);
 	}
 	
 	/**
@@ -78,19 +78,19 @@ class GraphicLoader extends Screen {
 		loaderBar.scale.x = pProgress;
 	}
 	
-	private function loaderLoop (): Void {
-		
-		for (i in 0...spritesCount) {
-			var lSprite: Sprite = funkySprites[i];
-			lSprite.position.x += 10;
-			
-			var lFrame: Rectangle = DeviceCapabilities.getScreenRect(this);
-			if (lSprite.position.x > (lFrame.x + lFrame.width)) { lSprite.position.x = lFrame.x - lSprite.width; }
-		}
-	}
+	//private function loaderLoop (): Void {
+		//
+		//for (i in 0...spritesCount) {
+			//var lSprite: Sprite = funkySprites[i];
+			//lSprite.position.x += 10;
+			//
+			//var lFrame: Rectangle = DeviceCapabilities.getScreenRect(this);
+			//if (lSprite.position.x > (lFrame.x + lFrame.width)) { lSprite.position.x = lFrame.x - lSprite.width; }
+		//}
+	//}
 	
 	override public function close(): Void {
-		Main.getInstance().removeEventListener(GameEvent.GAME_LOOP, loaderLoop);
+		//Main.getInstance().removeEventListener(GameEvent.GAME_LOOP, loaderLoop);
 		super.close();
 	}
 	

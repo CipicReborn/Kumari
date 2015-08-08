@@ -36,10 +36,8 @@ class DeleteSave extends Confirmation
 	/**
 	 * constructeur privé pour éviter qu'une instance soit créée directement
 	 */
-	private function new() 
-	{
-		super();
-		setBackgroundTexture("DeleteSave_bg");
+	private function new() {
+		super("DeleteSave_bg");
 		popInTitle.setText(TranslationManager.get(TranslationLabels.DELETE_SAVE_TEXT));
 	}
 	

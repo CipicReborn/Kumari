@@ -367,7 +367,7 @@ com.isartdigital.operationaaa.Main.prototype = $extend(PIXI.EventTarget.prototyp
 	preloadAssets: function(pEvent) {
 		pEvent.target.removeEventListener("loaded",$bind(this,this.preloadAssets));
 		com.isartdigital.utils.Config.init((js.Boot.__cast(pEvent.target , PIXI.JsonLoader)).json);
-		com.isartdigital.utils.system.DeviceCapabilities.init(1,0.375,0.25);
+		com.isartdigital.utils.system.DeviceCapabilities.init(0.5,0.375,0.25);
 		if(com.isartdigital.utils.Config.get_debug()) com.isartdigital.utils.Debug.getInstance().init(this);
 		if(com.isartdigital.utils.Config.get_data().boxAlpha != null) com.isartdigital.utils.game.StateGraphic.boxAlpha = com.isartdigital.utils.Config.get_data().boxAlpha;
 		if(com.isartdigital.utils.Config.get_data().animAlpha != null) com.isartdigital.utils.game.StateGraphic.animAlpha = com.isartdigital.utils.Config.get_data().animAlpha;
@@ -379,8 +379,8 @@ com.isartdigital.operationaaa.Main.prototype = $extend(PIXI.EventTarget.prototyp
 		this.resize();
 		var lLoader = new com.isartdigital.utils.loader.Loader();
 		lLoader.addAssetFile("black_bg.png");
-		lLoader.addAssetFile("LoadingScreen.json");
-		lLoader.addAssetFile("preload_ovale.png");
+		lLoader.addAssetFile(com.isartdigital.utils.system.DeviceCapabilities.textureType + "/ui/preload/LoadingScreen.json");
+		lLoader.addAssetFile(com.isartdigital.utils.system.DeviceCapabilities.textureType + "/ui/preload/preload_ovale.png");
 		lLoader.addEventListener("LoaderEvent.COMPLETE",$bind(this,this.loadFonts));
 		lLoader.load();
 	}
@@ -395,46 +395,44 @@ com.isartdigital.operationaaa.Main.prototype = $extend(PIXI.EventTarget.prototyp
 	,loadAssets: function() {
 		var lLoader = new com.isartdigital.utils.loader.Loader();
 		lLoader.addTxtFile("boxes.json");
-		if(!com.isartdigital.utils.Config.get_data().debugNoSoundLoad) lLoader.addSoundFile("sounds.json");
+		lLoader.addTxtFile("anchors.json");
+		lLoader.addTxtFile("main.json",com.isartdigital.utils.Config.get_langPath() + "en/");
+		lLoader.addTxtFile("main.json",com.isartdigital.utils.Config.get_langPath() + "fr/");
 		lLoader.addAssetFile("alpha_bg.png");
-		lLoader.addAssetFile("TitleCard.json");
-		lLoader.addAssetFile("buttons_TitleCard.json");
-		lLoader.addAssetFile("OptionButtons.json");
-		lLoader.addAssetFile("buttonsValidate.json");
-		lLoader.addAssetFile("ButtonsNextPauseBack.json");
-		lLoader.addAssetFile("UpgradeWin.json");
-		lLoader.addAssetFile("Confirm.png");
-		lLoader.addAssetFile("collectible_icon.png");
-		lLoader.addAssetFile("MiniGem.json");
-		lLoader.addAssetFile("HudCenter.png");
-		lLoader.addAssetFile("selection_screen/selection_level1.png");
-		lLoader.addAssetFile("selection_screen/selection_level2.png");
-		lLoader.addAssetFile("selection_screen/selection_level3.png");
-		lLoader.addAssetFile("selection_screen/selection_level4.png");
-		lLoader.addAssetFile("DeleteSave_bg.png");
-		lLoader.addAssetFile("Pause_bg.png");
-		lLoader.addAssetFile("Options_bg.png");
-		lLoader.addAssetFile("touch_feedback.json");
-		lLoader.addAssetFile("collectables/Collectable.json");
-		lLoader.addAssetFile("characters/enemies/" + "enemies_bomb_speed.json");
-		lLoader.addAssetFile("characters/enemies/" + "enemies_fire_turret.json");
-		lLoader.addAssetFile("characters/enemies/" + "EnemyBomb_death.json");
-		lLoader.addAssetFile("characters/enemies/" + "EnemyFire_death.json");
-		lLoader.addAssetFile("characters/enemies/" + "EnemySpeed_death.json");
-		lLoader.addAssetFile("characters/enemies/" + "EnemySpeed_death2.json");
-		lLoader.addAssetFile("characters/enemies/" + "EnemyTurret_death.json");
+		lLoader.addAssetFile(com.isartdigital.utils.system.DeviceCapabilities.textureType + "/ui/buttonsValidate.json");
+		lLoader.addAssetFile(com.isartdigital.utils.system.DeviceCapabilities.textureType + "/ui/ButtonsNextPauseBack.json");
+		lLoader.addAssetFile(com.isartdigital.utils.system.DeviceCapabilities.textureType + "/ui/tc/TitleCard.json");
+		lLoader.addAssetFile(com.isartdigital.utils.system.DeviceCapabilities.textureType + "/ui/tc/buttons_TitleCard.json");
+		lLoader.addAssetFile(com.isartdigital.utils.system.DeviceCapabilities.textureType + "/ui/options/OptionButtons.json");
+		lLoader.addAssetFile(com.isartdigital.utils.system.DeviceCapabilities.textureType + "/ui/options/OptionsBackgrounds0.json");
+		lLoader.addAssetFile(com.isartdigital.utils.system.DeviceCapabilities.textureType + "/ui/options/OptionsBackgrounds1.json");
+		lLoader.addAssetFile(com.isartdigital.utils.system.DeviceCapabilities.textureType + "/ui/hud/collectible_icon.png");
+		lLoader.addAssetFile(com.isartdigital.utils.system.DeviceCapabilities.textureType + "/ui/hud/Pause_bg.png");
+		lLoader.addAssetFile(com.isartdigital.utils.system.DeviceCapabilities.textureType + "/ui/selection_screen/MiniGem.json");
+		lLoader.addAssetFile(com.isartdigital.utils.system.DeviceCapabilities.textureType + "/ui/selection_screen/selection_level1.png");
+		lLoader.addAssetFile(com.isartdigital.utils.system.DeviceCapabilities.textureType + "/ui/selection_screen/selection_level2.png");
+		lLoader.addAssetFile(com.isartdigital.utils.system.DeviceCapabilities.textureType + "/ui/selection_screen/selection_level3.png");
+		lLoader.addAssetFile(com.isartdigital.utils.system.DeviceCapabilities.textureType + "/ui/selection_screen/selection_level4.png");
+		lLoader.addAssetFile(com.isartdigital.utils.system.DeviceCapabilities.textureType + "/ui/touch/touch_feedback.json");
+		lLoader.addAssetFile(com.isartdigital.utils.system.DeviceCapabilities.textureType + "/characters/player/shield.json");
+		lLoader.addAssetFile(com.isartdigital.utils.system.DeviceCapabilities.textureType + "/characters/player/magnet.json");
+		lLoader.addAssetFile(com.isartdigital.utils.system.DeviceCapabilities.textureType + "/characters/player/player.json");
+		lLoader.addAssetFile(com.isartdigital.utils.system.DeviceCapabilities.textureType + "/characters/enemies/enemies_bomb_speed.json");
+		lLoader.addAssetFile(com.isartdigital.utils.system.DeviceCapabilities.textureType + "/characters/enemies/enemies_fire_turret.json");
+		lLoader.addAssetFile(com.isartdigital.utils.system.DeviceCapabilities.textureType + "/characters/enemies/EnemyBomb_death.json");
+		lLoader.addAssetFile(com.isartdigital.utils.system.DeviceCapabilities.textureType + "/characters/enemies/EnemyFire_death.json");
+		lLoader.addAssetFile(com.isartdigital.utils.system.DeviceCapabilities.textureType + "/characters/enemies/EnemySpeed_death.json");
+		lLoader.addAssetFile(com.isartdigital.utils.system.DeviceCapabilities.textureType + "/characters/enemies/EnemySpeed_death2.json");
+		lLoader.addAssetFile(com.isartdigital.utils.system.DeviceCapabilities.textureType + "/characters/enemies/EnemyTurret_death.json");
 		var _g = 1;
 		while(_g < 7) {
 			var i = _g++;
-			lLoader.addAssetFile("shoots/shoots" + i + ".json");
+			lLoader.addAssetFile(com.isartdigital.utils.system.DeviceCapabilities.textureType + "/characters/shoots/shoots" + i + ".json");
 		}
-		lLoader.addAssetFile("checkpoint.json");
-		lLoader.addTxtFile("anchors.json");
-		lLoader.addAssetFile("shield.json");
-		lLoader.addAssetFile("magnet.json");
-		lLoader.addAssetFile("characters/player.json");
-		lLoader.addTxtFile("main.json",com.isartdigital.utils.Config.get_langPath() + "en/");
-		lLoader.addTxtFile("main.json",com.isartdigital.utils.Config.get_langPath() + "fr/");
+		lLoader.addAssetFile(com.isartdigital.utils.system.DeviceCapabilities.textureType + "/other/Collectable.json");
+		lLoader.addAssetFile(com.isartdigital.utils.system.DeviceCapabilities.textureType + "/other/checkpoint.json");
+		lLoader.addAssetFile(com.isartdigital.utils.system.DeviceCapabilities.textureType + "/other/UpgradeWin.json");
+		if(!com.isartdigital.utils.Config.get_data().debugNoSoundLoad) lLoader.addSoundFile("sounds.json");
 		lLoader.addEventListener("LoaderEvent.PROGRESS",$bind(this,this.onLoadProgress));
 		lLoader.addEventListener("LoaderEvent.COMPLETE",$bind(this,this.onLoadComplete));
 		com.isartdigital.operationaaa.ui.UIManager.getInstance().openScreen(com.isartdigital.operationaaa.ui.GraphicLoader.getInstance());
@@ -447,34 +445,33 @@ com.isartdigital.operationaaa.Main.prototype = $extend(PIXI.EventTarget.prototyp
 	,onLoadComplete: function(pEvent) {
 		pEvent.target.removeEventListener("LoaderEvent.PROGRESS",$bind(this,this.onLoadProgress));
 		pEvent.target.removeEventListener("LoaderEvent.COMPLETE",$bind(this,this.onLoadComplete));
-		com.isartdigital.utils.game.StateGraphic.addTextures(com.isartdigital.utils.loader.Loader.getContent("MiniGem.json"));
-		com.isartdigital.utils.game.StateGraphic.addTextures(com.isartdigital.utils.loader.Loader.getContent("TitleCard.json"));
-		com.isartdigital.utils.game.StateGraphic.addTextures(com.isartdigital.utils.loader.Loader.getContent("buttons_TitleCard.json"));
-		com.isartdigital.utils.game.StateGraphic.addTextures(com.isartdigital.utils.loader.Loader.getContent("Button.json"));
-		com.isartdigital.utils.game.StateGraphic.addTextures(com.isartdigital.utils.loader.Loader.getContent("ButtonsNextPauseBack.json"));
-		com.isartdigital.utils.game.StateGraphic.addTextures(com.isartdigital.utils.loader.Loader.getContent("upgradeWin.json"));
-		com.isartdigital.utils.game.StateGraphic.addTextures(com.isartdigital.utils.loader.Loader.getContent("OptionButtons.json"));
-		com.isartdigital.utils.game.StateGraphic.addTextures(com.isartdigital.utils.loader.Loader.getContent("buttonsValidate.json"));
-		com.isartdigital.utils.game.StateGraphic.addTextures(com.isartdigital.utils.loader.Loader.getContent("UpgradeWin.json"));
+		com.isartdigital.utils.game.StateGraphic.addTextures(com.isartdigital.utils.loader.Loader.getContent(com.isartdigital.utils.system.DeviceCapabilities.textureType + "/ui/buttonsValidate.json"));
+		com.isartdigital.utils.game.StateGraphic.addTextures(com.isartdigital.utils.loader.Loader.getContent(com.isartdigital.utils.system.DeviceCapabilities.textureType + "/ui/ButtonsNextPauseBack.json"));
+		com.isartdigital.utils.game.StateGraphic.addTextures(com.isartdigital.utils.loader.Loader.getContent(com.isartdigital.utils.system.DeviceCapabilities.textureType + "/ui/tc/TitleCard.json"));
+		com.isartdigital.utils.game.StateGraphic.addTextures(com.isartdigital.utils.loader.Loader.getContent(com.isartdigital.utils.system.DeviceCapabilities.textureType + "/ui/tc/buttons_TitleCard.json"));
+		com.isartdigital.utils.game.StateGraphic.addTextures(com.isartdigital.utils.loader.Loader.getContent(com.isartdigital.utils.system.DeviceCapabilities.textureType + "/ui/options/OptionButtons.json"));
+		com.isartdigital.utils.game.StateGraphic.addTextures(com.isartdigital.utils.loader.Loader.getContent(com.isartdigital.utils.system.DeviceCapabilities.textureType + "/ui/options/OptionsBackgrounds0.json"));
+		com.isartdigital.utils.game.StateGraphic.addTextures(com.isartdigital.utils.loader.Loader.getContent(com.isartdigital.utils.system.DeviceCapabilities.textureType + "/ui/options/OptionsBackgrounds1.json"));
+		com.isartdigital.utils.game.StateGraphic.addTextures(com.isartdigital.utils.loader.Loader.getContent(com.isartdigital.utils.system.DeviceCapabilities.textureType + "/ui/selection_screen/MiniGem.json"));
+		com.isartdigital.utils.game.StateGraphic.addTextures(com.isartdigital.utils.loader.Loader.getContent(com.isartdigital.utils.system.DeviceCapabilities.textureType + "/ui/touch/touch_feedback.json"));
+		com.isartdigital.utils.game.StateGraphic.addTextures(com.isartdigital.utils.loader.Loader.getContent(com.isartdigital.utils.system.DeviceCapabilities.textureType + "/characters/player/shield.json"));
+		com.isartdigital.utils.game.StateGraphic.addTextures(com.isartdigital.utils.loader.Loader.getContent(com.isartdigital.utils.system.DeviceCapabilities.textureType + "/characters/player/magnet.json"));
+		com.isartdigital.utils.game.StateGraphic.addTextures(com.isartdigital.utils.loader.Loader.getContent(com.isartdigital.utils.system.DeviceCapabilities.textureType + "/characters/player/player.json"));
+		com.isartdigital.utils.game.StateGraphic.addTextures(com.isartdigital.utils.loader.Loader.getContent(com.isartdigital.utils.system.DeviceCapabilities.textureType + "/characters/enemies/enemies_bomb_speed.json"));
+		com.isartdigital.utils.game.StateGraphic.addTextures(com.isartdigital.utils.loader.Loader.getContent(com.isartdigital.utils.system.DeviceCapabilities.textureType + "/characters/enemies/enemies_fire_turret.json"));
+		com.isartdigital.utils.game.StateGraphic.addTextures(com.isartdigital.utils.loader.Loader.getContent(com.isartdigital.utils.system.DeviceCapabilities.textureType + "/characters/enemies/EnemyBomb_death.json"));
+		com.isartdigital.utils.game.StateGraphic.addTextures(com.isartdigital.utils.loader.Loader.getContent(com.isartdigital.utils.system.DeviceCapabilities.textureType + "/characters/enemies/EnemyFire_death.json"));
+		com.isartdigital.utils.game.StateGraphic.addTextures(com.isartdigital.utils.loader.Loader.getContent(com.isartdigital.utils.system.DeviceCapabilities.textureType + "/characters/enemies/EnemySpeed_death.json"));
+		com.isartdigital.utils.game.StateGraphic.addTextures(com.isartdigital.utils.loader.Loader.getContent(com.isartdigital.utils.system.DeviceCapabilities.textureType + "/characters/enemies/EnemySpeed_death2.json"));
+		com.isartdigital.utils.game.StateGraphic.addTextures(com.isartdigital.utils.loader.Loader.getContent(com.isartdigital.utils.system.DeviceCapabilities.textureType + "/characters/enemies/EnemyTurret_death.json"));
 		var _g = 1;
 		while(_g < 7) {
 			var i = _g++;
-			com.isartdigital.utils.game.StateGraphic.addTextures(com.isartdigital.utils.loader.Loader.getContent("shoots/shoots" + i + ".json"));
+			com.isartdigital.utils.game.StateGraphic.addTextures(com.isartdigital.utils.loader.Loader.getContent(com.isartdigital.utils.system.DeviceCapabilities.textureType + "/characters/shoots/shoots" + i + ".json"));
 		}
-		com.isartdigital.utils.game.StateGraphic.addTextures(com.isartdigital.utils.loader.Loader.getContent("characters/enemies/" + "enemies_bomb_speed.json"));
-		com.isartdigital.utils.game.StateGraphic.addTextures(com.isartdigital.utils.loader.Loader.getContent("characters/enemies/" + "enemies_fire_turret.json"));
-		com.isartdigital.utils.game.StateGraphic.addTextures(com.isartdigital.utils.loader.Loader.getContent("characters/enemies/" + "EnemyBomb_death.json"));
-		com.isartdigital.utils.game.StateGraphic.addTextures(com.isartdigital.utils.loader.Loader.getContent("characters/enemies/" + "EnemyFire_death.json"));
-		com.isartdigital.utils.game.StateGraphic.addTextures(com.isartdigital.utils.loader.Loader.getContent("characters/enemies/" + "EnemySpeed_death.json"));
-		com.isartdigital.utils.game.StateGraphic.addTextures(com.isartdigital.utils.loader.Loader.getContent("characters/enemies/" + "EnemySpeed_death2.json"));
-		com.isartdigital.utils.game.StateGraphic.addTextures(com.isartdigital.utils.loader.Loader.getContent("characters/enemies/" + "EnemyTurret_death.json"));
-		com.isartdigital.utils.game.StateGraphic.addTextures(com.isartdigital.utils.loader.Loader.getContent("checkpoint.json"));
-		com.isartdigital.utils.game.StateGraphic.addTextures(com.isartdigital.utils.loader.Loader.getContent("shield.json"));
-		com.isartdigital.utils.game.StateGraphic.addTextures(com.isartdigital.utils.loader.Loader.getContent("magnet.json"));
-		com.isartdigital.utils.game.StateGraphic.addTextures(com.isartdigital.utils.loader.Loader.getContent("touch_feedback.json"));
-		com.isartdigital.utils.game.StateGraphic.addTextures(com.isartdigital.utils.loader.Loader.getContent("collectables/Collectable.json"));
-		com.isartdigital.utils.game.StateGraphic.addTextures(com.isartdigital.utils.loader.Loader.getContent("characters/enemies.json"));
-		com.isartdigital.utils.game.StateGraphic.addTextures(com.isartdigital.utils.loader.Loader.getContent("characters/player.json"));
+		com.isartdigital.utils.game.StateGraphic.addTextures(com.isartdigital.utils.loader.Loader.getContent(com.isartdigital.utils.system.DeviceCapabilities.textureType + "/other/Collectable.json"));
+		com.isartdigital.utils.game.StateGraphic.addTextures(com.isartdigital.utils.loader.Loader.getContent(com.isartdigital.utils.system.DeviceCapabilities.textureType + "/other/checkpoint.json"));
+		com.isartdigital.utils.game.StateGraphic.addTextures(com.isartdigital.utils.loader.Loader.getContent(com.isartdigital.utils.system.DeviceCapabilities.textureType + "/other/UpgradeWin.json"));
 		com.isartdigital.utils.game.StateGraphic.addBoxes(com.isartdigital.utils.loader.Loader.getContent("boxes.json",com.isartdigital.utils.Config.get_jsonPath()));
 		com.isartdigital.utils.game.StateGraphic.addAnchors(com.isartdigital.utils.loader.Loader.getContent("anchors.json",com.isartdigital.utils.Config.get_jsonPath()));
 		com.isartdigital.utils.ui.TranslationManager.addTranslations("en",com.isartdigital.utils.loader.Loader.getContent("main.json",com.isartdigital.utils.Config.get_langPath() + "en/"));
@@ -486,7 +483,7 @@ com.isartdigital.operationaaa.Main.prototype = $extend(PIXI.EventTarget.prototyp
 			return $r;
 		}(this)));
 		com.isartdigital.operationaaa.ui.UIManager.getInstance().closeScreens();
-		com.isartdigital.operationaaa.game.leveldesign.LevelLoader.getInstance().load(1);
+		com.isartdigital.operationaaa.ui.UIManager.getInstance().openScreen(com.isartdigital.operationaaa.ui.screens.TitleCard.getInstance());
 	}
 	,gameLoop: function() {
 		haxe.Timer.delay($bind(this,this.gameLoop),16);
@@ -1646,8 +1643,8 @@ com.isartdigital.operationaaa.game.leveldesign.LevelManager = function() {
 	this.topRow = 0;
 	this.rightColumn = 0;
 	this.leftColumn = 0;
-	this.verticalClippingMargin = 0;
-	this.horizontalClippingMargin = 0;
+	this.verticalClippingMargin = 560;
+	this.horizontalClippingMargin = 1120;
 	this.GRAPHIC_ZONE_HEIGHT = 1536;
 	this.GRAPHIC_ZONE_WIDTH = 2430;
 	this.gridSize = 280;
@@ -2379,7 +2376,6 @@ com.isartdigital.utils.game.StateGraphic.prototype = $extend(com.isartdigital.ut
 				}
 			}
 		}
-		if(this.assetName == "leftcontrollerzero") haxe.Log.trace(com.isartdigital.utils.game.StateGraphic.texturesCache.get(lID),{ fileName : "StateGraphic.hx", lineNumber : 311, className : "com.isartdigital.utils.game.StateGraphic", methodName : "getTextures"});
 		return com.isartdigital.utils.game.StateGraphic.texturesCache.get(lID);
 	}
 	,getBox: function(pState) {
@@ -4185,18 +4181,7 @@ com.isartdigital.utils.ui.Screen.prototype = $extend(com.isartdigital.utils.ui.U
 	__class__: com.isartdigital.utils.ui.Screen
 });
 com.isartdigital.operationaaa.ui.GraphicLoader = function() {
-	this.spritesCount = 10;
 	com.isartdigital.utils.ui.Screen.call(this);
-	this.funkySprites = [];
-	var _g1 = 0;
-	var _g = this.spritesCount;
-	while(_g1 < _g) {
-		var i = _g1++;
-		var lSprite = new PIXI.Sprite(PIXI.Texture.fromImage(com.isartdigital.utils.Config.get_assetsPath() + "preload_ovale.png"));
-		lSprite.position.set(Math.floor(Math.random() * 2430) - 1215.,Math.floor(Math.random() * 1536) - 768.);
-		this.addChild(lSprite);
-		this.funkySprites.push(lSprite);
-	}
 	var title = new PIXI.Sprite(PIXI.Texture.fromFrame("preload_title.png"));
 	title.anchor.set(0.5,0.5);
 	title.y -= title.height / 2;
@@ -4212,7 +4197,6 @@ com.isartdigital.operationaaa.ui.GraphicLoader = function() {
 	this.loaderBar.y = 200;
 	this.addChild(this.loaderBar);
 	this.loaderBar.scale.x = 0;
-	com.isartdigital.operationaaa.Main.getInstance().addEventListener("GameEvent.GAME_LOOP",$bind(this,this.loaderLoop));
 };
 $hxClasses["com.isartdigital.operationaaa.ui.GraphicLoader"] = com.isartdigital.operationaaa.ui.GraphicLoader;
 com.isartdigital.operationaaa.ui.GraphicLoader.__name__ = ["com","isartdigital","operationaaa","ui","GraphicLoader"];
@@ -4225,19 +4209,7 @@ com.isartdigital.operationaaa.ui.GraphicLoader.prototype = $extend(com.isartdigi
 	update: function(pProgress) {
 		this.loaderBar.scale.x = pProgress;
 	}
-	,loaderLoop: function() {
-		var _g1 = 0;
-		var _g = this.spritesCount;
-		while(_g1 < _g) {
-			var i = _g1++;
-			var lSprite = this.funkySprites[i];
-			lSprite.position.x += 10;
-			var lFrame = com.isartdigital.utils.system.DeviceCapabilities.getScreenRect(this);
-			if(lSprite.position.x > lFrame.x + lFrame.width) lSprite.position.x = lFrame.x - lSprite.width;
-		}
-	}
 	,close: function() {
-		com.isartdigital.operationaaa.Main.getInstance().removeEventListener("GameEvent.GAME_LOOP",$bind(this,this.loaderLoop));
 		com.isartdigital.utils.ui.Screen.prototype.close.call(this);
 	}
 	,destroy: function() {
@@ -4513,12 +4485,12 @@ com.isartdigital.operationaaa.ui.buttons.LevelSelectionPanel = function(pLevel,p
 	this.upgradeCollected = pUpgrade;
 	this.collectedGems = pCollectedGems;
 	this.totalGems = pTotalGems;
-	this.levelSprite = new PIXI.Sprite(PIXI.Texture.fromImage(com.isartdigital.utils.Config.get_assetsPath() + "selection_screen/selection_level" + Std.string(this.levelId) + ".png"));
+	this.levelSprite = new PIXI.Sprite(PIXI.Texture.fromFrame(com.isartdigital.utils.Config.get_assetsPath() + "selection_screen/selection_level" + Std.string(this.levelId) + ".png"));
 	this.levelSprite.anchor.set(0.5,0.5);
 	this.addChild(this.levelSprite);
-	this.leftFrame = new PIXI.Sprite(PIXI.Texture.fromImage(com.isartdigital.utils.Config.get_assetsPath() + "selection_screen/left_frame.png"));
-	this.midFrame = new PIXI.Sprite(PIXI.Texture.fromImage(com.isartdigital.utils.Config.get_assetsPath() + "selection_screen/mid_frame.png"));
-	this.rightFrame = new PIXI.Sprite(PIXI.Texture.fromImage(com.isartdigital.utils.Config.get_assetsPath() + "selection_screen/right_frame.png"));
+	this.leftFrame = new PIXI.Sprite(PIXI.Texture.fromFrame(com.isartdigital.utils.Config.get_assetsPath() + "selection_screen/left_frame.png"));
+	this.midFrame = new PIXI.Sprite(PIXI.Texture.fromFrame(com.isartdigital.utils.Config.get_assetsPath() + "selection_screen/mid_frame.png"));
+	this.rightFrame = new PIXI.Sprite(PIXI.Texture.fromFrame(com.isartdigital.utils.Config.get_assetsPath() + "selection_screen/right_frame.png"));
 	this.leftFrame.anchor.set(0,0.5);
 	this.midFrame.anchor.set(0.5,0.5);
 	this.rightFrame.anchor.set(1,0.5);
@@ -4634,6 +4606,19 @@ com.isartdigital.operationaaa.ui.buttons.LevelSelectionPanel.prototype = $extend
 	,__class__: com.isartdigital.operationaaa.ui.buttons.LevelSelectionPanel
 });
 com.isartdigital.operationaaa.ui.elements = {};
+com.isartdigital.operationaaa.ui.elements.Background = function(pAssetName) {
+	com.isartdigital.utils.game.StateGraphic.call(this);
+	this.assetName = pAssetName;
+	this.boxType = com.isartdigital.utils.game.BoxType.NONE;
+	this.setState(this.DEFAULT_STATE);
+	this.anim.anchor.set(0.5,0.5);
+};
+$hxClasses["com.isartdigital.operationaaa.ui.elements.Background"] = com.isartdigital.operationaaa.ui.elements.Background;
+com.isartdigital.operationaaa.ui.elements.Background.__name__ = ["com","isartdigital","operationaaa","ui","elements","Background"];
+com.isartdigital.operationaaa.ui.elements.Background.__super__ = com.isartdigital.utils.game.StateGraphic;
+com.isartdigital.operationaaa.ui.elements.Background.prototype = $extend(com.isartdigital.utils.game.StateGraphic.prototype,{
+	__class__: com.isartdigital.operationaaa.ui.elements.Background
+});
 com.isartdigital.operationaaa.ui.elements.MiniGauge = function(pCurrentCount,pMaxCount,pRadius) {
 	com.isartdigital.utils.game.GameObject.call(this);
 	this.currentCount = pCurrentCount;
@@ -4904,10 +4889,9 @@ com.isartdigital.operationaaa.ui.popin.Confirm.prototype = $extend(com.isartdigi
 	}
 	,__class__: com.isartdigital.operationaaa.ui.popin.Confirm
 });
-com.isartdigital.operationaaa.ui.popin.Confirmation = function() {
+com.isartdigital.operationaaa.ui.popin.Confirmation = function(pAssetName) {
 	com.isartdigital.utils.ui.Popin.call(this);
-	this.background = new PIXI.Sprite(PIXI.Texture.fromImage(com.isartdigital.utils.Config.get_assetsPath() + "Confirm.png"));
-	this.background.anchor.set(0.5,0.5);
+	this.background = new com.isartdigital.operationaaa.ui.elements.Background(pAssetName);
 	this.background.position.y = -50;
 	this.addChild(this.background);
 	this.popInTitle = new PIXI.Text("Placeholder_TEXT",{ font : "48px Arial"});
@@ -4928,18 +4912,14 @@ $hxClasses["com.isartdigital.operationaaa.ui.popin.Confirmation"] = com.isartdig
 com.isartdigital.operationaaa.ui.popin.Confirmation.__name__ = ["com","isartdigital","operationaaa","ui","popin","Confirmation"];
 com.isartdigital.operationaaa.ui.popin.Confirmation.__super__ = com.isartdigital.utils.ui.Popin;
 com.isartdigital.operationaaa.ui.popin.Confirmation.prototype = $extend(com.isartdigital.utils.ui.Popin.prototype,{
-	setBackgroundTexture: function(pImagePath) {
-		this.background.texture = PIXI.Texture.fromImage(com.isartdigital.utils.Config.get_assetsPath() + pImagePath + ".png");
-	}
-	,onClickValidateBtn: function(pEvent) {
+	onClickValidateBtn: function(pEvent) {
 	}
 	,onClickRefuseBtn: function(pEvent) {
 	}
 	,__class__: com.isartdigital.operationaaa.ui.popin.Confirmation
 });
 com.isartdigital.operationaaa.ui.popin.DeleteSave = function() {
-	com.isartdigital.operationaaa.ui.popin.Confirmation.call(this);
-	this.setBackgroundTexture("DeleteSave_bg");
+	com.isartdigital.operationaaa.ui.popin.Confirmation.call(this,"DeleteSave_bg");
 	this.popInTitle.setText(com.isartdigital.utils.ui.TranslationManager.get("DELETE_SAVE_TEXT"));
 };
 $hxClasses["com.isartdigital.operationaaa.ui.popin.DeleteSave"] = com.isartdigital.operationaaa.ui.popin.DeleteSave;
@@ -4966,8 +4946,7 @@ com.isartdigital.operationaaa.ui.popin.DeleteSave.prototype = $extend(com.isartd
 	,__class__: com.isartdigital.operationaaa.ui.popin.DeleteSave
 });
 com.isartdigital.operationaaa.ui.popin.Pause = function() {
-	com.isartdigital.operationaaa.ui.popin.Confirmation.call(this);
-	this.setBackgroundTexture("Pause_bg");
+	com.isartdigital.operationaaa.ui.popin.Confirmation.call(this,"Pause_bg");
 	this.popInTitle.setText(com.isartdigital.utils.ui.TranslationManager.get("PAUSE_TEXT"));
 	com.isartdigital.utils.sounds.SoundManager.getSound(com.isartdigital.operationaaa.game.leveldesign.LevelLoader.getInstance().soundLevel).pause();
 };
@@ -5124,8 +5103,7 @@ com.isartdigital.operationaaa.ui.screens.FinalWin.prototype = $extend(com.isartd
 });
 com.isartdigital.operationaaa.ui.screens.Options = function() {
 	com.isartdigital.utils.ui.Screen.call(this);
-	this.background = new PIXI.Sprite(PIXI.Texture.fromImage(com.isartdigital.utils.Config.get_assetsPath() + "Options_bg.png"));
-	this.background.anchor.set(0.5,0.5);
+	this.background = new com.isartdigital.operationaaa.ui.elements.Background("Options_bg");
 	this.addChild(this.background);
 	this.backBtn = new com.isartdigital.operationaaa.ui.buttons.ButtonBack();
 	this.backBtn.position.set(-900,550);
@@ -5202,7 +5180,7 @@ com.isartdigital.operationaaa.ui.screens.Options.prototype = $extend(com.isartdi
 			var this2 = com.isartdigital.operationaaa.SaveManager.getInstance().get_userConfig();
 			$r = this2.get("language");
 			return $r;
-		}(this))),{ fileName : "Options.hx", lineNumber : 169, className : "com.isartdigital.operationaaa.ui.screens.Options", methodName : "onClickFlag"});
+		}(this))),{ fileName : "Options.hx", lineNumber : 168, className : "com.isartdigital.operationaaa.ui.screens.Options", methodName : "onClickFlag"});
 	}
 	,onClickBackBtn: function(pEvent) {
 		com.isartdigital.utils.sounds.SoundManager.getSound("click").play();
@@ -6329,7 +6307,7 @@ com.isartdigital.utils.system.DeviceCapabilities.displayFullScreenButton = funct
 		com.isartdigital.utils.system.DeviceCapabilities.fullScreenButton.width = Std["int"](com.isartdigital.utils.system.DeviceCapabilities.getSizeFactor() * 0.075);
 		com.isartdigital.utils.system.DeviceCapabilities.fullScreenButton.height = Std["int"](com.isartdigital.utils.system.DeviceCapabilities.getSizeFactor() * 0.075);
 		com.isartdigital.utils.system.DeviceCapabilities.fullScreenButton.onclick = com.isartdigital.utils.system.DeviceCapabilities.enterFullscreen;
-		com.isartdigital.utils.system.DeviceCapabilities.fullScreenButton.src = com.isartdigital.utils.Config.get_assetsPath() + "fullscreen.png";
+		com.isartdigital.utils.system.DeviceCapabilities.fullScreenButton.src = com.isartdigital.utils.Config.get_assetsPath() + com.isartdigital.utils.system.DeviceCapabilities.textureType + "/ui/fullscreen.png";
 		window.document.body.appendChild(com.isartdigital.utils.system.DeviceCapabilities.fullScreenButton);
 	}
 };
@@ -6392,6 +6370,7 @@ com.isartdigital.utils.system.DeviceCapabilities.init = function(pHd,pMd,pLd) {
 		if(lRatio <= 0.25) com.isartdigital.utils.system.DeviceCapabilities.textureType = "ld"; else if(lRatio <= 0.5) com.isartdigital.utils.system.DeviceCapabilities.textureType = "md"; else com.isartdigital.utils.system.DeviceCapabilities.textureType = "hd";
 	}
 	com.isartdigital.utils.system.DeviceCapabilities.textureRatio = com.isartdigital.utils.system.DeviceCapabilities.texturesRatios.get(com.isartdigital.utils.system.DeviceCapabilities.textureType);
+	com.isartdigital.utils.Debug.info("Texture Ratio : " + com.isartdigital.utils.system.DeviceCapabilities.textureRatio);
 };
 com.isartdigital.utils.ui.Gauge = function() {
 	this.debut = 270;
@@ -7472,7 +7451,6 @@ var Class = $hxClasses.Class = { __name__ : ["Class"]};
 var Enum = { };
 com.isartdigital.operationaaa.Main.FRAMERATE = 16;
 com.isartdigital.operationaaa.Main.CONFIG_PATH = "config.json";
-com.isartdigital.operationaaa.Main.ENEMIES_PATH = "characters/enemies/";
 com.isartdigital.operationaaa.SaveManager.LEVELS_DATA = "levels_data";
 com.isartdigital.operationaaa.SaveManager.LEVEL_SORTING = "level_sorting";
 com.isartdigital.operationaaa.SaveManager.USER_CONFIG = "user_config";

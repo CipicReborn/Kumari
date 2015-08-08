@@ -34,12 +34,14 @@ import pixi.utils.EventTarget;
  */
 
 class Main extends EventTarget {
+	
 	static inline var FRAMERATE: Int = 16;
 	
 	/**
 	 * Compteur de frames global
 	 */
 	public var frames (default, null): Int = 0;
+	
 	/**
 	 * chemin vers le fichier de configuration
 	 */
@@ -81,8 +83,6 @@ class Main extends EventTarget {
 		return instance;
 	}
 	
-	private static inline var ENEMIES_PATH:String = "characters/enemies/"; // TODO : voir s'il faut le passer dans le fichier de config
-	
 	/**
 	 * création du jeu et lancement du chargement du fichier de configuration
 	 */
@@ -114,7 +114,7 @@ class Main extends EventTarget {
 		
 		//Spécifie le ratio des textures (HD, MD, LD) 
 		// ----- CHANGER LES RATIOS UNE FOIS LES TEXTURES GENEREES AVEC LES BONNES DEF, mettre 0.5, 0.375, 0.25 ---
-		DeviceCapabilities.init(1, 0.375, 0.25);
+		DeviceCapabilities.init(0.5, 0.375, 0.25);
 		
 		// Active le mode debug
 		if (Config.debug) Debug.getInstance().init(this);
@@ -140,12 +140,10 @@ class Main extends EventTarget {
 		
 		// lance le chargement des assets graphiques du preloader
 		var lLoader:Loader = new Loader();
-		lLoader.addAssetFile("black_bg.png");
-		lLoader.addAssetFile("LoadingScreen.json");
-		lLoader.addAssetFile("preload_ovale.png");
+		lLoader.addAssetFile("black_bg.png"); // 143 octets seulement, à la racine de assets pour ne pas modifier la classe utils com.isartdigital.utils.ui.Screen;
+		lLoader.addAssetFile(DeviceCapabilities.textureType + "/ui/preload/LoadingScreen.json");
+		lLoader.addAssetFile(DeviceCapabilities.textureType + "/ui/preload/preload_ovale.png");
 		
-		
-
 		lLoader.addEventListener(LoaderEvent.COMPLETE, loadFonts);
 		lLoader.load();
 	}
@@ -165,71 +163,61 @@ class Main extends EventTarget {
         WebFontLoader.load(webFontConfig); //Lancement du loader
 		
 	}
+	
 	/**
 	 * lance le chargement principal
 	 */
 	private function loadAssets (): Void {
 		
-		//pEvent.target.removeEventListener(LoaderEvent.COMPLETE, loadAssets);
-		
 		var lLoader:Loader = new Loader();
 		
+		// -------- TXT
 		lLoader.addTxtFile("boxes.json");
+		lLoader.addTxtFile("anchors.json");
+		lLoader.addTxtFile("main.json", Config.langPath + "en/");
+		lLoader.addTxtFile("main.json", Config.langPath + "fr/");
 		
+		// -------- ASSETS
+		lLoader.addAssetFile("alpha_bg.png");
+		lLoader.addAssetFile(DeviceCapabilities.textureType + "/ui/buttonsValidate.json");
+		lLoader.addAssetFile(DeviceCapabilities.textureType + "/ui/ButtonsNextPauseBack.json");
+		lLoader.addAssetFile(DeviceCapabilities.textureType + "/ui/tc/TitleCard.json");
+		lLoader.addAssetFile(DeviceCapabilities.textureType + "/ui/tc/buttons_TitleCard.json");
+		lLoader.addAssetFile(DeviceCapabilities.textureType + "/ui/options/OptionButtons.json");
+		lLoader.addAssetFile(DeviceCapabilities.textureType + "/ui/options/OptionsBackgrounds0.json");
+		lLoader.addAssetFile(DeviceCapabilities.textureType + "/ui/options/OptionsBackgrounds1.json");
+		lLoader.addAssetFile(DeviceCapabilities.textureType + "/ui/hud/collectible_icon.png");
+		lLoader.addAssetFile(DeviceCapabilities.textureType + "/ui/hud/Pause_bg.png");
+		lLoader.addAssetFile(DeviceCapabilities.textureType + "/ui/selection_screen/MiniGem.json");
+		lLoader.addAssetFile(DeviceCapabilities.textureType + "/ui/selection_screen/selection_level1.png");
+		lLoader.addAssetFile(DeviceCapabilities.textureType + "/ui/selection_screen/selection_level2.png");
+		lLoader.addAssetFile(DeviceCapabilities.textureType + "/ui/selection_screen/selection_level3.png");
+		lLoader.addAssetFile(DeviceCapabilities.textureType + "/ui/selection_screen/selection_level4.png");
+		lLoader.addAssetFile(DeviceCapabilities.textureType + "/ui/touch/touch_feedback.json");
+		lLoader.addAssetFile(DeviceCapabilities.textureType + "/characters/player/shield.json");
+		lLoader.addAssetFile(DeviceCapabilities.textureType + "/characters/player/magnet.json");
+		lLoader.addAssetFile(DeviceCapabilities.textureType + "/characters/player/player.json");
+		lLoader.addAssetFile(DeviceCapabilities.textureType + "/characters/enemies/enemies_bomb_speed.json");
+		lLoader.addAssetFile(DeviceCapabilities.textureType + "/characters/enemies/enemies_fire_turret.json");
+		lLoader.addAssetFile(DeviceCapabilities.textureType + "/characters/enemies/EnemyBomb_death.json");
+		lLoader.addAssetFile(DeviceCapabilities.textureType + "/characters/enemies/EnemyFire_death.json");
+		lLoader.addAssetFile(DeviceCapabilities.textureType + "/characters/enemies/EnemySpeed_death.json");
+		lLoader.addAssetFile(DeviceCapabilities.textureType + "/characters/enemies/EnemySpeed_death2.json");
+		lLoader.addAssetFile(DeviceCapabilities.textureType + "/characters/enemies/EnemyTurret_death.json");
+		for (i in 1...7)
+			lLoader.addAssetFile(DeviceCapabilities.textureType + "/characters/shoots/shoots"+i+".json");
+		lLoader.addAssetFile(DeviceCapabilities.textureType + "/other/Collectable.json");
+		lLoader.addAssetFile(DeviceCapabilities.textureType + "/other/checkpoint.json");
+		lLoader.addAssetFile(DeviceCapabilities.textureType + "/other/UpgradeWin.json");
+		
+		// -------- SOUNDS
 		if (!Config.data.debugNoSoundLoad) {
 			lLoader.addSoundFile("sounds.json");
 		}
 		
-		lLoader.addAssetFile("alpha_bg.png");
-		lLoader.addAssetFile("TitleCard.json");
-		lLoader.addAssetFile("buttons_TitleCard.json");
-		lLoader.addAssetFile("OptionButtons.json");
-		lLoader.addAssetFile("buttonsValidate.json");
-		lLoader.addAssetFile("ButtonsNextPauseBack.json");
-		lLoader.addAssetFile("UpgradeWin.json");
-		lLoader.addAssetFile("Confirm.png");
-		lLoader.addAssetFile("collectible_icon.png");
-		lLoader.addAssetFile("MiniGem.json");
-		lLoader.addAssetFile("HudCenter.png");
-		lLoader.addAssetFile("selection_screen/selection_level1.png");
-		lLoader.addAssetFile("selection_screen/selection_level2.png");
-		lLoader.addAssetFile("selection_screen/selection_level3.png");
-		lLoader.addAssetFile("selection_screen/selection_level4.png");
-		lLoader.addAssetFile("DeleteSave_bg.png");
-		lLoader.addAssetFile("Pause_bg.png");
-		lLoader.addAssetFile("Options_bg.png");
-		lLoader.addAssetFile("touch_feedback.json");
-		lLoader.addAssetFile("collectables/Collectable.json");
-		lLoader.addAssetFile(ENEMIES_PATH + "enemies_bomb_speed.json");
-		lLoader.addAssetFile(ENEMIES_PATH + "enemies_fire_turret.json");
-		lLoader.addAssetFile(ENEMIES_PATH + "EnemyBomb_death.json");
-		lLoader.addAssetFile(ENEMIES_PATH + "EnemyFire_death.json");
-		lLoader.addAssetFile(ENEMIES_PATH + "EnemySpeed_death.json");
-		lLoader.addAssetFile(ENEMIES_PATH + "EnemySpeed_death2.json");
-		lLoader.addAssetFile(ENEMIES_PATH + "EnemyTurret_death.json");
-		//lLoader.addAssetFile("shoots.json");
-		for (i in 1...7) {
-			lLoader.addAssetFile("shoots/shoots"+i+".json");
-		}
-		
-		lLoader.addAssetFile("checkpoint.json");
-		
-		lLoader.addTxtFile("anchors.json");
-		lLoader.addAssetFile("shield.json");
-		lLoader.addAssetFile("magnet.json");
-		//lLoader.addAssetFile("characters/enemies.json");
-		lLoader.addAssetFile("characters/player.json");
-		
-		lLoader.addTxtFile("main.json", Config.langPath + "en/");
-		lLoader.addTxtFile("main.json", Config.langPath + "fr/");
-		/*for(i in 1...5) {
-			lLoader.addTxtFile("levels/"+ i +"/level.json");
-			lLoader.addAssetFile("levels/" + i + "/level" + i + "_graphics.json");
-		}*/
-		
+		// pour le suivi du chargement et la suite des événements
 		lLoader.addEventListener(LoaderEvent.PROGRESS, onLoadProgress);
 		lLoader.addEventListener(LoaderEvent.COMPLETE, onLoadComplete);
-		
 		
 		// affiche l'écran de préchargement
 		UIManager.getInstance().openScreen(GraphicLoader.getInstance());
@@ -257,53 +245,49 @@ class Main extends EventTarget {
 		pEvent.target.removeEventListener(LoaderEvent.COMPLETE, onLoadComplete);
 		
 		// transmet au StateGraphic la description des planches de Sprites utilisées par les instances de StateGraphic
-		StateGraphic.addTextures(Loader.getContent("MiniGem.json"));
-		StateGraphic.addTextures(Loader.getContent("TitleCard.json"));
-		StateGraphic.addTextures(Loader.getContent("buttons_TitleCard.json"));
-		StateGraphic.addTextures(Loader.getContent("Button.json"));
-		StateGraphic.addTextures(Loader.getContent("ButtonsNextPauseBack.json"));
-		StateGraphic.addTextures(Loader.getContent("upgradeWin.json"));
-		StateGraphic.addTextures(Loader.getContent("OptionButtons.json"));
-		StateGraphic.addTextures(Loader.getContent("buttonsValidate.json"));
-		StateGraphic.addTextures(Loader.getContent("UpgradeWin.json"));
-		for (i in 1...7) {
-			StateGraphic.addTextures(Loader.getContent("shoots/shoots"+i+".json"));
-		}
-		StateGraphic.addTextures(Loader.getContent(ENEMIES_PATH + "enemies_bomb_speed.json"));
-		StateGraphic.addTextures(Loader.getContent(ENEMIES_PATH + "enemies_fire_turret.json"));
-		StateGraphic.addTextures(Loader.getContent(ENEMIES_PATH + "EnemyBomb_death.json"));
-		StateGraphic.addTextures(Loader.getContent(ENEMIES_PATH + "EnemyFire_death.json"));
-		StateGraphic.addTextures(Loader.getContent(ENEMIES_PATH + "EnemySpeed_death.json"));
-		StateGraphic.addTextures(Loader.getContent(ENEMIES_PATH + "EnemySpeed_death2.json"));
-		StateGraphic.addTextures(Loader.getContent(ENEMIES_PATH + "EnemyTurret_death.json"));
-		StateGraphic.addTextures(Loader.getContent("checkpoint.json"));
-		StateGraphic.addTextures(Loader.getContent("shield.json"));
-		StateGraphic.addTextures(Loader.getContent("magnet.json"));
-		StateGraphic.addTextures(Loader.getContent("touch_feedback.json"));
-		StateGraphic.addTextures(Loader.getContent("collectables/Collectable.json"));
-		StateGraphic.addTextures(Loader.getContent("characters/enemies.json"));
-		StateGraphic.addTextures(Loader.getContent("characters/player.json"));
-		
-		/*for(i in 1...5) {
-			StateGraphic.addTextures(Loader.getContent("levels/" + i + "/level" + i + "_graphics.json"));
-		}*/
+		StateGraphic.addTextures(Loader.getContent(DeviceCapabilities.textureType + "/ui/buttonsValidate.json"));
+		StateGraphic.addTextures(Loader.getContent(DeviceCapabilities.textureType + "/ui/ButtonsNextPauseBack.json"));
+		StateGraphic.addTextures(Loader.getContent(DeviceCapabilities.textureType + "/ui/tc/TitleCard.json"));
+		StateGraphic.addTextures(Loader.getContent(DeviceCapabilities.textureType + "/ui/tc/buttons_TitleCard.json"));
+		StateGraphic.addTextures(Loader.getContent(DeviceCapabilities.textureType + "/ui/options/OptionButtons.json"));
+		StateGraphic.addTextures(Loader.getContent(DeviceCapabilities.textureType + "/ui/options/OptionsBackgrounds0.json"));
+		StateGraphic.addTextures(Loader.getContent(DeviceCapabilities.textureType + "/ui/options/OptionsBackgrounds1.json"));
+		StateGraphic.addTextures(Loader.getContent(DeviceCapabilities.textureType + "/ui/selection_screen/MiniGem.json"));
+		StateGraphic.addTextures(Loader.getContent(DeviceCapabilities.textureType + "/ui/touch/touch_feedback.json"));
+		StateGraphic.addTextures(Loader.getContent(DeviceCapabilities.textureType + "/characters/player/shield.json"));
+		StateGraphic.addTextures(Loader.getContent(DeviceCapabilities.textureType + "/characters/player/magnet.json"));
+		StateGraphic.addTextures(Loader.getContent(DeviceCapabilities.textureType + "/characters/player/player.json"));
+		StateGraphic.addTextures(Loader.getContent(DeviceCapabilities.textureType + "/characters/enemies/enemies_bomb_speed.json"));
+		StateGraphic.addTextures(Loader.getContent(DeviceCapabilities.textureType + "/characters/enemies/enemies_fire_turret.json"));
+		StateGraphic.addTextures(Loader.getContent(DeviceCapabilities.textureType + "/characters/enemies/EnemyBomb_death.json"));
+		StateGraphic.addTextures(Loader.getContent(DeviceCapabilities.textureType + "/characters/enemies/EnemyFire_death.json"));
+		StateGraphic.addTextures(Loader.getContent(DeviceCapabilities.textureType + "/characters/enemies/EnemySpeed_death.json"));
+		StateGraphic.addTextures(Loader.getContent(DeviceCapabilities.textureType + "/characters/enemies/EnemySpeed_death2.json"));
+		StateGraphic.addTextures(Loader.getContent(DeviceCapabilities.textureType + "/characters/enemies/EnemyTurret_death.json"));
+		for (i in 1...7)
+			StateGraphic.addTextures(Loader.getContent(DeviceCapabilities.textureType + "/characters/shoots/shoots"+i+".json"));
+		StateGraphic.addTextures(Loader.getContent(DeviceCapabilities.textureType + "/other/Collectable.json"));
+		StateGraphic.addTextures(Loader.getContent(DeviceCapabilities.textureType + "/other/checkpoint.json"));
+		StateGraphic.addTextures(Loader.getContent(DeviceCapabilities.textureType + "/other/UpgradeWin.json"));
 		
 		// transmet au StateGraphic la description des boxes de collision utilisées par les instances de StateGraphic
 		StateGraphic.addBoxes(Loader.getContent("boxes.json", Config.jsonPath));
 		StateGraphic.addAnchors(Loader.getContent("anchors.json", Config.jsonPath));
 		
+		// ajoute les traductions et paramètre la langue
 		TranslationManager.addTranslations("en", Loader.getContent("main.json", Config.langPath + "en/"));
 		TranslationManager.addTranslations("fr", Loader.getContent("main.json", Config.langPath + "fr/"));
 		TranslationManager.getInstance().setLanguage(SaveManager.getInstance().userConfig["language"]);
+		
 		// Ouvre la TitleClard
 		UIManager.getInstance().closeScreens();
-		//UIManager.getInstance().openScreen(TitleCard.getInstance());
+		UIManager.getInstance().openScreen(TitleCard.getInstance());
 		
 		// Raccourcis
 		
 		//UIManager.getInstance().openScreen(SelectScreen.getInstance());
 		//UIManager.getInstance().openScreen(Options.getInstance());
-		LevelLoader.getInstance().load(1);
+		//LevelLoader.getInstance().load(1);
 	}
 	
 	/**

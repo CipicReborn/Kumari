@@ -4,9 +4,11 @@ import com.isartdigital.operationaaa.ui.buttons.ButtonDeleteSave;
 import com.isartdigital.operationaaa.ui.buttons.ButtonSave;
 import com.isartdigital.operationaaa.ui.buttons.ButtonSoundOff;
 import com.isartdigital.operationaaa.ui.buttons.ButtonSoundOn;
+import com.isartdigital.operationaaa.ui.elements.Background;
 import com.isartdigital.operationaaa.ui.popin.DeleteSave;
 import com.isartdigital.utils.Config;
 import com.isartdigital.utils.events.GameStageEvent;
+import com.isartdigital.utils.game.StateGraphic;
 import com.isartdigital.utils.loader.Loader;
 import com.isartdigital.utils.sounds.SoundManager;
 import com.isartdigital.utils.ui.Button;
@@ -25,8 +27,7 @@ import pixi.textures.Texture;
  * ...
  * @author Benjamin
  */
-class Options extends Screen
-{
+class Options extends Screen {
 	
 	/**
 	 * Marges
@@ -46,7 +47,7 @@ class Options extends Screen
 	/**
 	 * Fond de l'écran
 	 */
-	private var background:Sprite;
+	private var background:Background;
 	
 	private var backBtn:ButtonBack;
 	private var deleteSaveBtn:ButtonDeleteSave;
@@ -70,12 +71,10 @@ class Options extends Screen
 	/**
 	 * constructeur privé pour éviter qu'une instance soit créée directement
 	 */
-	private function new() 
-	{
+	private function new() {
 		super();
 		
-		background = new Sprite(Texture.fromImage(Config.assetsPath + "Options_bg.png"));
-		background.anchor.set(0.5, 0.5);
+		background = new Background('Options_bg');
 		addChild(background);
 		
 		backBtn = new ButtonBack();

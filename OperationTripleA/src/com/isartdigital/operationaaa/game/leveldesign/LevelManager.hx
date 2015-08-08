@@ -296,11 +296,11 @@ class LevelManager {
 	/**
 	 * marge horizontale à laquelle les objets sont clippés/déclippés
 	 */
-	private var horizontalClippingMargin: Int =  0; // 1120;
+	private var horizontalClippingMargin: Int =  1120; // 1120;
 	/**
 	 * marge verticale à laquelle les objets sont clippés/déclippés
 	 */
-	private var verticalClippingMargin: Int =  0; // 560;
+	private var verticalClippingMargin: Int =  560; // 560;
 	/**
 	 * l'index de la colonne de Clipping la plus à gauche
 	 */
