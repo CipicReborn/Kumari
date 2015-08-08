@@ -2,6 +2,7 @@ package com.isartdigital.operationaaa.ui.buttons;
 
 import com.isartdigital.operationaaa.game.GameManager;
 import com.isartdigital.operationaaa.game.leveldesign.LevelLoader;
+import com.isartdigital.operationaaa.ui.elements.GraphicElement;
 import com.isartdigital.operationaaa.ui.elements.MiniGauge;
 import com.isartdigital.operationaaa.ui.screens.SelectScreen;
 import com.isartdigital.utils.Config;
@@ -59,7 +60,7 @@ class LevelSelectionPanel extends GameObject {
 	/**
 	 * le sprite affiché à l'écran de selection
 	 */
-	private var levelSprite: Sprite;
+	private var levelSprite: GraphicElement;
 	
 	/**
 	 * le rectangle sur lequel va se caler le masque (nécessaire pour régler taille et position du masque)
@@ -69,17 +70,17 @@ class LevelSelectionPanel extends GameObject {
 	/**
 	 * la partie gauche du cadre dynamique (le cadre dynamique est un asset graphique qui encadre les panneaux pour faire joli, et qui s'adapte au tween)
 	 */
-	private var leftFrame: Sprite;
+	private var leftFrame: GraphicElement;
 	
 	/**
 	 * la partie centrale du cadre dynamique (le cadre dynamique est un asset graphique qui encadre les panneaux pour faire joli, et qui s'adapte au tween)
 	 */
-	private var midFrame: Sprite;
+	private var midFrame: GraphicElement;
 	
 	/**
 	 * la partie droite du cadre dynamique (le cadre dynamique est un asset graphique qui encadre les panneaux pour faire joli, et qui s'adapte au tween)
 	 */
-	private var rightFrame: Sprite;
+	private var rightFrame: GraphicElement;
 	
 	/**
 	 * true si le panneau est affiché en "plein écran" sur l'écran de sélection
@@ -163,30 +164,26 @@ class LevelSelectionPanel extends GameObject {
 		totalGems = pTotalGems;
 		
 		// Image du level
-		levelSprite = new Sprite(Texture.fromFrame(Config.assetsPath + "selection_screen/selection_level" + Std.string(levelId) + ".png"));
-		levelSprite.anchor.set(0.5, 0.5);
+		levelSprite = new GraphicElement("Level" + Std.string(levelId));
+		levelSprite.interactive = true;
 		addChild(levelSprite);
 		
 		// Creation du Cadre transparent redimensionnable
-		leftFrame = new Sprite(Texture.fromFrame(Config.assetsPath + "selection_screen/left_frame.png"));
-		midFrame = new Sprite(Texture.fromFrame(Config.assetsPath + "selection_screen/mid_frame.png"));
-		rightFrame = new Sprite(Texture.fromFrame(Config.assetsPath + "selection_screen/right_frame.png"));
+		leftFrame = new GraphicElement("left_frame", 0, 0.5);
+		midFrame = new GraphicElement("mid_frame", 0.5, 0.5);
+		rightFrame = new GraphicElement("right_frame", 1, 0.5);
 		
-		leftFrame.anchor.set(0, 0.5);
-		midFrame.anchor.set(0.5, 0.5);
-		rightFrame.anchor.set(1, 0.5);
-		
-		addChild(midFrame);
 		addChild(leftFrame);
 		addChild(rightFrame);
+		addChild(midFrame);
 		
 		// masque
 		mask = new Graphics();
 		addChild(mask);
 		mask.lineStyle(0);
 		
-		// interactivité
-		levelSprite.interactive = true;
+		//// interactivité
+		//levelSprite.interactive = true;
 		
 		// autres éléments d'UI
 		
@@ -356,12 +353,11 @@ class LevelSelectionPanel extends GameObject {
 		
 		// redimensionnement et repositionnement du cadre transparent
 		leftFrame.x = rectangle.x;
-		leftFrame.height = rectangle.height;
-		midFrame.width = rectangle.width - (leftFrame.width + rightFrame.width);
-		midFrame.height = rectangle.height;
+		leftFrame.setHeight(rectangle.height);
+		midFrame.setWidth(rectangle.width - (leftFrame.width + rightFrame.width));
+		midFrame.setHeight(rectangle.height);
 		rightFrame.x = rectangle.x + rectangle.width;
-		rightFrame.height = rectangle.height;
-		
+		rightFrame.setHeight(rectangle.height);
 		// pour rendre le clic impossible hors du masque
 		levelSprite.hitArea = rectangle;
 	}

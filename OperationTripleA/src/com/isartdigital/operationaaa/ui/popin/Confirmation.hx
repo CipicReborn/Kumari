@@ -1,7 +1,7 @@
 package com.isartdigital.operationaaa.ui.popin;
 import com.isartdigital.operationaaa.ui.buttons.ButtonRefuse;
 import com.isartdigital.operationaaa.ui.buttons.ButtonValidate;
-import com.isartdigital.operationaaa.ui.elements.Background;
+import com.isartdigital.operationaaa.ui.elements.GraphicElement;
 import com.isartdigital.utils.Config;
 import com.isartdigital.utils.game.StateGraphic;
 import com.isartdigital.utils.ui.Popin;
@@ -22,7 +22,7 @@ class Confirmation extends Popin {
 	private static inline var MARGIN_RIGHT:Int = 300;
 	private static inline var MARGIN_BOTTOM:Int = 150;
 	
-	private var background:Background;
+	private var background:GraphicElement;
 	
 	private var popInTitle:Text;
 	private var validateBtn:ButtonValidate;
@@ -30,7 +30,7 @@ class Confirmation extends Popin {
 	
 	public function new (pAssetName: String) {
 		super();
-		background = new Background(pAssetName);
+		background = new GraphicElement(pAssetName);
 		//Texture.fromImage(Config.assetsPath + "Confirm.png")
 		background.position.y = -50;
 		addChild(background);

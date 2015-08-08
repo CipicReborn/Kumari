@@ -140,9 +140,10 @@ class Main extends EventTarget {
 		
 		// lance le chargement des assets graphiques du preloader
 		var lLoader:Loader = new Loader();
+		lLoader.addTxtFile("anchors.json");
 		lLoader.addAssetFile("black_bg.png"); // 143 octets seulement, à la racine de assets pour ne pas modifier la classe utils com.isartdigital.utils.ui.Screen;
 		lLoader.addAssetFile(DeviceCapabilities.textureType + "/ui/preload/LoadingScreen.json");
-		lLoader.addAssetFile(DeviceCapabilities.textureType + "/ui/preload/preload_ovale.png");
+		//lLoader.addAssetFile(DeviceCapabilities.textureType + "/ui/preload/preload_ovale.png");
 		
 		lLoader.addEventListener(LoaderEvent.COMPLETE, loadFonts);
 		lLoader.load();
@@ -150,6 +151,7 @@ class Main extends EventTarget {
 	
 	//Chargement des polices
 	private function loadFonts(pEvent:LoaderEvent):Void {
+		
 		pEvent.target.removeEventListener(LoaderEvent.COMPLETE, loadFonts);
 		var webFontConfig = {
             custom: {
@@ -188,11 +190,11 @@ class Main extends EventTarget {
 		lLoader.addAssetFile(DeviceCapabilities.textureType + "/ui/options/OptionsBackgrounds1.json");
 		lLoader.addAssetFile(DeviceCapabilities.textureType + "/ui/hud/collectible_icon.png");
 		lLoader.addAssetFile(DeviceCapabilities.textureType + "/ui/hud/Pause_bg.png");
-		lLoader.addAssetFile(DeviceCapabilities.textureType + "/ui/selection_screen/MiniGem.json");
-		lLoader.addAssetFile(DeviceCapabilities.textureType + "/ui/selection_screen/selection_level1.png");
-		lLoader.addAssetFile(DeviceCapabilities.textureType + "/ui/selection_screen/selection_level2.png");
-		lLoader.addAssetFile(DeviceCapabilities.textureType + "/ui/selection_screen/selection_level3.png");
-		lLoader.addAssetFile(DeviceCapabilities.textureType + "/ui/selection_screen/selection_level4.png");
+		lLoader.addAssetFile(DeviceCapabilities.textureType + "/ui/selection_screen/selection_screen_0.json");
+		lLoader.addAssetFile(DeviceCapabilities.textureType + "/ui/selection_screen/selection_screen_1.json");
+		lLoader.addAssetFile(DeviceCapabilities.textureType + "/ui/selection_screen/selection_screen_2.json");
+		lLoader.addAssetFile(DeviceCapabilities.textureType + "/ui/selection_screen/selection_screen_3.json");
+		lLoader.addAssetFile(DeviceCapabilities.textureType + "/ui/selection_screen/selection_screen_4.json");
 		lLoader.addAssetFile(DeviceCapabilities.textureType + "/ui/touch/touch_feedback.json");
 		lLoader.addAssetFile(DeviceCapabilities.textureType + "/characters/player/shield.json");
 		lLoader.addAssetFile(DeviceCapabilities.textureType + "/characters/player/magnet.json");
@@ -218,6 +220,10 @@ class Main extends EventTarget {
 		// pour le suivi du chargement et la suite des événements
 		lLoader.addEventListener(LoaderEvent.PROGRESS, onLoadProgress);
 		lLoader.addEventListener(LoaderEvent.COMPLETE, onLoadComplete);
+		
+		// transmet au StateGraphic la description des ancres utilisées par les instances de StateGraphic et met le preload en cache
+		StateGraphic.addAnchors(Loader.getContent("anchors.json", Config.jsonPath));
+		StateGraphic.addTextures(Loader.getContent(DeviceCapabilities.textureType + "/ui/preload/LoadingScreen.json"));
 		
 		// affiche l'écran de préchargement
 		UIManager.getInstance().openScreen(GraphicLoader.getInstance());
@@ -252,7 +258,11 @@ class Main extends EventTarget {
 		StateGraphic.addTextures(Loader.getContent(DeviceCapabilities.textureType + "/ui/options/OptionButtons.json"));
 		StateGraphic.addTextures(Loader.getContent(DeviceCapabilities.textureType + "/ui/options/OptionsBackgrounds0.json"));
 		StateGraphic.addTextures(Loader.getContent(DeviceCapabilities.textureType + "/ui/options/OptionsBackgrounds1.json"));
-		StateGraphic.addTextures(Loader.getContent(DeviceCapabilities.textureType + "/ui/selection_screen/MiniGem.json"));
+		StateGraphic.addTextures(Loader.getContent(DeviceCapabilities.textureType + "/ui/selection_screen/selection_screen_0.json"));
+		StateGraphic.addTextures(Loader.getContent(DeviceCapabilities.textureType + "/ui/selection_screen/selection_screen_1.json"));
+		StateGraphic.addTextures(Loader.getContent(DeviceCapabilities.textureType + "/ui/selection_screen/selection_screen_2.json"));
+		StateGraphic.addTextures(Loader.getContent(DeviceCapabilities.textureType + "/ui/selection_screen/selection_screen_3.json"));
+		StateGraphic.addTextures(Loader.getContent(DeviceCapabilities.textureType + "/ui/selection_screen/selection_screen_4.json"));
 		StateGraphic.addTextures(Loader.getContent(DeviceCapabilities.textureType + "/ui/touch/touch_feedback.json"));
 		StateGraphic.addTextures(Loader.getContent(DeviceCapabilities.textureType + "/characters/player/shield.json"));
 		StateGraphic.addTextures(Loader.getContent(DeviceCapabilities.textureType + "/characters/player/magnet.json"));
@@ -272,7 +282,6 @@ class Main extends EventTarget {
 		
 		// transmet au StateGraphic la description des boxes de collision utilisées par les instances de StateGraphic
 		StateGraphic.addBoxes(Loader.getContent("boxes.json", Config.jsonPath));
-		StateGraphic.addAnchors(Loader.getContent("anchors.json", Config.jsonPath));
 		
 		// ajoute les traductions et paramètre la langue
 		TranslationManager.addTranslations("en", Loader.getContent("main.json", Config.langPath + "en/"));

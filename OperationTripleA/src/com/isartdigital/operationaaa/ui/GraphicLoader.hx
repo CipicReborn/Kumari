@@ -1,5 +1,6 @@
 package com.isartdigital.operationaaa.ui;
 
+import com.isartdigital.operationaaa.ui.elements.GraphicElement;
 import com.isartdigital.utils.Config;
 import com.isartdigital.utils.events.GameEvent;
 import com.isartdigital.utils.system.DeviceCapabilities;
@@ -19,7 +20,7 @@ class GraphicLoader extends Screen {
 	 */
 	private static var instance: GraphicLoader;
 
-	private var loaderBar:Sprite;
+	private var loaderBar: GraphicElement;
 	//private var funkySprites: Array<Sprite>;
 	//private var spritesCount: Int = 10;
 
@@ -37,19 +38,15 @@ class GraphicLoader extends Screen {
 			//funkySprites.push(lSprite);
 		//}
 		
-		var title:Sprite = new Sprite(Texture.fromFrame("preload_title.png"));
-		title.anchor.set(0.5, 0.5);
+		var title: GraphicElement = new GraphicElement("preload_title");
 		title.y -= title.height/2;
 		addChild(title);
 		
-		var lBg:Sprite = new Sprite(Texture.fromFrame("preload_bg.png"));
-		lBg.anchor.set(0.5, 0.5);
+		var lBg:GraphicElement = new GraphicElement("preload_bg");
 		lBg.y = 200;
 		addChild(lBg);
 		
-		loaderBar = new Sprite(Texture.fromFrame("preload.png"));
-		loaderBar.anchor.y = 0.5;
-		loaderBar.anchor.x = 0.05;
+		loaderBar = new GraphicElement("preload", 0.05, 0.5);
 		loaderBar.x = -loaderBar.width / 2 + 20;
 		loaderBar.y = 200;
 		addChild(loaderBar);

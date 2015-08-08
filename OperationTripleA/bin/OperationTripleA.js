@@ -378,9 +378,9 @@ com.isartdigital.operationaaa.Main.prototype = $extend(PIXI.EventTarget.prototyp
 		window.addEventListener("resize",$bind(this,this.resize));
 		this.resize();
 		var lLoader = new com.isartdigital.utils.loader.Loader();
+		lLoader.addTxtFile("anchors.json");
 		lLoader.addAssetFile("black_bg.png");
 		lLoader.addAssetFile(com.isartdigital.utils.system.DeviceCapabilities.textureType + "/ui/preload/LoadingScreen.json");
-		lLoader.addAssetFile(com.isartdigital.utils.system.DeviceCapabilities.textureType + "/ui/preload/preload_ovale.png");
 		lLoader.addEventListener("LoaderEvent.COMPLETE",$bind(this,this.loadFonts));
 		lLoader.load();
 	}
@@ -408,11 +408,11 @@ com.isartdigital.operationaaa.Main.prototype = $extend(PIXI.EventTarget.prototyp
 		lLoader.addAssetFile(com.isartdigital.utils.system.DeviceCapabilities.textureType + "/ui/options/OptionsBackgrounds1.json");
 		lLoader.addAssetFile(com.isartdigital.utils.system.DeviceCapabilities.textureType + "/ui/hud/collectible_icon.png");
 		lLoader.addAssetFile(com.isartdigital.utils.system.DeviceCapabilities.textureType + "/ui/hud/Pause_bg.png");
-		lLoader.addAssetFile(com.isartdigital.utils.system.DeviceCapabilities.textureType + "/ui/selection_screen/MiniGem.json");
-		lLoader.addAssetFile(com.isartdigital.utils.system.DeviceCapabilities.textureType + "/ui/selection_screen/selection_level1.png");
-		lLoader.addAssetFile(com.isartdigital.utils.system.DeviceCapabilities.textureType + "/ui/selection_screen/selection_level2.png");
-		lLoader.addAssetFile(com.isartdigital.utils.system.DeviceCapabilities.textureType + "/ui/selection_screen/selection_level3.png");
-		lLoader.addAssetFile(com.isartdigital.utils.system.DeviceCapabilities.textureType + "/ui/selection_screen/selection_level4.png");
+		lLoader.addAssetFile(com.isartdigital.utils.system.DeviceCapabilities.textureType + "/ui/selection_screen/selection_screen_0.json");
+		lLoader.addAssetFile(com.isartdigital.utils.system.DeviceCapabilities.textureType + "/ui/selection_screen/selection_screen_1.json");
+		lLoader.addAssetFile(com.isartdigital.utils.system.DeviceCapabilities.textureType + "/ui/selection_screen/selection_screen_2.json");
+		lLoader.addAssetFile(com.isartdigital.utils.system.DeviceCapabilities.textureType + "/ui/selection_screen/selection_screen_3.json");
+		lLoader.addAssetFile(com.isartdigital.utils.system.DeviceCapabilities.textureType + "/ui/selection_screen/selection_screen_4.json");
 		lLoader.addAssetFile(com.isartdigital.utils.system.DeviceCapabilities.textureType + "/ui/touch/touch_feedback.json");
 		lLoader.addAssetFile(com.isartdigital.utils.system.DeviceCapabilities.textureType + "/characters/player/shield.json");
 		lLoader.addAssetFile(com.isartdigital.utils.system.DeviceCapabilities.textureType + "/characters/player/magnet.json");
@@ -435,6 +435,8 @@ com.isartdigital.operationaaa.Main.prototype = $extend(PIXI.EventTarget.prototyp
 		if(!com.isartdigital.utils.Config.get_data().debugNoSoundLoad) lLoader.addSoundFile("sounds.json");
 		lLoader.addEventListener("LoaderEvent.PROGRESS",$bind(this,this.onLoadProgress));
 		lLoader.addEventListener("LoaderEvent.COMPLETE",$bind(this,this.onLoadComplete));
+		com.isartdigital.utils.game.StateGraphic.addAnchors(com.isartdigital.utils.loader.Loader.getContent("anchors.json",com.isartdigital.utils.Config.get_jsonPath()));
+		com.isartdigital.utils.game.StateGraphic.addTextures(com.isartdigital.utils.loader.Loader.getContent(com.isartdigital.utils.system.DeviceCapabilities.textureType + "/ui/preload/LoadingScreen.json"));
 		com.isartdigital.operationaaa.ui.UIManager.getInstance().openScreen(com.isartdigital.operationaaa.ui.GraphicLoader.getInstance());
 		window.requestAnimationFrame($bind(this,this.gameLoop));
 		lLoader.load();
@@ -452,7 +454,11 @@ com.isartdigital.operationaaa.Main.prototype = $extend(PIXI.EventTarget.prototyp
 		com.isartdigital.utils.game.StateGraphic.addTextures(com.isartdigital.utils.loader.Loader.getContent(com.isartdigital.utils.system.DeviceCapabilities.textureType + "/ui/options/OptionButtons.json"));
 		com.isartdigital.utils.game.StateGraphic.addTextures(com.isartdigital.utils.loader.Loader.getContent(com.isartdigital.utils.system.DeviceCapabilities.textureType + "/ui/options/OptionsBackgrounds0.json"));
 		com.isartdigital.utils.game.StateGraphic.addTextures(com.isartdigital.utils.loader.Loader.getContent(com.isartdigital.utils.system.DeviceCapabilities.textureType + "/ui/options/OptionsBackgrounds1.json"));
-		com.isartdigital.utils.game.StateGraphic.addTextures(com.isartdigital.utils.loader.Loader.getContent(com.isartdigital.utils.system.DeviceCapabilities.textureType + "/ui/selection_screen/MiniGem.json"));
+		com.isartdigital.utils.game.StateGraphic.addTextures(com.isartdigital.utils.loader.Loader.getContent(com.isartdigital.utils.system.DeviceCapabilities.textureType + "/ui/selection_screen/selection_screen_0.json"));
+		com.isartdigital.utils.game.StateGraphic.addTextures(com.isartdigital.utils.loader.Loader.getContent(com.isartdigital.utils.system.DeviceCapabilities.textureType + "/ui/selection_screen/selection_screen_1.json"));
+		com.isartdigital.utils.game.StateGraphic.addTextures(com.isartdigital.utils.loader.Loader.getContent(com.isartdigital.utils.system.DeviceCapabilities.textureType + "/ui/selection_screen/selection_screen_2.json"));
+		com.isartdigital.utils.game.StateGraphic.addTextures(com.isartdigital.utils.loader.Loader.getContent(com.isartdigital.utils.system.DeviceCapabilities.textureType + "/ui/selection_screen/selection_screen_3.json"));
+		com.isartdigital.utils.game.StateGraphic.addTextures(com.isartdigital.utils.loader.Loader.getContent(com.isartdigital.utils.system.DeviceCapabilities.textureType + "/ui/selection_screen/selection_screen_4.json"));
 		com.isartdigital.utils.game.StateGraphic.addTextures(com.isartdigital.utils.loader.Loader.getContent(com.isartdigital.utils.system.DeviceCapabilities.textureType + "/ui/touch/touch_feedback.json"));
 		com.isartdigital.utils.game.StateGraphic.addTextures(com.isartdigital.utils.loader.Loader.getContent(com.isartdigital.utils.system.DeviceCapabilities.textureType + "/characters/player/shield.json"));
 		com.isartdigital.utils.game.StateGraphic.addTextures(com.isartdigital.utils.loader.Loader.getContent(com.isartdigital.utils.system.DeviceCapabilities.textureType + "/characters/player/magnet.json"));
@@ -473,7 +479,6 @@ com.isartdigital.operationaaa.Main.prototype = $extend(PIXI.EventTarget.prototyp
 		com.isartdigital.utils.game.StateGraphic.addTextures(com.isartdigital.utils.loader.Loader.getContent(com.isartdigital.utils.system.DeviceCapabilities.textureType + "/other/checkpoint.json"));
 		com.isartdigital.utils.game.StateGraphic.addTextures(com.isartdigital.utils.loader.Loader.getContent(com.isartdigital.utils.system.DeviceCapabilities.textureType + "/other/UpgradeWin.json"));
 		com.isartdigital.utils.game.StateGraphic.addBoxes(com.isartdigital.utils.loader.Loader.getContent("boxes.json",com.isartdigital.utils.Config.get_jsonPath()));
-		com.isartdigital.utils.game.StateGraphic.addAnchors(com.isartdigital.utils.loader.Loader.getContent("anchors.json",com.isartdigital.utils.Config.get_jsonPath()));
 		com.isartdigital.utils.ui.TranslationManager.addTranslations("en",com.isartdigital.utils.loader.Loader.getContent("main.json",com.isartdigital.utils.Config.get_langPath() + "en/"));
 		com.isartdigital.utils.ui.TranslationManager.addTranslations("fr",com.isartdigital.utils.loader.Loader.getContent("main.json",com.isartdigital.utils.Config.get_langPath() + "fr/"));
 		com.isartdigital.utils.ui.TranslationManager.getInstance().setLanguage((function($this) {
@@ -4182,17 +4187,13 @@ com.isartdigital.utils.ui.Screen.prototype = $extend(com.isartdigital.utils.ui.U
 });
 com.isartdigital.operationaaa.ui.GraphicLoader = function() {
 	com.isartdigital.utils.ui.Screen.call(this);
-	var title = new PIXI.Sprite(PIXI.Texture.fromFrame("preload_title.png"));
-	title.anchor.set(0.5,0.5);
+	var title = new com.isartdigital.operationaaa.ui.elements.GraphicElement("preload_title");
 	title.y -= title.height / 2;
 	this.addChild(title);
-	var lBg = new PIXI.Sprite(PIXI.Texture.fromFrame("preload_bg.png"));
-	lBg.anchor.set(0.5,0.5);
+	var lBg = new com.isartdigital.operationaaa.ui.elements.GraphicElement("preload_bg");
 	lBg.y = 200;
 	this.addChild(lBg);
-	this.loaderBar = new PIXI.Sprite(PIXI.Texture.fromFrame("preload.png"));
-	this.loaderBar.anchor.y = 0.5;
-	this.loaderBar.anchor.x = 0.05;
+	this.loaderBar = new com.isartdigital.operationaaa.ui.elements.GraphicElement("preload",0.05,0.5);
 	this.loaderBar.x = -this.loaderBar.width / 2 + 20;
 	this.loaderBar.y = 200;
 	this.addChild(this.loaderBar);
@@ -4302,6 +4303,9 @@ com.isartdigital.utils.ui.Button.prototype = $extend(com.isartdigital.utils.game
 	}
 	,setText: function(pText) {
 		this.txt.setText(pText);
+	}
+	,setTint: function(pValue) {
+		this.anim.tint = pValue;
 	}
 	,setModeNormal: function() {
 		this.setState(this.DEFAULT_STATE);
@@ -4485,22 +4489,18 @@ com.isartdigital.operationaaa.ui.buttons.LevelSelectionPanel = function(pLevel,p
 	this.upgradeCollected = pUpgrade;
 	this.collectedGems = pCollectedGems;
 	this.totalGems = pTotalGems;
-	this.levelSprite = new PIXI.Sprite(PIXI.Texture.fromFrame(com.isartdigital.utils.Config.get_assetsPath() + "selection_screen/selection_level" + Std.string(this.levelId) + ".png"));
-	this.levelSprite.anchor.set(0.5,0.5);
+	this.levelSprite = new com.isartdigital.operationaaa.ui.elements.GraphicElement("Level" + Std.string(this.levelId));
+	this.levelSprite.interactive = true;
 	this.addChild(this.levelSprite);
-	this.leftFrame = new PIXI.Sprite(PIXI.Texture.fromFrame(com.isartdigital.utils.Config.get_assetsPath() + "selection_screen/left_frame.png"));
-	this.midFrame = new PIXI.Sprite(PIXI.Texture.fromFrame(com.isartdigital.utils.Config.get_assetsPath() + "selection_screen/mid_frame.png"));
-	this.rightFrame = new PIXI.Sprite(PIXI.Texture.fromFrame(com.isartdigital.utils.Config.get_assetsPath() + "selection_screen/right_frame.png"));
-	this.leftFrame.anchor.set(0,0.5);
-	this.midFrame.anchor.set(0.5,0.5);
-	this.rightFrame.anchor.set(1,0.5);
-	this.addChild(this.midFrame);
+	this.leftFrame = new com.isartdigital.operationaaa.ui.elements.GraphicElement("left_frame",0,0.5);
+	this.midFrame = new com.isartdigital.operationaaa.ui.elements.GraphicElement("mid_frame",0.5,0.5);
+	this.rightFrame = new com.isartdigital.operationaaa.ui.elements.GraphicElement("right_frame",1,0.5);
 	this.addChild(this.leftFrame);
 	this.addChild(this.rightFrame);
+	this.addChild(this.midFrame);
 	this.mask = new PIXI.Graphics();
 	this.addChild(this.mask);
 	this.mask.lineStyle(0);
-	this.levelSprite.interactive = true;
 	this.infoBox = new pixi.display.DisplayObjectContainer();
 	this.miniUpgrade = new PIXI.Sprite(PIXI.Texture.fromFrame("UpgradeWin000" + this.levelId + ".png"));
 	this.miniUpgrade.anchor.set(0.5,0.5);
@@ -4520,12 +4520,12 @@ com.isartdigital.operationaaa.ui.buttons.LevelSelectionPanel.getLocalisedLevelNa
 com.isartdigital.operationaaa.ui.buttons.LevelSelectionPanel.__super__ = com.isartdigital.utils.game.GameObject;
 com.isartdigital.operationaaa.ui.buttons.LevelSelectionPanel.prototype = $extend(com.isartdigital.utils.game.GameObject.prototype,{
 	onClickDoStartLevel: function(pEvent) {
-		haxe.Log.trace("[LevelSelectionPanel.onClick] Level " + this.levelId + " clicked : Loading Level...",{ fileName : "LevelSelectionPanel.hx", lineNumber : 219, className : "com.isartdigital.operationaaa.ui.buttons.LevelSelectionPanel", methodName : "onClickDoStartLevel"});
+		haxe.Log.trace("[LevelSelectionPanel.onClick] Level " + this.levelId + " clicked : Loading Level...",{ fileName : "LevelSelectionPanel.hx", lineNumber : 216, className : "com.isartdigital.operationaaa.ui.buttons.LevelSelectionPanel", methodName : "onClickDoStartLevel"});
 		com.isartdigital.utils.sounds.SoundManager.getSound("click").play();
 		com.isartdigital.operationaaa.game.leveldesign.LevelLoader.getInstance().load(this.levelId);
 	}
 	,onClickDoOpenPanel: function(pEvent) {
-		haxe.Log.trace("[LevelSelectionPanel.onClick] Level " + this.levelId + " clicked : Opening Panel...",{ fileName : "LevelSelectionPanel.hx", lineNumber : 230, className : "com.isartdigital.operationaaa.ui.buttons.LevelSelectionPanel", methodName : "onClickDoOpenPanel"});
+		haxe.Log.trace("[LevelSelectionPanel.onClick] Level " + this.levelId + " clicked : Opening Panel...",{ fileName : "LevelSelectionPanel.hx", lineNumber : 227, className : "com.isartdigital.operationaaa.ui.buttons.LevelSelectionPanel", methodName : "onClickDoOpenPanel"});
 		com.isartdigital.operationaaa.ui.screens.SelectScreen.getInstance().setModeOpenPanel(this.levelId);
 	}
 	,setModeNormal: function() {
@@ -4593,11 +4593,11 @@ com.isartdigital.operationaaa.ui.buttons.LevelSelectionPanel.prototype = $extend
 		this.mask.drawShape(this.rectangle);
 		this.mask.endFill();
 		this.leftFrame.x = this.rectangle.x;
-		this.leftFrame.height = this.rectangle.height;
-		this.midFrame.width = this.rectangle.width - (this.leftFrame.width + this.rightFrame.width);
-		this.midFrame.height = this.rectangle.height;
+		this.leftFrame.setHeight(this.rectangle.height);
+		this.midFrame.setWidth(this.rectangle.width - (this.leftFrame.width + this.rightFrame.width));
+		this.midFrame.setHeight(this.rectangle.height);
 		this.rightFrame.x = this.rectangle.x + this.rectangle.width;
-		this.rightFrame.height = this.rectangle.height;
+		this.rightFrame.setHeight(this.rectangle.height);
 		this.levelSprite.hitArea = this.rectangle;
 	}
 	,get_id: function() {
@@ -4606,18 +4606,29 @@ com.isartdigital.operationaaa.ui.buttons.LevelSelectionPanel.prototype = $extend
 	,__class__: com.isartdigital.operationaaa.ui.buttons.LevelSelectionPanel
 });
 com.isartdigital.operationaaa.ui.elements = {};
-com.isartdigital.operationaaa.ui.elements.Background = function(pAssetName) {
+com.isartdigital.operationaaa.ui.elements.GraphicElement = function(pAssetName,pAnchorX,pAnchorY) {
+	if(pAnchorY == null) pAnchorY = 0.5;
+	if(pAnchorX == null) pAnchorX = 0.5;
 	com.isartdigital.utils.game.StateGraphic.call(this);
 	this.assetName = pAssetName;
 	this.boxType = com.isartdigital.utils.game.BoxType.NONE;
 	this.setState(this.DEFAULT_STATE);
-	this.anim.anchor.set(0.5,0.5);
+	this.anim.anchor.set(pAnchorX,pAnchorY);
 };
-$hxClasses["com.isartdigital.operationaaa.ui.elements.Background"] = com.isartdigital.operationaaa.ui.elements.Background;
-com.isartdigital.operationaaa.ui.elements.Background.__name__ = ["com","isartdigital","operationaaa","ui","elements","Background"];
-com.isartdigital.operationaaa.ui.elements.Background.__super__ = com.isartdigital.utils.game.StateGraphic;
-com.isartdigital.operationaaa.ui.elements.Background.prototype = $extend(com.isartdigital.utils.game.StateGraphic.prototype,{
-	__class__: com.isartdigital.operationaaa.ui.elements.Background
+$hxClasses["com.isartdigital.operationaaa.ui.elements.GraphicElement"] = com.isartdigital.operationaaa.ui.elements.GraphicElement;
+com.isartdigital.operationaaa.ui.elements.GraphicElement.__name__ = ["com","isartdigital","operationaaa","ui","elements","GraphicElement"];
+com.isartdigital.operationaaa.ui.elements.GraphicElement.__super__ = com.isartdigital.utils.game.StateGraphic;
+com.isartdigital.operationaaa.ui.elements.GraphicElement.prototype = $extend(com.isartdigital.utils.game.StateGraphic.prototype,{
+	setHeight: function(pValue) {
+		this.height = pValue;
+	}
+	,setWidth: function(pValue) {
+		this.width = pValue;
+	}
+	,setInteractive: function() {
+		this.interactive = true;
+	}
+	,__class__: com.isartdigital.operationaaa.ui.elements.GraphicElement
 });
 com.isartdigital.operationaaa.ui.elements.MiniGauge = function(pCurrentCount,pMaxCount,pRadius) {
 	com.isartdigital.utils.game.GameObject.call(this);
@@ -4891,7 +4902,7 @@ com.isartdigital.operationaaa.ui.popin.Confirm.prototype = $extend(com.isartdigi
 });
 com.isartdigital.operationaaa.ui.popin.Confirmation = function(pAssetName) {
 	com.isartdigital.utils.ui.Popin.call(this);
-	this.background = new com.isartdigital.operationaaa.ui.elements.Background(pAssetName);
+	this.background = new com.isartdigital.operationaaa.ui.elements.GraphicElement(pAssetName);
 	this.background.position.y = -50;
 	this.addChild(this.background);
 	this.popInTitle = new PIXI.Text("Placeholder_TEXT",{ font : "48px Arial"});
@@ -5103,7 +5114,7 @@ com.isartdigital.operationaaa.ui.screens.FinalWin.prototype = $extend(com.isartd
 });
 com.isartdigital.operationaaa.ui.screens.Options = function() {
 	com.isartdigital.utils.ui.Screen.call(this);
-	this.background = new com.isartdigital.operationaaa.ui.elements.Background("Options_bg");
+	this.background = new com.isartdigital.operationaaa.ui.elements.GraphicElement("Options_bg");
 	this.addChild(this.background);
 	this.backBtn = new com.isartdigital.operationaaa.ui.buttons.ButtonBack();
 	this.backBtn.position.set(-900,550);
@@ -5143,11 +5154,10 @@ com.isartdigital.operationaaa.ui.screens.Options.prototype = $extend(com.isartdi
 	addFlagToScreen: function(pLanguage,pHorizontalOffset,pVerticalOffset) {
 		if(pVerticalOffset == null) pVerticalOffset = 0;
 		if(pHorizontalOffset == null) pHorizontalOffset = 0;
-		var v = new PIXI.Sprite(PIXI.Texture.fromFrame("flag_" + pLanguage + ".png"));
+		var v = new com.isartdigital.operationaaa.ui.elements.GraphicElement("flag_" + pLanguage);
 		this.flagsMap.set(pLanguage,v);
 		v;
 		var lFlag = this.flagsMap.get(pLanguage);
-		lFlag.anchor.set(0.5,0.5);
 		lFlag.scale.set(0.75,0.75);
 		lFlag.position.set(pHorizontalOffset,pVerticalOffset);
 		lFlag.interactive = true;
@@ -5157,12 +5167,10 @@ com.isartdigital.operationaaa.ui.screens.Options.prototype = $extend(com.isartdi
 	}
 	,markFlag: function(pLanguageToMark) {
 		if(this.flagMarker == null) {
-			this.flagMarker = new PIXI.Sprite(PIXI.Texture.fromFrame("ButtonValidate0001.png"));
-			this.flagMarker.scale.x = this.flagMarker.scale.y *= 0.5;
-			this.flagMarker.tint = 52224;
+			this.flagMarker = new com.isartdigital.operationaaa.ui.buttons.ButtonValidate();
+			this.flagMarker.setTint(52224);
 		}
 		if(this.flagMarker.parent != null) this.flagMarker.parent.removeChild(this.flagMarker);
-		this.flagMarker.anchor.set(0.5,0.5);
 		this.flagMarker.position.set(this.flagsMap.get(pLanguageToMark).x - 10,this.flagsMap.get(pLanguageToMark).y + 50);
 		this.addChild(this.flagMarker);
 	}
@@ -5180,7 +5188,7 @@ com.isartdigital.operationaaa.ui.screens.Options.prototype = $extend(com.isartdi
 			var this2 = com.isartdigital.operationaaa.SaveManager.getInstance().get_userConfig();
 			$r = this2.get("language");
 			return $r;
-		}(this))),{ fileName : "Options.hx", lineNumber : 168, className : "com.isartdigital.operationaaa.ui.screens.Options", methodName : "onClickFlag"});
+		}(this))),{ fileName : "Options.hx", lineNumber : 165, className : "com.isartdigital.operationaaa.ui.screens.Options", methodName : "onClickFlag"});
 	}
 	,onClickBackBtn: function(pEvent) {
 		com.isartdigital.utils.sounds.SoundManager.getSound("click").play();

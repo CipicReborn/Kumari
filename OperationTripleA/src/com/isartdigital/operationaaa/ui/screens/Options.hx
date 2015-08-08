@@ -4,7 +4,8 @@ import com.isartdigital.operationaaa.ui.buttons.ButtonDeleteSave;
 import com.isartdigital.operationaaa.ui.buttons.ButtonSave;
 import com.isartdigital.operationaaa.ui.buttons.ButtonSoundOff;
 import com.isartdigital.operationaaa.ui.buttons.ButtonSoundOn;
-import com.isartdigital.operationaaa.ui.elements.Background;
+import com.isartdigital.operationaaa.ui.buttons.ButtonValidate;
+import com.isartdigital.operationaaa.ui.elements.GraphicElement;
 import com.isartdigital.operationaaa.ui.popin.DeleteSave;
 import com.isartdigital.utils.Config;
 import com.isartdigital.utils.events.GameStageEvent;
@@ -47,17 +48,17 @@ class Options extends Screen {
 	/**
 	 * Fond de l'écran
 	 */
-	private var background:Background;
+	private var background:GraphicElement;
 	
 	private var backBtn:ButtonBack;
 	private var deleteSaveBtn:ButtonDeleteSave;
 	private var soundBtnOn :ButtonSoundOn;
 	private var soundBtnOff:ButtonSoundOff;
 	
-	private var flagsMap:Map<String, Sprite>;
-	private var enFlag:Sprite;
-	private var frFlag:Sprite;
-	private var flagMarker:Sprite;
+	private var flagsMap:Map<String, GraphicElement>;
+	private var enFlag:GraphicElement;
+	private var frFlag:GraphicElement;
+	private var flagMarker:ButtonValidate;
 	
 	/**
 	 * Retourne l'instance unique de la classe, et la crée si elle n'existait pas au préalable
@@ -74,7 +75,7 @@ class Options extends Screen {
 	private function new() {
 		super();
 		
-		background = new Background('Options_bg');
+		background = new GraphicElement('Options_bg');
 		addChild(background);
 		
 		backBtn = new ButtonBack();
@@ -99,7 +100,7 @@ class Options extends Screen {
 		
 		addChild(titleTxt);
 		
-		flagsMap = new Map<String, Sprite>();
+		flagsMap = new Map<String, GraphicElement>();
 		
 		//On ajoute les drapeaux
 		addFlagToScreen("fr", OFFSET_FLAG_LEFT, OFFSET_FLAG_UP);
@@ -114,10 +115,9 @@ class Options extends Screen {
 	 * @param	pLanguage
 	 */
 	private function addFlagToScreen(pLanguage:String, ?pHorizontalOffset:Int = 0, ?pVerticalOffset:Int = 0):Void {
-		flagsMap[pLanguage] = new Sprite(Texture.fromFrame("flag_" + pLanguage + ".png"));
+		flagsMap[pLanguage] = new GraphicElement("flag_" + pLanguage);
 		
-		var lFlag:Sprite = flagsMap[pLanguage];
-		lFlag.anchor.set(0.5, 0.5);
+		var lFlag:GraphicElement = flagsMap[pLanguage];
 		lFlag.scale.set(0.75, 0.75);
 		lFlag.position.set(pHorizontalOffset, pVerticalOffset);
 		lFlag.interactive = true;
@@ -134,17 +134,14 @@ class Options extends Screen {
 	private function markFlag(pLanguageToMark:String):Void {
 		//Si le marqueur n'existe pas, on le crée
 		if (flagMarker == null) {
-			flagMarker = new Sprite(Texture.fromFrame("ButtonValidate0001.png"));
-			flagMarker.scale.x = flagMarker.scale.y *= 0.5;
-			flagMarker.tint = 0x00CC00;
+			flagMarker = new ButtonValidate();
+			flagMarker.setTint(0x00CC00);
 		}
 		
 		//Si il est attaché à la displaylist, on le retire
 		if (flagMarker.parent != null) {
 			flagMarker.parent.removeChild(flagMarker);
 		}
-		
-		flagMarker.anchor.set(0.5, 0.5);
 		
 		flagMarker.position.set(flagsMap[pLanguageToMark].x - 10, flagsMap[pLanguageToMark].y + 50);
 		addChild(flagMarker);

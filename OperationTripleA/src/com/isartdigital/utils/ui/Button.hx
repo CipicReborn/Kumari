@@ -62,6 +62,10 @@ class Button extends StateGraphic
 		txt.setText(pText);
 	}
 	
+	public function setTint (pValue: Int): Void {
+		anim.tint = pValue;
+	}
+	
 	override private function setModeNormal ():Void {
 		setState(DEFAULT_STATE);
 		anim.anchor.set(0.5, 0.5);
