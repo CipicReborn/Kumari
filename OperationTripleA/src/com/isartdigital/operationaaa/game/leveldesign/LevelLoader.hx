@@ -56,13 +56,13 @@ class LevelLoader {
 	/**
 	 * PATHS
 	 */
-	private static inline var LEVELPATH:String = "levels/";
+	private static inline var LEVELPATH:String = "level_specific/";
 	private static inline var PATH_TO_SPRITE_CLASSES:String = "com.isartdigital.operationaaa.game.sprites.";
 	private static inline var PLATFORMS_PATH:String = "platforms.";
 	private static inline var ENEMIES_PATH:String   = "enemies.";
 	private static inline var WALLS_PATH:String     = "walls.";
 	private static inline var COLLECTABLES_PATH:String  = "collectables.";
-	private var PLAYER_PATH:String  = "";
+	private var PLAYER_PATH:String  = "/player";
 	
 	/**
 	 * Types
@@ -184,12 +184,10 @@ class LevelLoader {
 		lLoader.addTxtFile(LEVELPATH + currentLevelId + '/pools.json');
 		lLoader.addTxtFile(LEVELPATH + currentLevelId + '/anchors_graphics.json');
 		
-		lLoader.addAssetFile(LEVELPATH + currentLevelId + '/backgrounds.json');
-		lLoader.addAssetFile(LEVELPATH + currentLevelId + '/graphics.json');
-
-		lLoader.addAssetFile('characters/enemies/KillZoneDynamic.json');
-		lLoader.addAssetFile('collectables/Collectable.json');
-		lLoader.addAssetFile('characters' + PLAYER_PATH + '/player.json');
+		lLoader.addAssetFile(DeviceCapabilities.textureType + '/' + LEVELPATH + currentLevelId + '/backgrounds.json');
+		lLoader.addAssetFile(DeviceCapabilities.textureType + '/' + LEVELPATH + currentLevelId + '/graphics.json');
+		lLoader.addAssetFile(DeviceCapabilities.textureType + '/characters/enemies/KillZoneDynamic.json');
+		lLoader.addAssetFile(DeviceCapabilities.textureType + '/characters' + PLAYER_PATH + '/player.json');
 		
 		lLoader.addEventListener(LoaderEvent.PROGRESS, onLoadProgress);
 		lLoader.addEventListener(LoaderEvent.COMPLETE, onLoadComplete);
@@ -217,17 +215,15 @@ class LevelLoader {
 	private function onLoadComplete (pEvent: LoaderEvent): Void {
 		
 		
-		//trace("Level Manager loaded successfully Level " + currentLevel);
+		trace("Level Manager loaded successfully Level " + currentLevelId);
 		
 		
 		// = 1. Chargement des TEXTURES, du JSON de LevelDesign et de la Sauvegarde
-		StateGraphic.clearTextures(Loader.getContent(LEVELPATH + currentLevelId + '/graphics.json'));
-		StateGraphic.clearTextures(Loader.getContent('characters' + PLAYER_PATH + '/player.json'));
-		StateGraphic.clearTextures(Loader.getContent('characters/enemies/KillZoneDynamic.json'));
+		StateGraphic.clearTextures(Loader.getContent(DeviceCapabilities.textureType + LEVELPATH + currentLevelId + '/graphics.json'));
+		StateGraphic.clearTextures(Loader.getContent(DeviceCapabilities.textureType + '/characters/' + PLAYER_PATH + '/player.json'));
 		
-		StateGraphic.addTextures(Loader.getContent(LEVELPATH + currentLevelId + '/graphics.json'));
-		StateGraphic.addTextures(Loader.getContent('characters' + PLAYER_PATH + '/player.json'));
-		StateGraphic.addTextures(Loader.getContent('characters/enemies/KillZoneDynamic.json'));
+		StateGraphic.addTextures(Loader.getContent(DeviceCapabilities.textureType + LEVELPATH + currentLevelId + '/graphics.json'));
+		StateGraphic.addTextures(Loader.getContent(DeviceCapabilities.textureType + '/characters' + PLAYER_PATH + '/player.json'));
 		
 		StateGraphic.addAnchors(Loader.getContent('anchors_graphics.json', Config.jsonPath + LEVELPATH + currentLevelId + '/'));
 		

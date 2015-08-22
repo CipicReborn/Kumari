@@ -1,6 +1,7 @@
 package com.isartdigital.operationaaa.ui;
 
 import com.isartdigital.operationaaa.ui.hud.Hud;
+import com.isartdigital.utils.Debug;
 import com.isartdigital.utils.game.GameStage;
 import com.isartdigital.utils.system.DeviceCapabilities;
 import com.isartdigital.utils.ui.Popin;
@@ -105,6 +106,7 @@ class UIManager
 	 */
 	 public function startGame (): Void {
 		closeScreens();
+		//Debug.warn('hud a réouvrir ici');
 		openHud();
 	}
 	

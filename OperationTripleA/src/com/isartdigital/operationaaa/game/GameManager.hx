@@ -91,11 +91,11 @@ class GameManager
 		
 		// début de l'initialisation du jeu
 		LevelManager.getInstance().init();
-		Camera.getInstance().setTarget(GamePlane.getInstance());
-		Player.getInstance().takeCameraFocus();
-		Camera.getInstance().setPosition();
-		LevelManager.getInstance().populateScreen(); // après le Camera.setPosition car on va clipper ce qui est dans le champ caméra
-		Player.getInstance().update();
+		//Camera.getInstance().setTarget(GamePlane.getInstance());
+		//Player.getInstance().takeCameraFocus();
+		//Camera.getInstance().setPosition();
+		//LevelManager.getInstance().populateScreen(); // après le Camera.setPosition car on va clipper ce qui est dans le champ caméra
+		//Player.getInstance().update();
 		
 		//CheatPanel.getInstance().setPlayer();
 		//CheatPanel.getInstance().ingame();
@@ -113,9 +113,9 @@ class GameManager
 	 * boucle de jeu (répétée à la cadence du jeu en fps)
 	 */
 	public function gameLoop (): Void {
+		
 		background.doAction();
 		backgroundTransparent.doAction();
-		
 		
 		Player.getInstance().doAction();
 		

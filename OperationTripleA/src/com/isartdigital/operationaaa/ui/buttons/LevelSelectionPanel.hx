@@ -105,7 +105,7 @@ class LevelSelectionPanel extends GameObject {
 	/**
 	 * objet MiniUpgrade pour l'état normal
 	 */
-	private var miniUpgrade: Sprite;
+	private var miniUpgrade: GraphicElement;
 	
 	/**
 	 * objet Gauge pour l'état open
@@ -191,8 +191,7 @@ class LevelSelectionPanel extends GameObject {
 		infoBox = new DisplayObjectContainer();
 		
 			//état normal
-		miniUpgrade = new Sprite(Texture.fromFrame("UpgradeWin000" + levelId + ".png"));
-		miniUpgrade.anchor.set(0.5, 0.5);
+		miniUpgrade = new GraphicElement("UpgradeWin000" + levelId);
 		if (!upgradeCollected) miniUpgrade.alpha = 0.5;
 		
 		miniGauge = new MiniGauge(collectedGems, totalGems, 150);

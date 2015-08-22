@@ -3,7 +3,6 @@ package com.isartdigital.operationaaa.ui.screens;
 import com.isartdigital.operationaaa.game.GameManager;
 import com.isartdigital.operationaaa.ui.buttons.ButtonOptions;
 import com.isartdigital.operationaaa.ui.buttons.ButtonPlay;
-import com.isartdigital.operationaaa.ui.popin.Confirm;
 import com.isartdigital.utils.Config;
 import com.isartdigital.utils.events.GameEvent;
 import com.isartdigital.utils.game.StateGraphic;

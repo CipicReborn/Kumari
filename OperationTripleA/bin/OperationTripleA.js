@@ -406,8 +406,7 @@ com.isartdigital.operationaaa.Main.prototype = $extend(PIXI.EventTarget.prototyp
 		lLoader.addAssetFile(com.isartdigital.utils.system.DeviceCapabilities.textureType + "/ui/options/OptionButtons.json");
 		lLoader.addAssetFile(com.isartdigital.utils.system.DeviceCapabilities.textureType + "/ui/options/OptionsBackgrounds0.json");
 		lLoader.addAssetFile(com.isartdigital.utils.system.DeviceCapabilities.textureType + "/ui/options/OptionsBackgrounds1.json");
-		lLoader.addAssetFile(com.isartdigital.utils.system.DeviceCapabilities.textureType + "/ui/hud/collectible_icon.png");
-		lLoader.addAssetFile(com.isartdigital.utils.system.DeviceCapabilities.textureType + "/ui/hud/Pause_bg.png");
+		lLoader.addAssetFile(com.isartdigital.utils.system.DeviceCapabilities.textureType + "/ui/hud/hud.json");
 		lLoader.addAssetFile(com.isartdigital.utils.system.DeviceCapabilities.textureType + "/ui/selection_screen/selection_screen_0.json");
 		lLoader.addAssetFile(com.isartdigital.utils.system.DeviceCapabilities.textureType + "/ui/selection_screen/selection_screen_1.json");
 		lLoader.addAssetFile(com.isartdigital.utils.system.DeviceCapabilities.textureType + "/ui/selection_screen/selection_screen_2.json");
@@ -454,6 +453,7 @@ com.isartdigital.operationaaa.Main.prototype = $extend(PIXI.EventTarget.prototyp
 		com.isartdigital.utils.game.StateGraphic.addTextures(com.isartdigital.utils.loader.Loader.getContent(com.isartdigital.utils.system.DeviceCapabilities.textureType + "/ui/options/OptionButtons.json"));
 		com.isartdigital.utils.game.StateGraphic.addTextures(com.isartdigital.utils.loader.Loader.getContent(com.isartdigital.utils.system.DeviceCapabilities.textureType + "/ui/options/OptionsBackgrounds0.json"));
 		com.isartdigital.utils.game.StateGraphic.addTextures(com.isartdigital.utils.loader.Loader.getContent(com.isartdigital.utils.system.DeviceCapabilities.textureType + "/ui/options/OptionsBackgrounds1.json"));
+		com.isartdigital.utils.game.StateGraphic.addTextures(com.isartdigital.utils.loader.Loader.getContent(com.isartdigital.utils.system.DeviceCapabilities.textureType + "/ui/hud/hud.json"));
 		com.isartdigital.utils.game.StateGraphic.addTextures(com.isartdigital.utils.loader.Loader.getContent(com.isartdigital.utils.system.DeviceCapabilities.textureType + "/ui/selection_screen/selection_screen_0.json"));
 		com.isartdigital.utils.game.StateGraphic.addTextures(com.isartdigital.utils.loader.Loader.getContent(com.isartdigital.utils.system.DeviceCapabilities.textureType + "/ui/selection_screen/selection_screen_1.json"));
 		com.isartdigital.utils.game.StateGraphic.addTextures(com.isartdigital.utils.loader.Loader.getContent(com.isartdigital.utils.system.DeviceCapabilities.textureType + "/ui/selection_screen/selection_screen_2.json"));
@@ -488,7 +488,7 @@ com.isartdigital.operationaaa.Main.prototype = $extend(PIXI.EventTarget.prototyp
 			return $r;
 		}(this)));
 		com.isartdigital.operationaaa.ui.UIManager.getInstance().closeScreens();
-		com.isartdigital.operationaaa.ui.UIManager.getInstance().openScreen(com.isartdigital.operationaaa.ui.screens.TitleCard.getInstance());
+		com.isartdigital.operationaaa.game.leveldesign.LevelLoader.getInstance().load(1);
 	}
 	,gameLoop: function() {
 		haxe.Timer.delay($bind(this,this.gameLoop),16);
@@ -912,11 +912,6 @@ com.isartdigital.operationaaa.game.GameManager.prototype = {
 		haxe.Log.trace("[GameManager.start] Level " + this.currentLevelId + " starting...",{ fileName : "GameManager.hx", lineNumber : 88, className : "com.isartdigital.operationaaa.game.GameManager", methodName : "start"});
 		this.setBackgrounds();
 		com.isartdigital.operationaaa.game.leveldesign.LevelManager.getInstance().init();
-		com.isartdigital.utils.game.Camera.getInstance().setTarget(com.isartdigital.operationaaa.game.planes.GamePlane.getInstance());
-		com.isartdigital.operationaaa.game.sprites.Player.getInstance().takeCameraFocus();
-		com.isartdigital.utils.game.Camera.getInstance().setPosition();
-		com.isartdigital.operationaaa.game.leveldesign.LevelManager.getInstance().populateScreen();
-		com.isartdigital.operationaaa.game.sprites.Player.getInstance().update();
 		com.isartdigital.operationaaa.ui.UIManager.getInstance().startGame();
 		this.runGameLoop();
 	}
@@ -1327,7 +1322,7 @@ com.isartdigital.operationaaa.game.leveldesign.PlayerSetter.prototype = $extend(
 });
 com.isartdigital.operationaaa.game.leveldesign.LevelLoader = function() {
 	this.soundLevel = "";
-	this.PLAYER_PATH = "";
+	this.PLAYER_PATH = "/player";
 };
 $hxClasses["com.isartdigital.operationaaa.game.leveldesign.LevelLoader"] = com.isartdigital.operationaaa.game.leveldesign.LevelLoader;
 com.isartdigital.operationaaa.game.leveldesign.LevelLoader.__name__ = ["com","isartdigital","operationaaa","game","leveldesign","LevelLoader"];
@@ -1340,14 +1335,13 @@ com.isartdigital.operationaaa.game.leveldesign.LevelLoader.prototype = {
 		this.currentLevelId = pLevelNumber;
 		this.getPathPlayer();
 		var lLoader = new com.isartdigital.utils.loader.Loader();
-		lLoader.addTxtFile("levels/" + this.currentLevelId + "/level.json");
-		lLoader.addTxtFile("levels/" + this.currentLevelId + "/pools.json");
-		lLoader.addTxtFile("levels/" + this.currentLevelId + "/anchors_graphics.json");
-		lLoader.addAssetFile("levels/" + this.currentLevelId + "/backgrounds.json");
-		lLoader.addAssetFile("levels/" + this.currentLevelId + "/graphics.json");
-		lLoader.addAssetFile("characters/enemies/KillZoneDynamic.json");
-		lLoader.addAssetFile("collectables/Collectable.json");
-		lLoader.addAssetFile("characters" + this.PLAYER_PATH + "/player.json");
+		lLoader.addTxtFile("level_specific/" + this.currentLevelId + "/level.json");
+		lLoader.addTxtFile("level_specific/" + this.currentLevelId + "/pools.json");
+		lLoader.addTxtFile("level_specific/" + this.currentLevelId + "/anchors_graphics.json");
+		lLoader.addAssetFile(com.isartdigital.utils.system.DeviceCapabilities.textureType + "/" + "level_specific/" + this.currentLevelId + "/backgrounds.json");
+		lLoader.addAssetFile(com.isartdigital.utils.system.DeviceCapabilities.textureType + "/" + "level_specific/" + this.currentLevelId + "/graphics.json");
+		lLoader.addAssetFile(com.isartdigital.utils.system.DeviceCapabilities.textureType + "/characters/enemies/KillZoneDynamic.json");
+		lLoader.addAssetFile(com.isartdigital.utils.system.DeviceCapabilities.textureType + "/characters" + this.PLAYER_PATH + "/player.json");
 		lLoader.addEventListener("LoaderEvent.PROGRESS",$bind(this,this.onLoadProgress));
 		lLoader.addEventListener("LoaderEvent.COMPLETE",$bind(this,this.onLoadComplete));
 		com.isartdigital.operationaaa.ui.UIManager.getInstance().openScreen(com.isartdigital.operationaaa.ui.GraphicLoader.getInstance());
@@ -1357,15 +1351,14 @@ com.isartdigital.operationaaa.game.leveldesign.LevelLoader.prototype = {
 		com.isartdigital.operationaaa.ui.GraphicLoader.getInstance().update(pEvent.data.loaded / pEvent.data.total);
 	}
 	,onLoadComplete: function(pEvent) {
-		com.isartdigital.utils.game.StateGraphic.clearTextures(com.isartdigital.utils.loader.Loader.getContent("levels/" + this.currentLevelId + "/graphics.json"));
-		com.isartdigital.utils.game.StateGraphic.clearTextures(com.isartdigital.utils.loader.Loader.getContent("characters" + this.PLAYER_PATH + "/player.json"));
-		com.isartdigital.utils.game.StateGraphic.clearTextures(com.isartdigital.utils.loader.Loader.getContent("characters/enemies/KillZoneDynamic.json"));
-		com.isartdigital.utils.game.StateGraphic.addTextures(com.isartdigital.utils.loader.Loader.getContent("levels/" + this.currentLevelId + "/graphics.json"));
-		com.isartdigital.utils.game.StateGraphic.addTextures(com.isartdigital.utils.loader.Loader.getContent("characters" + this.PLAYER_PATH + "/player.json"));
-		com.isartdigital.utils.game.StateGraphic.addTextures(com.isartdigital.utils.loader.Loader.getContent("characters/enemies/KillZoneDynamic.json"));
-		com.isartdigital.utils.game.StateGraphic.addAnchors(com.isartdigital.utils.loader.Loader.getContent("anchors_graphics.json",com.isartdigital.utils.Config.get_jsonPath() + "levels/" + this.currentLevelId + "/"));
-		var jsonObjectsList = com.isartdigital.utils.loader.Loader.getContent("level.json",com.isartdigital.utils.Config.get_jsonPath() + "levels/" + this.currentLevelId + "/").objects;
-		var jsonLevelMap = com.isartdigital.utils.loader.Loader.getContent("level.json",com.isartdigital.utils.Config.get_jsonPath() + "levels/" + this.currentLevelId + "/").leveldesign;
+		haxe.Log.trace("Level Manager loaded successfully Level " + this.currentLevelId,{ fileName : "LevelLoader.hx", lineNumber : 218, className : "com.isartdigital.operationaaa.game.leveldesign.LevelLoader", methodName : "onLoadComplete"});
+		com.isartdigital.utils.game.StateGraphic.clearTextures(com.isartdigital.utils.loader.Loader.getContent(com.isartdigital.utils.system.DeviceCapabilities.textureType + "level_specific/" + this.currentLevelId + "/graphics.json"));
+		com.isartdigital.utils.game.StateGraphic.clearTextures(com.isartdigital.utils.loader.Loader.getContent(com.isartdigital.utils.system.DeviceCapabilities.textureType + "/characters/" + this.PLAYER_PATH + "/player.json"));
+		com.isartdigital.utils.game.StateGraphic.addTextures(com.isartdigital.utils.loader.Loader.getContent(com.isartdigital.utils.system.DeviceCapabilities.textureType + "level_specific/" + this.currentLevelId + "/graphics.json"));
+		com.isartdigital.utils.game.StateGraphic.addTextures(com.isartdigital.utils.loader.Loader.getContent(com.isartdigital.utils.system.DeviceCapabilities.textureType + "/characters" + this.PLAYER_PATH + "/player.json"));
+		com.isartdigital.utils.game.StateGraphic.addAnchors(com.isartdigital.utils.loader.Loader.getContent("anchors_graphics.json",com.isartdigital.utils.Config.get_jsonPath() + "level_specific/" + this.currentLevelId + "/"));
+		var jsonObjectsList = com.isartdigital.utils.loader.Loader.getContent("level.json",com.isartdigital.utils.Config.get_jsonPath() + "level_specific/" + this.currentLevelId + "/").objects;
+		var jsonLevelMap = com.isartdigital.utils.loader.Loader.getContent("level.json",com.isartdigital.utils.Config.get_jsonPath() + "level_specific/" + this.currentLevelId + "/").leveldesign;
 		this.getSavedGame();
 		this.levelObjectsList = new haxe.ds.StringMap();
 		var lSetter;
@@ -1438,7 +1431,7 @@ com.isartdigital.operationaaa.game.leveldesign.LevelLoader.prototype = {
 				this.levelMap[Std.parseInt(col)][Std.parseInt(row)] = lCell;
 			}
 		}
-		this.pools = com.isartdigital.utils.loader.Loader.getContent("pools.json",com.isartdigital.utils.Config.get_jsonPath() + "levels/" + this.currentLevelId + "/");
+		this.pools = com.isartdigital.utils.loader.Loader.getContent("pools.json",com.isartdigital.utils.Config.get_jsonPath() + "level_specific/" + this.currentLevelId + "/");
 		this.soundLevel = "level_music" + this.currentLevelId;
 		com.isartdigital.utils.sounds.SoundManager.getSound(this.soundLevel).play();
 		com.isartdigital.operationaaa.game.GameManager.getInstance().start(this.currentLevelId);
@@ -1455,14 +1448,14 @@ com.isartdigital.operationaaa.game.leveldesign.LevelLoader.prototype = {
 			var this1 = $this.get_currentSavedData();
 			$r = this1.toString();
 			return $r;
-		}(this)),{ fileName : "LevelLoader.hx", lineNumber : 359, className : "com.isartdigital.operationaaa.game.leveldesign.LevelLoader", methodName : "getSavedGame"});
+		}(this)),{ fileName : "LevelLoader.hx", lineNumber : 355, className : "com.isartdigital.operationaaa.game.leveldesign.LevelLoader", methodName : "getSavedGame"});
 		if(!(function($this) {
 			var $r;
 			var this2 = $this.get_currentSavedData();
 			$r = this2.exists("collectables");
 			return $r;
 		}(this))) {
-			haxe.Log.trace("[LevelLoader.getSavedGame] No Saved Game detected. About to create a new Save.",{ fileName : "LevelLoader.hx", lineNumber : 363, className : "com.isartdigital.operationaaa.game.leveldesign.LevelLoader", methodName : "getSavedGame"});
+			haxe.Log.trace("[LevelLoader.getSavedGame] No Saved Game detected. About to create a new Save.",{ fileName : "LevelLoader.hx", lineNumber : 359, className : "com.isartdigital.operationaaa.game.leveldesign.LevelLoader", methodName : "getSavedGame"});
 			this.currentSavedData = new haxe.ds.StringMap();
 			var this3 = this.get_currentSavedData();
 			this3.set("upgrade",false);
@@ -1493,10 +1486,10 @@ com.isartdigital.operationaaa.game.leveldesign.LevelLoader.prototype = {
 			var this2 = $this.get_currentSavedData();
 			$r = this2.toString();
 			return $r;
-		}(this)),{ fileName : "LevelLoader.hx", lineNumber : 389, className : "com.isartdigital.operationaaa.game.leveldesign.LevelLoader", methodName : "recordUpgradeForCurrentLevel"});
+		}(this)),{ fileName : "LevelLoader.hx", lineNumber : 385, className : "com.isartdigital.operationaaa.game.leveldesign.LevelLoader", methodName : "recordUpgradeForCurrentLevel"});
 	}
 	,convertToGameObject: function(pObject) {
-		haxe.Log.trace("GameObject" + Std.string(pObject.type),{ fileName : "LevelLoader.hx", lineNumber : 400, className : "com.isartdigital.operationaaa.game.leveldesign.LevelLoader", methodName : "convertToGameObject"});
+		haxe.Log.trace("GameObject" + Std.string(pObject.type),{ fileName : "LevelLoader.hx", lineNumber : 396, className : "com.isartdigital.operationaaa.game.leveldesign.LevelLoader", methodName : "convertToGameObject"});
 		return js.Boot.__cast(pObject , com.isartdigital.utils.game.GameObject);
 	}
 	,getPathPlayer: function() {
@@ -1556,7 +1549,7 @@ com.isartdigital.operationaaa.game.leveldesign.LevelLoader.prototype = {
 		return this.get_currentSavedData();
 	}
 	,destroyCurrentLevel: function() {
-		haxe.Log.trace("\n\n===> Début de la destruction du niveau " + new Date().getTime(),{ fileName : "LevelLoader.hx", lineNumber : 470, className : "com.isartdigital.operationaaa.game.leveldesign.LevelLoader", methodName : "destroyCurrentLevel"});
+		haxe.Log.trace("\n\n===> Début de la destruction du niveau " + new Date().getTime(),{ fileName : "LevelLoader.hx", lineNumber : 466, className : "com.isartdigital.operationaaa.game.leveldesign.LevelLoader", methodName : "destroyCurrentLevel"});
 		var $it0 = com.isartdigital.operationaaa.game.sprites.walls.Wall.list.iterator();
 		while( $it0.hasNext() ) {
 			var lObject = $it0.next();
@@ -1629,7 +1622,7 @@ com.isartdigital.operationaaa.game.leveldesign.LevelLoader.prototype = {
 		this.levelMap = null;
 		com.isartdigital.operationaaa.game.GameManager.getInstance().background.destroy();
 		com.isartdigital.operationaaa.game.GameManager.getInstance().backgroundTransparent.destroy();
-		haxe.Log.trace("\n\n===> Fin de la destruction du niveau " + new Date().getTime(),{ fileName : "LevelLoader.hx", lineNumber : 509, className : "com.isartdigital.operationaaa.game.leveldesign.LevelLoader", methodName : "destroyCurrentLevel"});
+		haxe.Log.trace("\n\n===> Fin de la destruction du niveau " + new Date().getTime(),{ fileName : "LevelLoader.hx", lineNumber : 505, className : "com.isartdigital.operationaaa.game.leveldesign.LevelLoader", methodName : "destroyCurrentLevel"});
 	}
 	,destroy: function() {
 		com.isartdigital.operationaaa.game.leveldesign.LevelLoader.instance = null;
@@ -1697,6 +1690,7 @@ com.isartdigital.operationaaa.game.leveldesign.LevelManager.prototype = {
 		this.checkClipping = $bind(this,this.doCheckClipping);
 		var lTimer2 = new Date().getTime();
 		haxe.Log.trace("\n\n===> Fin de l'initialisation du niveau : " + lTimer2 + ", soit " + (lTimer2 - lTimer) + " ms.",{ fileName : "LevelManager.hx", lineNumber : 120, className : "com.isartdigital.operationaaa.game.leveldesign.LevelManager", methodName : "init"});
+		com.isartdigital.utils.Debug.warn("LevelManager.init : variables globales à commenter ici");
 		window.objectsList = this.objectsList;
 		window.levelMap = this.levelMap;
 		window.Collectables = com.isartdigital.operationaaa.game.sprites.collectables.Collectable.list;
@@ -1704,7 +1698,7 @@ com.isartdigital.operationaaa.game.leveldesign.LevelManager.prototype = {
 	}
 	,setLastCheckpoint: function() {
 		this.lastCheckpoint = this.createNewListFrom(this.objectsList);
-		haxe.Log.trace("object List saved",{ fileName : "LevelManager.hx", lineNumber : 136, className : "com.isartdigital.operationaaa.game.leveldesign.LevelManager", methodName : "setLastCheckpoint"});
+		haxe.Log.trace("object List saved",{ fileName : "LevelManager.hx", lineNumber : 137, className : "com.isartdigital.operationaaa.game.leveldesign.LevelManager", methodName : "setLastCheckpoint"});
 	}
 	,reloadLevelAtLastCheckpoint: function() {
 		this.objectsList = this.createNewListFrom(this.lastCheckpoint);
@@ -1717,7 +1711,7 @@ com.isartdigital.operationaaa.game.leveldesign.LevelManager.prototype = {
 			if(lObject.get_type() == "Collectable") lCount++;
 		}
 		com.isartdigital.operationaaa.ui.hud.Hud.getInstance().set_collectibleCount(this.totalCollectablesInLD - lCount);
-		haxe.Log.trace("LCount : " + lCount,{ fileName : "LevelManager.hx", lineNumber : 152, className : "com.isartdigital.operationaaa.game.leveldesign.LevelManager", methodName : "reloadLevelAtLastCheckpoint", customParams : [" totalCollectibles : " + this.totalCollectablesInLD]});
+		haxe.Log.trace("LCount : " + lCount,{ fileName : "LevelManager.hx", lineNumber : 153, className : "com.isartdigital.operationaaa.game.leveldesign.LevelManager", methodName : "reloadLevelAtLastCheckpoint", customParams : [" totalCollectibles : " + this.totalCollectablesInLD]});
 	}
 	,setModeCheckClipping: function() {
 		this.checkClipping = $bind(this,this.doCheckClipping);
@@ -1726,7 +1720,7 @@ com.isartdigital.operationaaa.game.leveldesign.LevelManager.prototype = {
 		this.checkClipping = $bind(this,this.dontCheckClipping);
 	}
 	,populateScreen: function() {
-		haxe.Log.trace("Populating Screen...",{ fileName : "LevelManager.hx", lineNumber : 177, className : "com.isartdigital.operationaaa.game.leveldesign.LevelManager", methodName : "populateScreen"});
+		haxe.Log.trace("Populating Screen...",{ fileName : "LevelManager.hx", lineNumber : 178, className : "com.isartdigital.operationaaa.game.leveldesign.LevelManager", methodName : "populateScreen"});
 		this.unclipEntireMap();
 		this.calculateScreenAndClippingLimits();
 		var lToClip = new haxe.ds.StringMap();
@@ -1750,7 +1744,7 @@ com.isartdigital.operationaaa.game.leveldesign.LevelManager.prototype = {
 					j = lLength - 1 - i;
 					lInstanceName = lCellContent[j];
 					if(this.objectsList.get(lInstanceName) == null) {
-						if(lInstanceName == null) haxe.Log.trace("WARNING: you are trying to remove an Object with no Id",{ fileName : "LevelManager.hx", lineNumber : 207, className : "com.isartdigital.operationaaa.game.leveldesign.LevelManager", methodName : "populateScreen"}); else lCellContent.splice(j,1);
+						if(lInstanceName == null) haxe.Log.trace("WARNING: you are trying to remove an Object with no Id",{ fileName : "LevelManager.hx", lineNumber : 208, className : "com.isartdigital.operationaaa.game.leveldesign.LevelManager", methodName : "populateScreen"}); else lCellContent.splice(j,1);
 					} else {
 						var value = this.objectsList.get(lInstanceName);
 						lToClip.set(lInstanceName,value);
@@ -1759,13 +1753,13 @@ com.isartdigital.operationaaa.game.leveldesign.LevelManager.prototype = {
 			}
 		}
 		this.clipObjects(lToClip);
-		haxe.Log.trace("... Screen Populated",{ fileName : "LevelManager.hx", lineNumber : 223, className : "com.isartdigital.operationaaa.game.leveldesign.LevelManager", methodName : "populateScreen"});
+		haxe.Log.trace("... Screen Populated",{ fileName : "LevelManager.hx", lineNumber : 224, className : "com.isartdigital.operationaaa.game.leveldesign.LevelManager", methodName : "populateScreen"});
 	}
 	,removeFromLevel: function(pObject) {
 		var lId = pObject.id;
 		this.unclipObject(pObject);
-		if(lId == null) haxe.Log.trace("WARNING: you are trying to remove an Object with no Id",{ fileName : "LevelManager.hx", lineNumber : 234, className : "com.isartdigital.operationaaa.game.leveldesign.LevelManager", methodName : "removeFromLevel"});
-		if(!this.objectsList.remove(lId)) haxe.Log.trace("ERROR: removal of Object " + lId + " has failed.",{ fileName : "LevelManager.hx", lineNumber : 235, className : "com.isartdigital.operationaaa.game.leveldesign.LevelManager", methodName : "removeFromLevel"});
+		if(lId == null) haxe.Log.trace("WARNING: you are trying to remove an Object with no Id",{ fileName : "LevelManager.hx", lineNumber : 235, className : "com.isartdigital.operationaaa.game.leveldesign.LevelManager", methodName : "removeFromLevel"});
+		if(!this.objectsList.remove(lId)) haxe.Log.trace("ERROR: removal of Object " + lId + " has failed.",{ fileName : "LevelManager.hx", lineNumber : 236, className : "com.isartdigital.operationaaa.game.leveldesign.LevelManager", methodName : "removeFromLevel"});
 	}
 	,destroyLevel: function() {
 		com.isartdigital.operationaaa.game.planes.GamePlane.getInstance().destroy();
@@ -1784,7 +1778,7 @@ com.isartdigital.operationaaa.game.leveldesign.LevelManager.prototype = {
 		return lList;
 	}
 	,remapLevel: function() {
-		haxe.Log.trace("... Creating Clipping Map",{ fileName : "LevelManager.hx", lineNumber : 381, className : "com.isartdigital.operationaaa.game.leveldesign.LevelManager", methodName : "remapLevel"});
+		haxe.Log.trace("... Creating Clipping Map",{ fileName : "LevelManager.hx", lineNumber : 382, className : "com.isartdigital.operationaaa.game.leveldesign.LevelManager", methodName : "remapLevel"});
 		this.levelMap = [];
 		var _g1 = 0;
 		var _g = this.mapWidth;
@@ -1812,14 +1806,14 @@ com.isartdigital.operationaaa.game.leveldesign.LevelManager.prototype = {
 		}
 	}
 	,initPools: function(pPools) {
-		haxe.Log.trace("... Creating Pools",{ fileName : "LevelManager.hx", lineNumber : 407, className : "com.isartdigital.operationaaa.game.leveldesign.LevelManager", methodName : "initPools"});
+		haxe.Log.trace("... Creating Pools",{ fileName : "LevelManager.hx", lineNumber : 408, className : "com.isartdigital.operationaaa.game.leveldesign.LevelManager", methodName : "initPools"});
 		var _g = 0;
 		var _g1 = Reflect.fields(pPools);
 		while(_g < _g1.length) {
 			var lType = _g1[_g];
 			++_g;
 			var lCount = Reflect.field(pPools,lType);
-			haxe.Log.trace("Creating " + lCount + " " + lType + "s",{ fileName : "LevelManager.hx", lineNumber : 410, className : "com.isartdigital.operationaaa.game.leveldesign.LevelManager", methodName : "initPools"});
+			haxe.Log.trace("Creating " + lCount + " " + lType + "s",{ fileName : "LevelManager.hx", lineNumber : 411, className : "com.isartdigital.operationaaa.game.leveldesign.LevelManager", methodName : "initPools"});
 			var _g2 = 0;
 			while(_g2 < lCount) {
 				var i = _g2++;
@@ -1828,7 +1822,7 @@ com.isartdigital.operationaaa.game.leveldesign.LevelManager.prototype = {
 		}
 	}
 	,unclipEntireMap: function() {
-		haxe.Log.trace("... Unclipping Level",{ fileName : "LevelManager.hx", lineNumber : 426, className : "com.isartdigital.operationaaa.game.leveldesign.LevelManager", methodName : "unclipEntireMap"});
+		haxe.Log.trace("... Unclipping Level",{ fileName : "LevelManager.hx", lineNumber : 427, className : "com.isartdigital.operationaaa.game.leveldesign.LevelManager", methodName : "unclipEntireMap"});
 		var lToUnclip = new haxe.ds.StringMap();
 		var lCellContent;
 		var _g1 = 0;
@@ -1854,46 +1848,46 @@ com.isartdigital.operationaaa.game.leveldesign.LevelManager.prototype = {
 		var $it0 = com.isartdigital.operationaaa.game.sprites.walls.Wall.list.iterator();
 		while( $it0.hasNext() ) {
 			var lObject = $it0.next();
-			haxe.Log.trace(lObject.id + " of Wall List",{ fileName : "LevelManager.hx", lineNumber : 447, className : "com.isartdigital.operationaaa.game.leveldesign.LevelManager", methodName : "unclipEntireMap"});
+			haxe.Log.trace(lObject.id + " of Wall List",{ fileName : "LevelManager.hx", lineNumber : 448, className : "com.isartdigital.operationaaa.game.leveldesign.LevelManager", methodName : "unclipEntireMap"});
 			lCount++;
 		}
 		var $it1 = com.isartdigital.operationaaa.game.sprites.platforms.Platform.list.iterator();
 		while( $it1.hasNext() ) {
 			var lObject1 = $it1.next();
-			haxe.Log.trace(lObject1.id + " of Platform List",{ fileName : "LevelManager.hx", lineNumber : 451, className : "com.isartdigital.operationaaa.game.leveldesign.LevelManager", methodName : "unclipEntireMap"});
+			haxe.Log.trace(lObject1.id + " of Platform List",{ fileName : "LevelManager.hx", lineNumber : 452, className : "com.isartdigital.operationaaa.game.leveldesign.LevelManager", methodName : "unclipEntireMap"});
 			lCount++;
 		}
 		var $it2 = com.isartdigital.operationaaa.game.sprites.enemies.Enemy.list.iterator();
 		while( $it2.hasNext() ) {
 			var lObject2 = $it2.next();
-			haxe.Log.trace(lObject2.id + " of Enemy List",{ fileName : "LevelManager.hx", lineNumber : 455, className : "com.isartdigital.operationaaa.game.leveldesign.LevelManager", methodName : "unclipEntireMap"});
+			haxe.Log.trace(lObject2.id + " of Enemy List",{ fileName : "LevelManager.hx", lineNumber : 456, className : "com.isartdigital.operationaaa.game.leveldesign.LevelManager", methodName : "unclipEntireMap"});
 			lCount++;
 		}
 		var $it3 = com.isartdigital.operationaaa.game.sprites.enemies.KillZoneStatic.list.iterator();
 		while( $it3.hasNext() ) {
 			var lObject3 = $it3.next();
-			haxe.Log.trace(lObject3.id + " of KZ Static List",{ fileName : "LevelManager.hx", lineNumber : 459, className : "com.isartdigital.operationaaa.game.leveldesign.LevelManager", methodName : "unclipEntireMap"});
+			haxe.Log.trace(lObject3.id + " of KZ Static List",{ fileName : "LevelManager.hx", lineNumber : 460, className : "com.isartdigital.operationaaa.game.leveldesign.LevelManager", methodName : "unclipEntireMap"});
 			lCount++;
 		}
 		var $it4 = com.isartdigital.operationaaa.game.sprites.enemies.KillZoneDynamic.list.iterator();
 		while( $it4.hasNext() ) {
 			var lObject4 = $it4.next();
-			haxe.Log.trace(lObject4.id + " of KZ Dynamic List",{ fileName : "LevelManager.hx", lineNumber : 463, className : "com.isartdigital.operationaaa.game.leveldesign.LevelManager", methodName : "unclipEntireMap"});
+			haxe.Log.trace(lObject4.id + " of KZ Dynamic List",{ fileName : "LevelManager.hx", lineNumber : 464, className : "com.isartdigital.operationaaa.game.leveldesign.LevelManager", methodName : "unclipEntireMap"});
 			lCount++;
 		}
 		var $it5 = com.isartdigital.operationaaa.game.sprites.Checkpoint.list.iterator();
 		while( $it5.hasNext() ) {
 			var lObject5 = $it5.next();
-			haxe.Log.trace(lObject5.id + " of Checkpoint List",{ fileName : "LevelManager.hx", lineNumber : 467, className : "com.isartdigital.operationaaa.game.leveldesign.LevelManager", methodName : "unclipEntireMap"});
+			haxe.Log.trace(lObject5.id + " of Checkpoint List",{ fileName : "LevelManager.hx", lineNumber : 468, className : "com.isartdigital.operationaaa.game.leveldesign.LevelManager", methodName : "unclipEntireMap"});
 			lCount++;
 		}
 		var $it6 = com.isartdigital.operationaaa.game.sprites.collectables.Collectable.list.iterator();
 		while( $it6.hasNext() ) {
 			var lObject6 = $it6.next();
-			haxe.Log.trace(lObject6.id + " of Collectable List",{ fileName : "LevelManager.hx", lineNumber : 471, className : "com.isartdigital.operationaaa.game.leveldesign.LevelManager", methodName : "unclipEntireMap"});
+			haxe.Log.trace(lObject6.id + " of Collectable List",{ fileName : "LevelManager.hx", lineNumber : 472, className : "com.isartdigital.operationaaa.game.leveldesign.LevelManager", methodName : "unclipEntireMap"});
 			lCount++;
 		}
-		haxe.Log.trace(lCount + " objects remaining in the lists",{ fileName : "LevelManager.hx", lineNumber : 474, className : "com.isartdigital.operationaaa.game.leveldesign.LevelManager", methodName : "unclipEntireMap"});
+		haxe.Log.trace(lCount + " objects remaining in the lists",{ fileName : "LevelManager.hx", lineNumber : 475, className : "com.isartdigital.operationaaa.game.leveldesign.LevelManager", methodName : "unclipEntireMap"});
 	}
 	,doCheckClipping: function() {
 		this.calculateScreenAndClippingLimits();
@@ -2008,7 +2002,7 @@ com.isartdigital.operationaaa.game.leveldesign.LevelManager.prototype = {
 					j = lLength - 1 - i;
 					var lInstanceName = lCellContent[j];
 					if(this.objectsList.get(lInstanceName) == null) {
-						if(lInstanceName == null) haxe.Log.trace("WARNING: you are trying to remove an Object with no Id",{ fileName : "LevelManager.hx", lineNumber : 755, className : "com.isartdigital.operationaaa.game.leveldesign.LevelManager", methodName : "populateClippingListByRows"}); else lCellContent.splice(j,1);
+						if(lInstanceName == null) haxe.Log.trace("WARNING: you are trying to remove an Object with no Id",{ fileName : "LevelManager.hx", lineNumber : 756, className : "com.isartdigital.operationaaa.game.leveldesign.LevelManager", methodName : "populateClippingListByRows"}); else lCellContent.splice(j,1);
 					} else {
 						var value = this.objectsList.get(lInstanceName);
 						pList.set(lInstanceName,value);
@@ -2028,7 +2022,7 @@ com.isartdigital.operationaaa.game.leveldesign.LevelManager.prototype = {
 				j = lLength - 1 - i1;
 				var lInstanceName1 = lCellContent[j];
 				if(this.objectsList.get(lInstanceName1) == null) {
-					if(lInstanceName1 == null) haxe.Log.trace("WARNING: you are trying to remove an Object with no Id",{ fileName : "LevelManager.hx", lineNumber : 777, className : "com.isartdigital.operationaaa.game.leveldesign.LevelManager", methodName : "populateClippingListByRows"}); else lCellContent.splice(j,1);
+					if(lInstanceName1 == null) haxe.Log.trace("WARNING: you are trying to remove an Object with no Id",{ fileName : "LevelManager.hx", lineNumber : 778, className : "com.isartdigital.operationaaa.game.leveldesign.LevelManager", methodName : "populateClippingListByRows"}); else lCellContent.splice(j,1);
 				} else if(pList.exists(lInstanceName1)) {
 					if(!pList.remove(lInstanceName1)) com.isartdigital.utils.Debug.error("Clipping's gonna fuck");
 				}
@@ -4502,8 +4496,7 @@ com.isartdigital.operationaaa.ui.buttons.LevelSelectionPanel = function(pLevel,p
 	this.addChild(this.mask);
 	this.mask.lineStyle(0);
 	this.infoBox = new pixi.display.DisplayObjectContainer();
-	this.miniUpgrade = new PIXI.Sprite(PIXI.Texture.fromFrame("UpgradeWin000" + this.levelId + ".png"));
-	this.miniUpgrade.anchor.set(0.5,0.5);
+	this.miniUpgrade = new com.isartdigital.operationaaa.ui.elements.GraphicElement("UpgradeWin000" + this.levelId);
 	if(!this.upgradeCollected) this.miniUpgrade.alpha = 0.5;
 	this.miniGauge = new com.isartdigital.operationaaa.ui.elements.MiniGauge(this.collectedGems,this.totalGems,150);
 	this.levelName = new PIXI.Text(com.isartdigital.operationaaa.ui.buttons.LevelSelectionPanel.localisedLevelNames[this.levelId],{ fill : "white", stroke : "black", strokeThickness : 5, font : "64px GothicStyle"});
@@ -4520,12 +4513,12 @@ com.isartdigital.operationaaa.ui.buttons.LevelSelectionPanel.getLocalisedLevelNa
 com.isartdigital.operationaaa.ui.buttons.LevelSelectionPanel.__super__ = com.isartdigital.utils.game.GameObject;
 com.isartdigital.operationaaa.ui.buttons.LevelSelectionPanel.prototype = $extend(com.isartdigital.utils.game.GameObject.prototype,{
 	onClickDoStartLevel: function(pEvent) {
-		haxe.Log.trace("[LevelSelectionPanel.onClick] Level " + this.levelId + " clicked : Loading Level...",{ fileName : "LevelSelectionPanel.hx", lineNumber : 216, className : "com.isartdigital.operationaaa.ui.buttons.LevelSelectionPanel", methodName : "onClickDoStartLevel"});
+		haxe.Log.trace("[LevelSelectionPanel.onClick] Level " + this.levelId + " clicked : Loading Level...",{ fileName : "LevelSelectionPanel.hx", lineNumber : 215, className : "com.isartdigital.operationaaa.ui.buttons.LevelSelectionPanel", methodName : "onClickDoStartLevel"});
 		com.isartdigital.utils.sounds.SoundManager.getSound("click").play();
 		com.isartdigital.operationaaa.game.leveldesign.LevelLoader.getInstance().load(this.levelId);
 	}
 	,onClickDoOpenPanel: function(pEvent) {
-		haxe.Log.trace("[LevelSelectionPanel.onClick] Level " + this.levelId + " clicked : Opening Panel...",{ fileName : "LevelSelectionPanel.hx", lineNumber : 227, className : "com.isartdigital.operationaaa.ui.buttons.LevelSelectionPanel", methodName : "onClickDoOpenPanel"});
+		haxe.Log.trace("[LevelSelectionPanel.onClick] Level " + this.levelId + " clicked : Opening Panel...",{ fileName : "LevelSelectionPanel.hx", lineNumber : 226, className : "com.isartdigital.operationaaa.ui.buttons.LevelSelectionPanel", methodName : "onClickDoOpenPanel"});
 		com.isartdigital.operationaaa.ui.screens.SelectScreen.getInstance().setModeOpenPanel(this.levelId);
 	}
 	,setModeNormal: function() {
@@ -4705,14 +4698,16 @@ com.isartdigital.operationaaa.ui.elements.MiniGem.prototype = $extend(com.isartd
 com.isartdigital.operationaaa.ui.hud = {};
 com.isartdigital.operationaaa.ui.hud.CollectibleJuicyIcon = function() {
 	this.speed = new PIXI.Point(-10 + Math.random() * 20,Math.random() * -15);
-	PIXI.Sprite.call(this,PIXI.Texture.fromFrame(com.isartdigital.utils.Config.get_assetsPath() + "collectible_icon.png"));
+	com.isartdigital.operationaaa.ui.elements.GraphicElement.call(this,"collectible_icon");
+	this.setState(this.DEFAULT_STATE);
+	this.start();
 	com.isartdigital.operationaaa.ui.hud.CollectibleJuicyIcon.list.push(this);
 };
 $hxClasses["com.isartdigital.operationaaa.ui.hud.CollectibleJuicyIcon"] = com.isartdigital.operationaaa.ui.hud.CollectibleJuicyIcon;
 com.isartdigital.operationaaa.ui.hud.CollectibleJuicyIcon.__name__ = ["com","isartdigital","operationaaa","ui","hud","CollectibleJuicyIcon"];
-com.isartdigital.operationaaa.ui.hud.CollectibleJuicyIcon.__super__ = PIXI.Sprite;
-com.isartdigital.operationaaa.ui.hud.CollectibleJuicyIcon.prototype = $extend(PIXI.Sprite.prototype,{
-	doAction: function() {
+com.isartdigital.operationaaa.ui.hud.CollectibleJuicyIcon.__super__ = com.isartdigital.operationaaa.ui.elements.GraphicElement;
+com.isartdigital.operationaaa.ui.hud.CollectibleJuicyIcon.prototype = $extend(com.isartdigital.operationaaa.ui.elements.GraphicElement.prototype,{
+	doActionNormal: function() {
 		this.x += this.speed.x;
 		this.y += this.speed.y;
 		this.speed.y++;
@@ -4733,9 +4728,8 @@ com.isartdigital.operationaaa.ui.hud.Hud = function() {
 	this._modal = false;
 	this.hudTopLeft = new PIXI.Sprite(null);
 	this.addChild(this.hudTopLeft);
-	this.collectibleIcon = new PIXI.Sprite(PIXI.Texture.fromImage(com.isartdigital.utils.Config.get_assetsPath() + "collectible_icon.png"));
+	this.collectibleIcon = new com.isartdigital.operationaaa.ui.elements.GraphicElement("collectible_icon",0,0.5);
 	this.hudTopLeft.addChild(this.collectibleIcon);
-	this.collectibleIcon.anchor.set(0,0.5);
 	this.collectibleIcon.position.set(0,this.collectibleIcon.height / 2);
 	this.collectibleTxt = new PIXI.Text("",{ fill : "white", stroke : "black", strokeThickness : 3, font : "bold 86px GothicStyle"});
 	this.updateCollectibleTxt();
@@ -4797,13 +4791,13 @@ com.isartdigital.operationaaa.ui.hud.Hud.prototype = $extend(com.isartdigital.ut
 		this.get_rightTouchZone().interactive = true;
 		this.get_leftTouchZone().interactive = true;
 		this.isTouchDetectionEnabled = true;
-		haxe.Log.trace("[Hud.initTouchZones] Done",{ fileName : "Hud.hx", lineNumber : 177, className : "com.isartdigital.operationaaa.ui.hud.Hud", methodName : "initTouchZones"});
+		haxe.Log.trace("[Hud.initTouchZones] Done",{ fileName : "Hud.hx", lineNumber : 176, className : "com.isartdigital.operationaaa.ui.hud.Hud", methodName : "initTouchZones"});
 	}
 	,onResize: function(pEvent) {
 		com.isartdigital.utils.ui.UIPosition.setPosition(this.hudTopLeft,"topLeft",100,50);
 		com.isartdigital.utils.ui.UIPosition.setPosition(this.hudTopRight,"topRight",100,50);
 		if(this.isTouchDetectionEnabled) {
-			haxe.Log.trace("[Hud.onResize] Touch Detection enabled, TouchZones repositionning",{ fileName : "Hud.hx", lineNumber : 195, className : "com.isartdigital.operationaaa.ui.hud.Hud", methodName : "onResize"});
+			haxe.Log.trace("[Hud.onResize] Touch Detection enabled, TouchZones repositionning",{ fileName : "Hud.hx", lineNumber : 194, className : "com.isartdigital.operationaaa.ui.hud.Hud", methodName : "onResize"});
 			com.isartdigital.utils.ui.UIPosition.setPosition(this.get_leftTouchZone(),"bottomLeft",0,0);
 			com.isartdigital.utils.ui.UIPosition.setPosition(this.get_rightTouchZone(),"bottomRight",0,0);
 		}
@@ -4872,34 +4866,6 @@ com.isartdigital.utils.ui.Popin.prototype = $extend(com.isartdigital.utils.ui.UI
 	__class__: com.isartdigital.utils.ui.Popin
 });
 com.isartdigital.operationaaa.ui.popin = {};
-com.isartdigital.operationaaa.ui.popin.Confirm = function() {
-	com.isartdigital.utils.ui.Popin.call(this);
-	this.background = new PIXI.Sprite(PIXI.Texture.fromImage(com.isartdigital.utils.Config.get_assetsPath() + "Confirm.png"));
-	this.background.anchor.set(0.5,0.5);
-	this.addChild(this.background);
-	this.interactive = true;
-	this.buttonMode = true;
-	this.click = this.tap = $bind(this,this.onClick);
-};
-$hxClasses["com.isartdigital.operationaaa.ui.popin.Confirm"] = com.isartdigital.operationaaa.ui.popin.Confirm;
-com.isartdigital.operationaaa.ui.popin.Confirm.__name__ = ["com","isartdigital","operationaaa","ui","popin","Confirm"];
-com.isartdigital.operationaaa.ui.popin.Confirm.getInstance = function() {
-	if(com.isartdigital.operationaaa.ui.popin.Confirm.instance == null) com.isartdigital.operationaaa.ui.popin.Confirm.instance = new com.isartdigital.operationaaa.ui.popin.Confirm();
-	return com.isartdigital.operationaaa.ui.popin.Confirm.instance;
-};
-com.isartdigital.operationaaa.ui.popin.Confirm.__super__ = com.isartdigital.utils.ui.Popin;
-com.isartdigital.operationaaa.ui.popin.Confirm.prototype = $extend(com.isartdigital.utils.ui.Popin.prototype,{
-	onClick: function(pData) {
-		com.isartdigital.utils.sounds.SoundManager.getSound("click").play();
-		com.isartdigital.operationaaa.ui.UIManager.getInstance().closeCurrentPopin();
-		com.isartdigital.operationaaa.game.GameManager.getInstance().start(1);
-	}
-	,destroy: function() {
-		com.isartdigital.operationaaa.ui.popin.Confirm.instance = null;
-		com.isartdigital.utils.ui.Popin.prototype.destroy.call(this);
-	}
-	,__class__: com.isartdigital.operationaaa.ui.popin.Confirm
-});
 com.isartdigital.operationaaa.ui.popin.Confirmation = function(pAssetName) {
 	com.isartdigital.utils.ui.Popin.call(this);
 	this.background = new com.isartdigital.operationaaa.ui.elements.GraphicElement(pAssetName);
@@ -7469,7 +7435,7 @@ com.isartdigital.operationaaa.controller.TouchController.LEFT_INPUT_MAX_SPREAD =
 com.isartdigital.operationaaa.controller.TouchController.RAD2DEG = 180 / Math.PI;
 com.isartdigital.operationaaa.game.GameManager.DEG2RAD = Math.PI / 180;
 com.isartdigital.operationaaa.game.GameManager.WINLOOP_FRAMES_COUNT = 60;
-com.isartdigital.operationaaa.game.leveldesign.LevelLoader.LEVELPATH = "levels/";
+com.isartdigital.operationaaa.game.leveldesign.LevelLoader.LEVELPATH = "level_specific/";
 com.isartdigital.operationaaa.game.leveldesign.LevelLoader.PATH_TO_SPRITE_CLASSES = "com.isartdigital.operationaaa.game.sprites.";
 com.isartdigital.operationaaa.game.leveldesign.LevelLoader.PLATFORMS_PATH = "platforms.";
 com.isartdigital.operationaaa.game.leveldesign.LevelLoader.ENEMIES_PATH = "enemies.";

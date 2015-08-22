@@ -135,7 +135,7 @@ class StateGraphic extends GameObject
 	 * @param	pStart lance l'anim à cette frame
 	 */
 	private function setState (pState:String, ?pLoop:Bool = false, ?pAutoPlay:Bool=true, ?pStart:UInt = 0): Void {
-		
+
 		if (state == pState) return;
 		
 		if (assetName == null) assetName = Type.getClassName(Type.getClass(this)).split(".").pop();
@@ -148,7 +148,7 @@ class StateGraphic extends GameObject
 			if (animAlpha < 1) anim.alpha = animAlpha;
 			addChild(anim);
 		} else anim.textures = getTextures(state);
-
+		
 		isAnimEnd = false;
 		anim.onComplete = setAnimEnd;
 		

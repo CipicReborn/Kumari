@@ -1,4 +1,5 @@
 package com.isartdigital.operationaaa.ui.hud;
+import com.isartdigital.operationaaa.ui.elements.GraphicElement;
 import com.isartdigital.utils.Config;
 import pixi.display.Sprite;
 import pixi.geom.Point;
@@ -8,19 +9,21 @@ import pixi.textures.Texture;
  * ...
  * @author Benjamin
  */
-class CollectibleJuicyIcon extends Sprite
-{
+class CollectibleJuicyIcon extends GraphicElement {
+	
 	static public var list:Array<CollectibleJuicyIcon> = new Array<CollectibleJuicyIcon>();
+	
 	public var speed:Point;
-	public function new() 
-	{
+	
+	public function new()  {
 		speed = new Point(-10 + Math.random() * 20, Math.random() * -15);
-		super(Texture.fromFrame(Config.assetsPath + "collectible_icon.png"));
-		
+		super("collectible_icon");
+		setState(DEFAULT_STATE);
+		start();
 		list.push(this);
 	}
 	
-	public function doAction(): Void {
+	override function doActionNormal():Void {
 		x += speed.x;
 		y += speed.y;
 		
@@ -31,7 +34,7 @@ class CollectibleJuicyIcon extends Sprite
 		if (alpha <= 0) destroy();
 	}
 	
-	public function destroy(): Void {
+	override public function destroy(): Void {
 		if (parent != null) parent.removeChild(this);
 		list.remove(this);
 	}

@@ -188,8 +188,7 @@ class Main extends EventTarget {
 		lLoader.addAssetFile(DeviceCapabilities.textureType + "/ui/options/OptionButtons.json");
 		lLoader.addAssetFile(DeviceCapabilities.textureType + "/ui/options/OptionsBackgrounds0.json");
 		lLoader.addAssetFile(DeviceCapabilities.textureType + "/ui/options/OptionsBackgrounds1.json");
-		lLoader.addAssetFile(DeviceCapabilities.textureType + "/ui/hud/collectible_icon.png");
-		lLoader.addAssetFile(DeviceCapabilities.textureType + "/ui/hud/Pause_bg.png");
+		lLoader.addAssetFile(DeviceCapabilities.textureType + "/ui/hud/hud.json");
 		lLoader.addAssetFile(DeviceCapabilities.textureType + "/ui/selection_screen/selection_screen_0.json");
 		lLoader.addAssetFile(DeviceCapabilities.textureType + "/ui/selection_screen/selection_screen_1.json");
 		lLoader.addAssetFile(DeviceCapabilities.textureType + "/ui/selection_screen/selection_screen_2.json");
@@ -258,6 +257,7 @@ class Main extends EventTarget {
 		StateGraphic.addTextures(Loader.getContent(DeviceCapabilities.textureType + "/ui/options/OptionButtons.json"));
 		StateGraphic.addTextures(Loader.getContent(DeviceCapabilities.textureType + "/ui/options/OptionsBackgrounds0.json"));
 		StateGraphic.addTextures(Loader.getContent(DeviceCapabilities.textureType + "/ui/options/OptionsBackgrounds1.json"));
+		StateGraphic.addTextures(Loader.getContent(DeviceCapabilities.textureType + "/ui/hud/hud.json"));
 		StateGraphic.addTextures(Loader.getContent(DeviceCapabilities.textureType + "/ui/selection_screen/selection_screen_0.json"));
 		StateGraphic.addTextures(Loader.getContent(DeviceCapabilities.textureType + "/ui/selection_screen/selection_screen_1.json"));
 		StateGraphic.addTextures(Loader.getContent(DeviceCapabilities.textureType + "/ui/selection_screen/selection_screen_2.json"));
@@ -290,13 +290,13 @@ class Main extends EventTarget {
 		
 		// Ouvre la TitleClard
 		UIManager.getInstance().closeScreens();
-		UIManager.getInstance().openScreen(TitleCard.getInstance());
+		//UIManager.getInstance().openScreen(TitleCard.getInstance());
 		
 		// Raccourcis
 		
 		//UIManager.getInstance().openScreen(SelectScreen.getInstance());
 		//UIManager.getInstance().openScreen(Options.getInstance());
-		//LevelLoader.getInstance().load(1);
+		LevelLoader.getInstance().load(1);
 	}
 	
 	/**
@@ -310,7 +310,6 @@ class Main extends EventTarget {
 			renderer.render(stage);
 			canRender = false;
 		} else {
-
 			canRender = true;
 			untyped stage.updateTransform();
 		}

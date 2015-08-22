@@ -120,6 +120,7 @@ class LevelManager {
 		trace('\n\n===> Fin de l\'initialisation du niveau : ' + lTimer2 + ', soit ' + (lTimer2 - lTimer) + ' ms.');
 		
 		//pour debug
+		Debug.warn('LevelManager.init : variables globales à commenter ici');
 		untyped Browser.window.objectsList = objectsList;
 		untyped Browser.window.levelMap = levelMap;
 		untyped Browser.window.Collectables = Collectable.list;

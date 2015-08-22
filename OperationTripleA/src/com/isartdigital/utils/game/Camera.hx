@@ -59,7 +59,7 @@ class Camera {
 	 * Définit la cible de la caméra
 	 * @param	pTarget cible
 	 */
-	public function setTarget (pTarget:DisplayObject):Void {
+	public function setTarget (pTarget:DisplayObject): Void {
 		if (pTarget.stage == null) {
 			Debug.warn("L'élément que vous voulez cibler n'est pas attaché à la DisplayList, l'action est ignorée.");
 			return;

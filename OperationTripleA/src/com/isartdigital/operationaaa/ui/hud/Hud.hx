@@ -3,6 +3,7 @@ package com.isartdigital.operationaaa.ui.hud;
 import com.isartdigital.operationaaa.controller.TouchDetectionZone;
 import com.isartdigital.operationaaa.game.GameManager;
 import com.isartdigital.operationaaa.ui.buttons.ButtonPause;
+import com.isartdigital.operationaaa.ui.elements.GraphicElement;
 import com.isartdigital.operationaaa.ui.popin.Pause;
 import com.isartdigital.utils.Config;
 import com.isartdigital.utils.events.GameEvent;
@@ -52,7 +53,7 @@ class Hud extends Screen
 	private var collectibleTxt:Text;
 	public var collectibleCount (get, set):Int;
 	private var _collectibleCount:Int = 0;
-	private var collectibleIcon:Sprite;
+	private var collectibleIcon:GraphicElement;
 	
 	//Texte affichant le niveau en cours
 	private var levelTxt:Text;
@@ -79,8 +80,8 @@ class Hud extends Screen
 		return instance;
 	}	
 	
-	public function new() 
-	{
+	public function new() {
+		
 		super();
 		_modal = false;
 		
@@ -88,9 +89,8 @@ class Hud extends Screen
 		hudTopLeft = new Sprite(null);
 		addChild(hudTopLeft);
 		
-		collectibleIcon = new Sprite(Texture.fromImage(Config.assetsPath + "collectible_icon.png"));
+		collectibleIcon = new GraphicElement("collectible_icon", 0, 0.5);
 		hudTopLeft.addChild(collectibleIcon);
-		collectibleIcon.anchor.set(0, 0.5);
 		collectibleIcon.position.set(0, collectibleIcon.height/2);
 		
 		collectibleTxt = new Text("", {fill:"white", stroke:"black", strokeThickness: 3, font : "bold 86px GothicStyle" } );
@@ -137,7 +137,6 @@ class Hud extends Screen
 		
 		//Ajout d'un écouteur sur la Gameloop
 		Main.getInstance().addEventListener(GameEvent.GAME_LOOP, hudLoop);
-		
 	}
 	
 	public function initTouchZones (): Void {
